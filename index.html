@@ -616,7 +616,7 @@ body:not(.playing) .nextflag.on .nfi,body:not(.playing) .hx.next .rim,.hc.next .
 @media (max-width:720px){.offerfeedback{bottom:calc(12px + env(safe-area-inset-bottom));right:12px;padding:10px 12px;gap:8px;font-size:.82rem}}
 @media (prefers-reduced-motion:reduce){.hc:active,.add:active,.fmt:active{scale:1}.hc .art::after{transition:none}}
 
-/* Mobile: the board leads; the hand stays compact. */
+/* Mobile: introduction, actions, board, sectors, then the compact hand. */
 .boardpan{display:contents}
 .boardhint{display:none}
 @media (max-width:720px){
@@ -625,7 +625,14 @@ body:not(.playing) .nextflag.on .nfi,body:not(.playing) .hx.next .rim,.hc.next .
   .topbtns{width:100%!important;gap:7px;justify-content:flex-start}
   .topbtns .onebtn,.topbtns .playtop,.topbtns .tradebtn{font-size:.75rem;padding:7px 10px}
   body:not(.onepage) .table{display:flex;flex-direction:column;align-items:stretch;gap:12px}
-  .table>.islandWrap{order:-1;margin-top:0;min-width:0;width:100%;gap:6px}
+  .table>.hero{order:0}
+  .table>.islandWrap{order:1;margin-top:0;min-width:0;width:100%;gap:6px}
+  .table>.settled{order:2;align-self:stretch;margin:2px 0 4px}
+  .table>.settled .chip{font-size:.78rem!important;padding:6px 8px!important;gap:4px!important}
+  .table>.settled>span:first-child{font-size:.72rem!important;margin-right:6px!important}
+  .heroactions .dicebox{flex-basis:100%;max-width:none;background:none;border:0;padding:0;gap:8px}
+  .heroactions .tourhint{display:none}
+  body.playing .table>.settled{display:none!important}
   .boardpan{display:block;width:100%;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.45) transparent;border-radius:16px}
   .boardpan #island{display:block;width:560px;min-width:560px;max-width:none;max-height:none;height:auto;transform:rotateX(8deg);transform-origin:center}
   .islandWrap.flat .boardpan #island{transform:none}
@@ -653,6 +660,11 @@ body:not(.playing) .nextflag.on .nfi,body:not(.playing) .hx.next .rim,.hc.next .
   .opening p{min-width:0;overflow-wrap:anywhere}
   .stats .stat b{font-size:clamp(1.3rem,6vw,1.8rem);overflow-wrap:anywhere}
   .stat span,.case-h h3{overflow-wrap:anywhere}
+}
+@media (max-width:360px){
+  .table>.settled .chip{font-size:.7rem!important;padding:6px 4px!important;gap:3px!important}
+  .table>.settled .chip svg{width:12px!important;height:13px!important}
+  .table>.settled>span:first-child{font-size:.67rem!important;margin-right:4px!important}
 }
 </style>
 </head>
@@ -1513,7 +1525,19 @@ if(location.hash==='#all')setTimeout(enter,50);
   var boardHint=document.createElement('p');boardHint.className='boardhint';boardHint.textContent='Swipe to explore. Tap a labelled hex to open.';
   pan.after(boardHint);
   function centerBoard(){pan.tabIndex=mobile.matches?0:-1;if(mobile.matches)pan.scrollLeft=Math.max(0,(pan.scrollWidth-pan.clientWidth)/2)}
-  requestAnimationFrame(centerBoard);mobile.addEventListener('change',centerBoard);
+  var intro=document.querySelector('.hero'),sectors=intro.querySelector('.settled'),tour=intro.querySelector('.dicebox');
+  var sectorsHome=document.createComment('sectors home'),tourHome=document.createComment('tour home');
+  sectors.before(sectorsHome);tour.before(tourHome);
+  function arrangeMobileHome(){
+    if(mobile.matches){
+      intro.querySelector('.heroactions').appendChild(tour);
+      document.querySelector('.islandWrap').after(sectors);
+    }else{
+      sectorsHome.after(sectors);tourHome.after(tour);
+    }
+  }
+  arrangeMobileHome();requestAnimationFrame(centerBoard);
+  mobile.addEventListener('change',function(){arrangeMobileHome();centerBoard()});
 
   var hand=document.querySelector('.hand'),handCards=[].slice.call(document.querySelectorAll('.hc'));
   function motion(){return !reduced.matches&&typeof card.animate==='function'}
