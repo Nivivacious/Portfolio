@@ -396,9 +396,9 @@ h1,h2,h3,h4{font-weight:900}
 .settled .chip{font-size:min(1rem,3.9cqw)!important;padding:6px min(14px,2.4cqw)!important;gap:min(8px,1.5cqw)!important}
 .settled .chip svg{width:min(22px,4.6cqw)!important;height:min(22px,4.6cqw)!important;flex:none}
 .me{display:flex!important;align-items:center;gap:16px;flex-wrap:wrap}
-.me b{font-family:var(--display);font-weight:900!important;font-size:clamp(2rem,3.4vw,3rem)!important;line-height:1.05;letter-spacing:-.01em}
+.me b{font-family:var(--display);font-weight:900!important;font-size:clamp(2.3rem,4.4vw,3.9rem)!important;line-height:1.05;letter-spacing:-.01em}
 .me .bar{width:3px;height:clamp(28px,2.8vw,42px);background:rgba(255,255,255,.55);border-radius:2px}
-.me small{display:block!important;font-size:clamp(1.15rem,2vw,1.75rem)!important;font-weight:700;opacity:.95;letter-spacing:0;text-transform:none;margin:0}
+.me small{display:block!important;font-size:clamp(1.3rem,2.6vw,2.25rem)!important;font-weight:700;opacity:.95;letter-spacing:0;text-transform:none;margin:0}
 @media (max-width:720px){.me .bar{display:none}.me{gap:2px;flex-direction:column;align-items:flex-start}.me small{display:block!important}}
 .reyes{transition:transform .08s;transform-origin:0px -14px}.reyes.blink{transform:scaleY(.12)}
 .sheep{transition:transform .35s ease}
@@ -515,6 +515,56 @@ html,body{overflow-x:clip}
 .playtop:hover{filter:brightness(1.08)}.playtop:active{transform:translateY(2px);box-shadow:0 2px 0 #8f241d}
 body.playing .topbtns{display:none}
 @media (max-width:720px){.top{flex-wrap:nowrap!important;align-items:flex-start}.topbtns{width:auto!important;flex:none}.playtop{flex:none!important;padding:9px 13px;font-size:.88rem;white-space:nowrap}}
+
+/* game: easier to play */
+body.playing .islandWrap:not(.flat) #island{transform:rotateX(12deg) scale(1.02)!important}
+body.playing #island,body.playing #island *{cursor:default!important}
+body.playing #island .hs,body.playing #island .hs *{cursor:pointer!important}
+.ftoast{position:absolute;top:8px;left:50%;transform:translateX(-50%);z-index:7;display:flex;align-items:center;gap:10px;border:0;background:var(--parch);border:3px solid var(--red);border-radius:14px;padding:8px 12px;box-shadow:0 12px 26px -10px rgba(0,0,0,.5);font:inherit;color:var(--ink);cursor:pointer;max-width:92%}
+.ftoast[hidden]{display:none}
+.ftoast .fk{font-size:.66rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--red);white-space:nowrap}
+.ftoast b{font-size:.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ftoast .rd{font-weight:800;font-size:.8rem;text-decoration:underline}
+.ftoast.in{animation:tin .35s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes tin{from{opacity:0;transform:translate(-50%,-12px)}to{opacity:1;transform:translate(-50%,0)}}
+@media (max-width:720px){.ftoast{position:fixed;top:auto;bottom:14px}}
+
+.glog2{list-style:none;margin:6px 0 10px;padding:8px 10px;background:#f2f6f8;border-radius:10px;font-size:.82rem;line-height:1.35;max-height:5.6em;overflow:hidden}
+.glog2 li+li{opacity:.65}
+.builds small{display:none}
+.collnote{display:none}
+.gamepanel .pcpick{margin:6px 0 4px}
+
+/* phone: board first, controls pinned to the bottom */
+@media (max-width:720px){
+body.playing .table{display:flex;flex-direction:column}
+body.playing .islandWrap{order:-1;margin-top:4px}
+body.playing #island{transform:none!important}
+body.playing .gpbar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#fff;padding:10px 14px calc(10px + env(safe-area-inset-bottom));box-shadow:0 -10px 24px -12px rgba(0,0,0,.45);border-radius:16px 16px 0 0}
+body.playing .gpbar .prompt{font-size:.9rem;min-height:0;margin-bottom:6px}
+body.playing .gpbar .gp-dice{margin-bottom:4px}
+body.playing .gpbar .glog2{margin:4px 0 0;max-height:2.8em;font-size:.78rem}
+body.playing{padding-bottom:210px}
+body.playing .ftoast{bottom:auto;top:10px}
+}
+
+/* one page view */
+.onebtn{border:0;background:#fff;color:var(--ink);font-weight:800;font-size:1rem;padding:11px 16px;border-radius:12px;cursor:pointer;box-shadow:0 4px 0 #b9d7e6;white-space:nowrap}
+.onebtn:hover{background:#fffaf0}
+.topbtns{display:flex;gap:10px;align-items:center}
+body.onepage .table,body.onepage .hand,body.onepage .playtop{display:none!important}
+#onepage{max-width:1120px;margin:6px auto 48px;padding:0 18px;display:grid;gap:24px}
+#onepage[hidden]{display:none}
+.opnav{position:sticky;top:8px;z-index:6;display:flex;flex-wrap:wrap;gap:6px;align-items:center;background:rgba(255,255,255,.96);border-radius:14px;padding:8px;box-shadow:0 10px 24px -14px rgba(0,0,0,.5)}
+.opnav a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ink);font-weight:800;font-size:.82rem;padding:6px 10px 6px 6px;border-radius:999px;background:#f2f6f8}
+.opnav a b{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--red);color:#fff;font-size:.72rem}
+.opnav a:hover{background:#fff1c2}
+.opprint{margin-left:auto;border:0;background:var(--ink);color:#fff;font-weight:800;font-size:.82rem;padding:8px 12px;border-radius:10px;cursor:pointer}
+.opsec{background:var(--parch);border:8px solid var(--c);border-radius:22px;overflow:hidden;box-shadow:0 24px 50px -24px rgba(0,0,0,.55);color:var(--ink);scroll-margin-top:70px}
+.opsec .dbody{overflow:visible}
+#onepage .cases>.case{position:static}
+@media (max-width:720px){.onebtn{font-size:.82rem;padding:9px 11px}.opnav{overflow-x:auto;flex-wrap:nowrap;padding:6px;scrollbar-width:none;top:6px}.opnav::-webkit-scrollbar{display:none}.opprint{flex:none}.opnav a{flex:none}.opsec{border-width:5px}.opsec .dhead{flex-wrap:nowrap}.top{flex-wrap:wrap!important}.topbtns{margin-left:0}}
+@media print{.top .topbtns,.opnav,.hand,.hint{display:none!important}body{background:#fff!important}#onepage{max-width:none;padding:0}.opsec{box-shadow:none;break-inside:auto}.dev .add{display:none}}
 </style>
 </head>
 <body>
@@ -526,7 +576,6 @@ body.playing .topbtns{display:none}
 
 <main class="table">
   <section class="hero">
-    <span class="kick">Brand strategist · Bengaluru</span>
     <h1>Twelve years on the board. <em>Strategy first.</em></h1>
     <p>Most games are decided by where you build in your first two turns. Brands work the same way. Place the strategy right and every roll after that pays out.</p>
     <div class="settled"><span>Settled in</span>
@@ -539,14 +588,16 @@ body.playing .topbtns{display:none}
   <section class="gamepanel" id="gp" hidden aria-label="Play the game">
     <div class="gp-top"><span class="kick">Quick game · first to 8 points</span><button type="button" class="gp-x" id="gpExit">Exit game</button></div>
     <div class="score"><div class="pl"><i style="background:#c8372d"></i><b>You</b><span id="vp0">0</span></div><div class="pl"><i style="background:#2f6fb3"></i><b>The Competitor</b><span id="vp1">0</span><small id="bc1">0 cards</small></div><div class="pl"><i style="background:#e8892b"></i><b>The Copycat</b><span id="vp2">0</span><small id="bc2">0 cards</small></div><div class="pl"><i style="background:#f2f2f2"></i><b>The Incumbent</b><span id="vp3">0</span><small id="bc3">0 cards</small></div></div>
+    <div class="gpbar">
     <p class="prompt" id="prompt" aria-live="polite"></p>
     <div class="winrow" id="winrow" hidden><button type="button" class="roll" data-open="trade">Let’s trade →</button><button type="button" class="ghost" id="again">Play again</button></div>
     <div class="gp-dice"><div class="die" id="g1" aria-hidden="true"></div><div class="die y" id="g2" aria-hidden="true"></div><button class="roll" id="gRoll" type="button">Roll</button><button class="ghost" id="gEnd" type="button">End turn</button></div>
+    <ul id="glog2" class="glog2" aria-live="polite" aria-label="Game log"></ul>
+    </div>
     <span class="glh">Your hand</span><div class="rbar" id="gHand"></div>
     <span class="glh">Build</span><div class="builds" id="gBuild"></div>
     <span class="glh">Trade with the bank · give 4, get 1</span><div class="trade4"><div class="tg" id="tGive"></div><span class="arr">→</span><div class="tg" id="tGet"></div><button type="button" class="ghost" id="tGo">Trade</button></div>
-    <span class="glh">Cards about Nivedita · <b id="fc">0</b> of 12</span><div class="coll" id="coll"></div><p class="collnote">Every roll, yours or a bot’s, turns over the next card, starting with who she is.</p>
-    <span class="glh">Game log</span><ul id="glog2" aria-live="polite"></ul>
+    <span class="glh">Cards about Nivedita · <b id="fc">0</b> of 12</span><div class="coll" id="coll"></div><p class="collnote">Every roll you make turns over the next card, starting with who she is.</p>
   </section>
   <div class="islandWrap">
     <svg id="island" viewBox="-442 -384 884 768" role="group" aria-label="The island. Labelled hexes open each section of the portfolio."></svg>
@@ -703,7 +754,7 @@ function art(type,seed){
 /* ---------- sections ---------- */
 var C={hills:'#d9773b',forest:'#3f7d3a',fields:'#e9b934',pasture:'#8cc152',mountains:'#8e969d',home:'#d8b866',sea:'#2fa3d6'};
 var SEC=[
-  {id:'about',title:'Hi, I’m Nivedita',label:['Hi, I’m','Nivedita'],kick:'Centre hex · The strategist',terrain:'home',q:0,r:0},
+  {id:'about',title:'Hi, I’m Nivedita',label:['Start','here'],kick:'Centre hex · The strategist',terrain:'home',q:0,r:0},
   {id:'find-the-story',title:'Find the story',label:['Find the','story'],kick:'Hills · First settlement',terrain:'hills',n:6,q:0,r:-1},
   {id:'build-the-home',title:'Build the home',label:['Build the','home'],kick:'Forest · Upgrade to a city',terrain:'forest',n:5,q:1,r:-1},
   {id:'make-noise',title:'Make noise',label:['Make','noise'],kick:'Fields · Longest road',terrain:'fields',n:8,q:1,r:0},
@@ -1010,12 +1061,12 @@ function draw(){
   HX.forEach(function(h,i){h.el.classList.toggle('robbed',i===S.robber&&i!==DESERT)});
   placeRob(HX[S.robber]);
 }
-function showHot(kind,list){
+function showHot(kind,list){var HR=window.innerWidth<=720?36:24;
   var s='';
-  if(kind==='v')list.forEach(function(i){var v=VS[i];s+='<g class="hs hv" data-v="'+i+'" transform="translate('+v.x+','+v.y+')"><circle r="15" fill="transparent"/><circle class="d" r="7" fill="#fff" stroke="#22303a" stroke-width="2"/></g>'});
-  if(kind==='c')list.forEach(function(i){var v=VS[i];s+='<g class="hs hv" data-v="'+i+'" transform="translate('+v.x+','+v.y+')"><circle r="17" fill="transparent"/><circle class="d ring" r="14" fill="none" stroke="#fff" stroke-width="3"/></g>'});
+  if(kind==='v')list.forEach(function(i){var v=VS[i];s+='<g class="hs hv" data-v="'+i+'" transform="translate('+v.x+','+v.y+')"><circle r="'+HR+'" fill="transparent"/><circle class="d" r="7" fill="#fff" stroke="#22303a" stroke-width="2"/></g>'});
+  if(kind==='c')list.forEach(function(i){var v=VS[i];s+='<g class="hs hv" data-v="'+i+'" transform="translate('+v.x+','+v.y+')"><circle r="'+(HR+2)+'" fill="transparent"/><circle class="d ring" r="14" fill="none" stroke="#fff" stroke-width="3"/></g>'});
   if(kind==='e')list.forEach(function(i){var e=ES[i],A=VS[e.a],B=VS[e.b],x1=A.x+(B.x-A.x)*.22,y1=A.y+(B.y-A.y)*.22,x2=B.x+(A.x-B.x)*.22,y2=B.y+(A.y-B.y)*.22;
-    s+='<g class="hs he" data-e="'+i+'"><line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="transparent" stroke-width="18"/><line class="d" x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-dasharray="3 7"/></g>'});
+    s+='<g class="hs he" data-e="'+i+'"><line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="transparent" stroke-width="'+(HR+4)+'"/><line class="d" x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-dasharray="3 7"/></g>'});
   if(kind==='h')list.forEach(function(i){var h=HX[i];s+='<g class="hs hh" data-h="'+i+'" transform="translate('+h.x+','+h.y+')"><path d="'+rhex(R-8)+'" fill="rgba(255,255,255,.18)" stroke="#fff" stroke-width="3" stroke-dasharray="6 6"/></g>'});
   hot.innerHTML=s;
 }
@@ -1024,7 +1075,7 @@ hot.addEventListener('click',function(e){var t=e.target.closest('.hs');if(!t||bu
   if(t.dataset.v!==undefined)pickV(+t.dataset.v);else if(t.dataset.e!==undefined)pickE(+t.dataset.e);else if(t.dataset.h!==undefined)pickH(+t.dataset.h)});
 
 /* ---- log + ui ---- */
-function glog(html){var ul=$('glog2'),li=document.createElement('li');li.innerHTML=html;ul.insertBefore(li,ul.firstChild);while(ul.children.length>6)ul.removeChild(ul.lastChild)}
+function glog(html){var ul=$('glog2'),li=document.createElement('li');li.innerHTML=html;ul.insertBefore(li,ul.firstChild);while(ul.children.length>4)ul.removeChild(ul.lastChild)}
 function who(p){return '<b style="color:'+(PCOL[p]==='#f2f2f2'?'#7d7d7d':PCOL[p])+'">'+PN[p]+'</b>'}
 function icons(r){return RK.filter(function(k){return r[k]}).map(function(k){return Array(r[k]+1).join('<svg class="li" viewBox="-13 -13 26 26">'+ICON[k]+'</svg>')}).join('')}
 function prompt(t){$('prompt').innerHTML=t}
@@ -1071,7 +1122,12 @@ var FACTS={
  'seven':{t:'Built for the big moment',f:'Core team on Razorpay’s IPL 2026 “Break to Build” campaign, which won at the APAC Effies.',go:'make-noise'}
 };
 var FORDER=Object.keys(FACTS),found=store('npi_facts')||[],fq=[],fshow=null;
-function unlock(id){if(!FACTS[id]||found.indexOf(id)>=0)return;found.push(id);store('npi_facts',found);fq.push(id);drawColl(id);if(!fshow)nextFact()}
+function unlock(id){if(!FACTS[id]||found.indexOf(id)>=0)return;found.push(id);store('npi_facts',found);drawColl(id);
+  if(G.active){toast(id);return}fq.push(id);if(!fshow)nextFact()}
+var ftoast=document.createElement('button');ftoast.type='button';ftoast.className='ftoast';ftoast.hidden=true;document.querySelector('.islandWrap').appendChild(ftoast);var ftT=null;
+function toast(id){var F=FACTS[id];ftoast.dataset.f=id;ftoast.innerHTML='<span class="fk">New card · '+found.length+' of '+FORDER.length+'</span><b>'+F.t+'</b><span class="rd">Read</span>';
+  ftoast.hidden=false;ftoast.classList.remove('in');void ftoast.offsetWidth;ftoast.classList.add('in');clearTimeout(ftT);ftT=setTimeout(function(){ftoast.hidden=true},4200)}
+ftoast.addEventListener('click',function(){ftoast.hidden=true;fq=[];showFact(ftoast.dataset.f,false)});
 function nextFact(){var id=fq.shift();if(!id){$('fact').hidden=true;fshow=null;return}showFact(id,true)}
 function showFact(id,fresh){fshow=id;var F=FACTS[id],el=$('fact');
   $('fK').textContent=(fresh?'New card unlocked · ':'Card · ')+found.length+' of '+FORDER.length;$('fT').textContent=F.t;$('fF').textContent=F.f;
@@ -1091,7 +1147,7 @@ function setupNext(){
   var p=ORDER[S.step];S.sub='settle';
   if(p===0){showHot('v',settleSpots(0,true));ui()}
   else{busy=true;ui();setTimeout(function(){var spots=settleSpots(p,true);spots.sort(function(a,b){return score(b)-score(a)});var v=spots[Math.random()<.25&&spots[1]!==undefined?1:0];placeSettle(p,v,true);
-    setTimeout(function(){var es=roadSpots(p,v);es.sort(function(a,b){return pot(other(b,v))-pot(other(a,v))});placeRoad(p,es[0]);busy=false;S.step++;setupNext()},300)},420)}
+    setTimeout(function(){var es=roadSpots(p,v);es.sort(function(a,b){return pot(other(b,v))-pot(other(a,v))});placeRoad(p,es[0]);busy=false;S.step++;setupNext()},220)},300)}
 }
 function other(e,v){return ES[e].a===v?ES[e].b:ES[e].a}
 function pot(v){if(distOk(v))return score(v)+1;var m=0;VS[v].adj.forEach(function(a){if(distOk(a))m=Math.max(m,score(a)*.7)});return m}
@@ -1113,7 +1169,7 @@ function done(){S.mode=null;clearHot();if(!checkWin())ui()}
 /* ---- rolling ---- */
 function rollDice(p,cb){var a=1+Math.floor(Math.random()*6),b=1+Math.floor(Math.random()*6);
   
-  setTimeout(function(){face($('g1'),a);face($('g2'),b);cb(a+b)},RM?0:450)}
+  setTimeout(function(){face($('g1'),a);face($('g2'),b);cb(a+b)},RM?0:(p?280:450))}
 function produce(s){var gains=[zero(),zero(),zero(),zero()];
   HX.forEach(function(h,hi){if(h.n!==s||!producing(hi))return;var k=RES[h.terrain],any=false;
     VS.forEach(function(v){if(v.owner>=0&&v.hexes.indexOf(hi)>=0){var n=v.city?2:1;S.players[v.owner].res[k]+=n;gains[v.owner][k]+=n;any=true}});
@@ -1133,15 +1189,15 @@ $('gEnd').addEventListener('click',function(){if(S.phase!=='main'||S.turn!==0)re
 
 /* ---- the bots: plain rules, no AI calls ---- */
 function botTurn(p){
-  rollDice(p,function(s){glog(who(p)+' rolled <span class="rl">'+s+'</span>');unlockNext();
+  rollDice(p,function(s){glog(who(p)+' rolled <span class="rl">'+s+'</span>');
     if(s===7){discards();var best=-1,bs=-99;HX.forEach(function(h,hi){if(hi===S.robber||!h.n)return;var sc=0,mine=false;VS.forEach(function(v){if(v.hexes.indexOf(hi)<0||v.owner<0)return;if(v.owner===p)mine=true;else sc+=dots[h.n]*(v.city?2:1)*(v.owner===0?1.3:1)});if(mine)sc-=10;if(sc>bs){bs=sc;best=hi}});
       S.robber=best;draw();glog(who(p)+' moved the robber.');steal(p,best)}
     else produce(s);
-    ui();S.botBuilds=0;S.botTrades=0;setTimeout(function(){botAct(p,0)},450)})}
+    ui();S.botBuilds=0;S.botTrades=0;setTimeout(function(){botAct(p,0)},300)})}
 function botAct(p,n){
   if(checkWin())return;
   if(n>10||S.botBuilds>=2)return botEnd(p);
-  var me=S.players[p],nx=function(){setTimeout(function(){botAct(p,n+1)},400)};
+  var me=S.players[p],nx=function(){setTimeout(function(){botAct(p,n+1)},280)};
   if(afford(p,'city')&&citySpots(p).length){var c=citySpots(p).sort(function(a,b){return score(b)-score(a)})[0];S.botBuilds++;pay(p,'city');VS[c].city=true;glog(who(p)+' upgraded to a city.');draw();ui();return nx()}
   var sp=settleSpots(p);
   if(sp.length&&afford(p,'settlement')){sp.sort(function(a,b){return score(b)-score(a)});S.botBuilds++;pay(p,'settlement');placeSettle(p,sp[0],false);ui();return nx()}
@@ -1152,7 +1208,7 @@ function botAct(p,n){
   if(lack.length&&spare.length&&S.botTrades<1){S.botTrades++;me.res[spare[0]]-=4;me.res[lack[0]]++;glog(who(p)+' traded with the bank.');ui();return nx()}
   botEnd(p);
 }
-function botEnd(p){if(S.phase==='win')return;if(p<NP-1){S.turn=p+1;ui();return setTimeout(function(){botTurn(p+1)},350)}S.turn=0;S.phase='roll';busy=false;ui()}
+function botEnd(p){if(S.phase==='win')return;if(p<NP-1){S.turn=p+1;ui();return setTimeout(function(){botTurn(p+1)},220)}S.turn=0;S.phase='roll';busy=false;ui()}
 
 /* ---- win ---- */
 function checkWin(){for(var p=0;p<NP;p++)if(vp(p)>=TARGET){S.phase='win';busy=false;clearHot();ui();
@@ -1169,7 +1225,7 @@ G.start=function(){
   svg.appendChild(layer);svg.appendChild(rob);svg.appendChild(hot);
   $('glog2').innerHTML='';glog('New game. First to '+TARGET+' points wins.');
   found=[];store('npi_facts',found);drawColl();$('fact').hidden=true;fq=[];fshow=null;draw();setupNext();
-  if(window.innerWidth<=980)gp.scrollIntoView({behavior:RM?'auto':'smooth',block:'start'});
+  if(window.innerWidth<=720)window.scrollTo({top:0,behavior:RM?'auto':'smooth'});else if(window.innerWidth<=980)gp.scrollIntoView({behavior:RM?'auto':'smooth',block:'start'});
 };
 G.exit=function(){$('fact').hidden=true;fq=[];fshow=null;G.active=false;busy=false;document.body.classList.remove('playing');hero.hidden=false;gp.hidden=true;layer.innerHTML='';clearHot();
   var deco=$('deco');if(deco)deco.style.display='';HX.forEach(function(h){h.el.classList.remove('robbed')});robOn=desert;placeRob(desert)};
@@ -1322,7 +1378,7 @@ var _o2=openCard;openCard=function(id,noHash){_o2(id,noHash);var t=document.getE
 /* 3 · magnetic buttons */
 if(FINE&&!RM){var mx=-1e4,my=-1e4,raf=0;
   document.addEventListener('pointermove',function(e){mx=e.clientX;my=e.clientY;if(!raf)raf=requestAnimationFrame(mag)},{passive:true});
-  function mag(){raf=0;document.querySelectorAll('.roll,.mag').forEach(function(b){if(!b.offsetParent){b.style.translate='';return}var r=b.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,dx=mx-cx,dy=my-cy,d=Math.hypot(dx,dy),R=Math.max(r.width,r.height)*.5+46;
+  function mag(){raf=0;document.querySelectorAll('.roll,.mag').forEach(function(b){if(!b.offsetParent||b.closest('#gp')){b.style.translate='';return}var r=b.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,dx=mx-cx,dy=my-cy,d=Math.hypot(dx,dy),R=Math.max(r.width,r.height)*.5+46;
     if(d<R){var k=(1-d/R)*.35;b.style.translate=(dx*k).toFixed(1)+'px '+(dy*k).toFixed(1)+'px';b.classList.add('pulled')}else if(b.classList.contains('pulled')){b.style.translate='';b.classList.remove('pulled')}})}}
 
 /* 8 · victory: resource cards rain down */
@@ -1336,7 +1392,7 @@ G.onWin=function(p){var wr=document.querySelector('#winrow .roll');if(wr){wr.cla
 
 /* 9 · roll twice fast and the table gets bumped */
 var lastRoll=0;document.addEventListener('click',function(e){if(!e.target.closest('#roll,#gRoll'))return;var n=Date.now();
-  if(n-lastRoll<1300&&!RM&&wrapI){wrapI.classList.remove('bump');void wrapI.offsetWidth;wrapI.classList.add('bump')}lastRoll=n},true);
+  if(n-lastRoll<1300&&!RM&&wrapI&&!G.active){wrapI.classList.remove('bump');void wrapI.offsetWidth;wrapI.classList.add('bump')}lastRoll=n},true);
 })();
 
 
@@ -1349,10 +1405,37 @@ function mark(){var nxt=null;SEC.forEach(function(s){var h=HX.filter(function(x)
   var fl=document.getElementById('nflag');if(!fl){fl=document.createElementNS('http://www.w3.org/2000/svg','g');fl.id='nflag';fl.setAttribute('class','nextflag');fl.setAttribute('aria-hidden','true');svg.appendChild(fl)}
   document.querySelectorAll('.hc[data-step]').forEach(function(c){var id=c.dataset.step;c.classList.toggle('visited',seen.indexOf(id)>=0);c.classList.remove('next')});
   var tp=document.querySelector('.tradeport');if(tp)tp.classList.toggle('next',!!nxt&&nxt.id==='trade');
-  fl.classList.remove('on');if(nxt){var hc=document.querySelector('.hc[data-step="'+nxt.id+'"]');if(hc)hc.classList.add('next')}if(nxt&&nxt.id!=='trade'){var h=HX.filter(function(x){return x.sec===nxt})[0];if(h){h.el.classList.add('next');var lab=SEC.indexOf(nxt)===0?'Start here':'Next';
+  fl.classList.remove('on');if(nxt){var hc=document.querySelector('.hc[data-step="'+nxt.id+'"]');if(hc)hc.classList.add('next')}if(nxt&&nxt.id!=='trade'){var h=HX.filter(function(x){return x.sec===nxt})[0];if(h){h.el.classList.add('next');var lab=SEC.indexOf(nxt)===0?'Tap to begin':'Next';
     fl.innerHTML='<g class="nfi"><rect x="-46" y="-28" width="92" height="25" rx="12.5" fill="#22303a"/><path d="M-6 -3.5l6 7 6-7z" fill="#22303a"/><text x="0" y="-10.5">'+lab+'</text></g>';
     fl.setAttribute('transform','translate('+h.x+','+(h.y+h.fy-6)+')');fl.classList.add('on')}}}
 mark();
+})();
+
+
+/* ================= ONE PAGE VIEW ================= */
+(function(){
+var btn=document.createElement('button');btn.type='button';btn.className='onebtn';btn.id='oneBtn';btn.textContent='View as one page';
+var tb=document.querySelector('.topbtns');tb.insertBefore(btn,tb.firstChild);
+var wrap=document.createElement('section');wrap.id='onepage';wrap.hidden=true;wrap.setAttribute('aria-label','The whole portfolio on one page');
+document.querySelector('main.table').after(wrap);
+function mini(s){return s.terrain==='sea'?'<polygon points="'+hexPts(R-2)+'" fill="#2fa3d6" stroke="#1f86b8" stroke-width="4"/><circle r="26" fill="#fbf1d6" stroke="#a8936a" stroke-width="2"/><text y="8" text-anchor="middle" font-family="Nunito" font-weight="800" font-size="22" fill="#22303a">2:1</text>':'<defs><clipPath id="opc'+s.id+'"><polygon points="'+hexPts(R-1)+'"/></clipPath></defs><g clip-path="url(#opc'+s.id+')">'+art(s.terrain,SEC.indexOf(s)+40)+'</g><polygon points="'+hexPts(R-1)+'" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="3"/>'}
+function render(){
+  var nav='<nav class="opnav" aria-label="Sections">'+SEC.map(function(s,i){return '<a href="#op-'+s.id+'" data-jump="'+s.id+'"><b>'+(i+1)+'</b>'+s.title+'</a>'}).join('')+'<button type="button" class="opprint">Save as PDF</button></nav>';
+  wrap.innerHTML=nav+SEC.map(function(s,i){return '<article class="opsec" id="op-'+s.id+'" style="--c:'+C[s.terrain]+'"><header class="dhead"><svg class="mini" viewBox="-62 -70 124 140" aria-hidden="true">'+mini(s)+'</svg><div class="t"><span class="kk">'+s.kick+'</span><h2>'+s.title+'</h2></div><div class="ntok">'+(i+1)+'</div></header><div class="dbody"></div></article>'}).join('');
+  var saveB=body,saveC=cur;
+  SEC.forEach(function(s){var b=wrap.querySelector('#op-'+s.id+' .dbody');b.appendChild(document.getElementById('t-'+s.id).content.cloneNode(true));body=b;cur=s.id;wire()});
+  body=saveB;cur=saveC}
+function enter(){if(G.active&&G.exit)G.exit();if(typeof closeCard==='function')closeCard();render();wrap.hidden=false;document.body.classList.add('onepage');btn.textContent='Back to the board';window.scrollTo(0,0);try{history.replaceState(null,'','#all')}catch(e){}}
+function leave(){wrap.hidden=true;wrap.innerHTML='';document.body.classList.remove('onepage');btn.textContent='View as one page';try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}window.scrollTo(0,0)}
+G.onePage=enter;
+btn.addEventListener('click',function(){document.body.classList.contains('onepage')?leave():enter()});
+document.addEventListener('click',function(e){if(!document.body.classList.contains('onepage'))return;
+  if(e.target.closest('.opprint')){e.preventDefault();window.print();return}
+  var j=e.target.closest('[data-jump]');var o=e.target.closest('[data-open]');var pl=e.target.closest('[data-play]');var cl=e.target.closest('[data-close]');
+  if(pl||cl){leave();if(cl){e.preventDefault();e.stopPropagation()}return}
+  var id=j?j.dataset.jump:(o&&!o.closest('.topbtns')?o.dataset.open:null);
+  if(id){e.preventDefault();e.stopPropagation();var t=document.getElementById('op-'+id);if(t)t.scrollIntoView({behavior:RM?'auto':'smooth',block:'start'})}},true);
+if(location.hash==='#all')setTimeout(enter,50);
 })();
 
 })();
