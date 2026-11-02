@@ -231,7 +231,7 @@ body.playing .islandWrap:not(.flat) #island{transform:rotateX(32deg) scale(1.02)
 .proj em{font-style:normal;font-size:.9rem;font-weight:700;color:var(--ink2);border-top:1.5px dashed var(--line);padding-top:8px;margin-top:4px}
 .proj i{font-style:normal;font-weight:800;color:var(--red);margin-top:auto}
 .intro{font-size:1.06rem;max-width:70ch;margin:0 0 16px}
-.minis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:16px}
+.minis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
 .minis .dev h4{font-size:1.05rem}
 
 /* trade */
@@ -596,6 +596,64 @@ body:not(.playing) .nextflag.on .nfi,body:not(.playing) .hx.next .rim,.hc.next .
   #island{max-width:1120px;max-height:calc(100vh - 48px)}
   body:not(.playing) .islandWrap:not(.flat) #island{transform:translateX(4px) rotateX(calc(28deg + var(--rx))) rotateZ(var(--ry)) scale(1.08)}
 }
+
+/* tactile, action-triggered details */
+.hc .art{position:relative}
+.hc .art::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;background:radial-gradient(circle at var(--light-x,50%) var(--light-y,30%),rgba(255,255,255,.65),transparent 68%);transition:opacity .18s}
+.hc:active,.add:active,.fmt:active{scale:.98}
+@media (hover:hover) and (pointer:fine) and (min-width:981px){
+  .hc:hover{transform:perspective(700px) translateY(-104px) rotateX(var(--tip-x,0deg)) rotateY(var(--tip-y,0deg)) scale(1.06)}
+  .hc:hover .art::after{opacity:.35}
+}
+.tree,.sheaf{transform-box:fill-box;transform-origin:center bottom}
+.terrain-glint{pointer-events:none;opacity:0;fill:#fff;mix-blend-mode:soft-light}
+.dcard.returnghost{position:fixed;z-index:70;margin:0;max-height:none;pointer-events:none;animation:none!important;transform-origin:center;overflow:hidden}
+.offerfeedback{position:fixed;right:20px;bottom:20px;z-index:80;display:flex;align-items:center;gap:12px;max-width:min(420px,calc(100vw - 32px));padding:12px 16px;border:2px solid var(--ink);border-radius:14px;background:var(--parch);color:var(--ink);box-shadow:0 8px 22px rgba(8,40,62,.2);font-size:.9rem;font-weight:800}
+.offerfeedback[hidden]{display:none}
+.offerfeedback button{flex:none;border:0;border-radius:9px;background:var(--red);color:#fff;padding:8px 11px;font-weight:800;cursor:pointer}
+.offerfeedback .feedbacktext{min-width:0;overflow-wrap:anywhere}
+.offertoken{position:fixed;z-index:85;pointer-events:none;display:grid;place-items:center;width:32px;height:36px;background:var(--red);color:#fff;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);font-size:20px;font-weight:900}
+@media (max-width:720px){.offerfeedback{bottom:calc(12px + env(safe-area-inset-bottom));right:12px;padding:10px 12px;gap:8px;font-size:.82rem}}
+@media (prefers-reduced-motion:reduce){.hc:active,.add:active,.fmt:active{scale:1}.hc .art::after{transition:none}}
+
+/* Mobile: the board leads; the hand stays compact. */
+.boardpan{display:contents}
+.boardhint{display:none}
+@media (max-width:720px){
+  .top{gap:10px;padding:12px 14px}
+  .me b{font-size:1.7rem!important}.me small{font-size:.95rem!important}
+  .topbtns{width:100%!important;gap:7px;justify-content:flex-start}
+  .topbtns .onebtn,.topbtns .playtop,.topbtns .tradebtn{font-size:.75rem;padding:7px 10px}
+  body:not(.onepage) .table{display:flex;flex-direction:column;align-items:stretch;gap:12px}
+  .table>.islandWrap{order:-1;margin-top:0;min-width:0;width:100%;gap:6px}
+  .boardpan{display:block;width:100%;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.45) transparent;border-radius:16px}
+  .boardpan #island{display:block;width:560px;min-width:560px;max-width:none;max-height:none;height:auto;transform:rotateX(8deg);transform-origin:center}
+  .islandWrap.flat .boardpan #island{transform:none}
+  .boardhint{display:block;margin:0;text-align:center;color:#fff;font-size:.75rem;opacity:.9}
+  .islandWrap>.hint{font-size:.72rem;padding:5px 10px;margin:0 auto}
+  .hero{padding:6px 0 10px}
+  .hero h1{font-size:clamp(1.8rem,7vw,2.3rem);margin:10px 0}
+  .hero>p{font-size:.95rem;margin-bottom:14px}
+  .heroactions{margin-bottom:14px}
+  .heroactions .roll{font-size:.9rem;padding:10px 13px}
+  .dicebox{padding:9px 11px}.hero .tourhint{font-size:.75rem}
+  .hand{gap:8px;padding:6px 14px 18px;min-height:0}
+  .hand .hc{width:96px!important;height:144px;min-height:0;border-radius:12px}
+  .hand .hc .art{height:40px;border-radius:12px 12px 0 0}
+  .hand .hc .hn{top:27px;width:28px;height:28px;border-width:3px;font-size:.8rem}
+  .hand .hc .txt{padding:19px 6px 8px}
+  .hand .hc h3{font-size:.78rem;line-height:1.2}
+  .hand .hc p{display:none}
+  body.playing .boardhint{display:none}
+}
+/* Keep long copy and result figures inside narrow reader cards. */
+.dbody,.dev,.stat{min-width:0}
+@media (max-width:560px){
+  .opening{flex-direction:column;align-items:flex-start;gap:8px}
+  .opening p{min-width:0;overflow-wrap:anywhere}
+  .stats .stat b{font-size:clamp(1.3rem,6vw,1.8rem);overflow-wrap:anywhere}
+  .stat span,.case-h h3{overflow-wrap:anywhere}
+}
 </style>
 </head>
 <body>
@@ -645,7 +703,7 @@ body:not(.playing) .nextflag.on .nfi,body:not(.playing) .hx.next .rim,.hc.next .
   <button class="hc" type="button" data-open="build-the-home" data-step="build-the-home" style="--c:var(--forest);--r:-3.6deg;--y:2.2px"><div class="art" data-terrain="forest"></div><span class="hn">3</span><div class="txt"><h3>Build the home</h3><p>Websites and case studies.</p></div></button>
   <button class="hc" type="button" data-open="make-noise" data-step="make-noise" style="--c:var(--fields);--r:0.0deg;--y:0.0px"><div class="art" data-terrain="fields"></div><span class="hn">4</span><div class="txt"><h3>Make noise</h3><p>Social, content IPs, research.</p></div></button>
   <button class="hc" type="button" data-open="take-it-to-market" data-step="take-it-to-market" style="--c:var(--pasture);--r:3.6deg;--y:2.2px"><div class="art" data-terrain="pasture"></div><span class="hn">5</span><div class="txt"><h3>Take it to market</h3><p>GTM, launches, sales kits.</p></div></button>
-  <button class="hc" type="button" data-open="expansion" data-step="expansion" style="--c:var(--mountains);--r:7.2deg;--y:8.8px"><div class="art" data-terrain="mountains"></div><span class="hn">6</span><div class="txt"><h3>Expansion pack</h3><p>Microsites, AI tools, games.</p></div></button>
+  <button class="hc" type="button" data-open="expansion" data-step="expansion" style="--c:var(--mountains);--r:7.2deg;--y:8.8px"><div class="art" data-terrain="mountains"></div><span class="hn">6</span><div class="txt"><h3>Expansion pack</h3><p>Microsites and AI tools.</p></div></button>
   <button class="hc" type="button" data-open="games" data-step="games" style="--c:var(--fields);--r:10.8deg;--y:19.8px"><div class="art" data-terrain="fields"></div><span class="hn">7</span><div class="txt"><h3>Games played</h3><p>Six case studies.</p></div></button>
 </div>
 
@@ -660,18 +718,18 @@ body:not(.playing) .nextflag.on .nfi,body:not(.playing) .hx.next .rim,.hc.next .
 
 <template id="t-find-the-story"><div class="lead"><div class="bubble">“We can’t explain what we do in one line.”</div><p>Before the logo or the website, someone has to answer two questions: what is this, and who is it for? I get the answer down to one line, then build everything else on it.</p></div><div class="devs"><article class="dev" data-item="Positioning sprint"><h4>Positioning sprint</h4><p class="when"><b>For when</b>you explain the company differently every time someone asks.</p><ul><li>Founder and customer interviews</li><li>A teardown of how competitors talk</li><li>One positioning line, with the reasoning written down</li></ul></article><article class="dev" data-item="Messaging framework"><h4>Messaging framework</h4><p class="when"><b>For when</b>sales, the website and the deck all say slightly different things.</p><ul><li>Value propositions for each buyer</li><li>Proof points to back every claim</li><li>Words to use, and words to drop</li></ul></article><article class="dev" data-item="Category narrative"><h4>Category narrative</h4><p class="when"><b>For when</b>buyers keep filing you under the wrong category.</p><ul><li>A name for the space you want to own</li><li>The old way vs the new way story</li><li>A launch line the team can repeat</li></ul></article><article class="dev" data-item="Brand architecture"><h4>Brand architecture</h4><p class="when"><b>For when</b>you’re adding a product, a category or a sub-brand, and nobody’s sure how it sits next to the main brand.</p><ul><li>A map of the parent brand and everything under it</li><li>Rules for naming, logos and how each one speaks</li><li>What to fold in, keep separate or retire</li></ul></article><article class="dev" data-item="Brand audit"><h4>Brand audit</h4><p class="when"><b>For when</b>you grew fast and the brand grew in five directions.</p><ul><li>A review of everything you’ve put out</li><li>What to keep, fix and retire</li></ul></article><article class="dev" data-item="Voice and tone guide"><h4>Voice and tone guide</h4><p class="when"><b>For when</b>five people write for the brand, and you can tell.</p><ul><li>How you sound, with real before-and-after examples</li><li>A one-page cheat sheet for interns and agencies</li></ul></article></div><div class="opening"><b>Opening move</b><p>A one-hour positioning read. Send me your website and deck, and I’ll tell you what’s unclear and what I’d fix first.</p></div><div class="built"><h5>Already built</h5><ul><li>RazorpayX Corporate Cards: spend management to savings, 4x branded search</li><li>A legal-tech startup: out of the “another CLM” box, into its own category</li><li>Positioning for Myntra Beauty and Myntra Home</li></ul></div></template>
 <template id="t-build-the-home"><div class="lead"><div class="bubble">“Our website says everything and nothing.”</div><p>Most people meet you on your website before they meet anyone on your team. I plan what goes on it and write the words, so a designer or developer can build it without guessing.</p></div><div class="devs"><article class="dev" data-item="Website blueprint"><h4>Website blueprint</h4><p class="when"><b>For when</b>you’re building a new site, or the current one leaves visitors asking “so what do you do?”</p><ul><li>An audit of what’s there now, if there is a site</li><li>A sitemap and block-by-block wireframes for each key page</li><li>All the copy</li></ul></article><article class="dev" data-item="Landing pages"><h4>Landing pages</h4><p class="when"><b>For when</b>a launch, campaign or new segment needs its own page.</p><ul><li>Page structure and copy</li><li>Headline options worth testing</li></ul></article><article class="dev" data-item="Case studies"><h4>Case studies</h4><p class="when"><b>For when</b>customers love you, but you have nothing to show the next one.</p><ul><li>A customer interview</li><li>A written case study, named or anonymised</li><li>A one-page version for sales</li></ul></article><article class="dev" data-item="Sales deck and one-pagers"><h4>Sales deck and one-pagers</h4><p class="when"><b>For when</b>every rep has their own version of the deck.</p><ul><li>One master story</li><li>Deck copy and a leave-behind one-pager</li></ul></article></div><div class="opening"><b>Opening move</b><p>A homepage roast. I go through your homepage and send back a recorded walkthrough of what to fix.</p></div><div class="built"><h5>Already built</h5><ul><li>A legal-tech startup’s website, blueprinted and written from scratch</li><li>An anonymised customer case study the sales team uses</li><li>RazorpayX Rewards microsite, 500+ partner offers</li></ul></div></template>
-<template id="t-make-noise"><div class="lead"><div class="bubble">“We post. Nobody notices.”</div><p>People notice brands that have an opinion and keep saying it in ways they start to recognise. I help you find yours, then set up a plan your team will actually stick to.</p></div><div class="devs"><article class="dev" data-item="Social strategy"><h4>Social strategy</h4><p class="when"><b>For when</b>you post when someone remembers to.</p><ul><li>An audit of what you’ve put out</li><li>Content buckets for each channel</li><li>A posting rhythm your team can keep up</li></ul></article><article class="dev" data-item="Content IPs"><h4>Content IPs</h4><p class="when"><b>For when</b>you want people to come back for the next one.</p><ul><li>A recurring series with a name, look and episode list</li><li>Scripts for the first few episodes</li></ul></article><article class="dev" data-item="Owned research and reports"><h4>Owned research and reports</h4><p class="when"><b>For when</b>you want press and sales conversations without buying ads.</p><ul><li>Survey and interview design</li><li>Finding the story in the data</li><li>A report people quote</li></ul></article><article class="dev" data-item="Creative briefs and agency management"><h4>Creative briefs and agency management</h4><p class="when"><b>For when</b>you’ve hired an agency, and the work keeps coming back not quite right.</p><ul><li>A brief the agency can actually work from</li><li>Briefing sessions and feedback on each round</li><li>One person on your side who speaks agency</li></ul></article><article class="dev" data-item="Influencer campaigns"><h4>Influencer campaigns</h4><p class="when"><b>For when</b>you want creators talking about you, and it keeps coming out sounding like an ad.</p><ul><li>Picking creators whose audience is your buyer</li><li>Briefs that leave room for their own voice</li><li>Contracts, timelines and approvals, handled</li></ul></article><article class="dev" data-item="Employee advocacy"><h4>Employee advocacy</h4><p class="when"><b>For when</b>your team has more reach than your company page.</p><ul><li>A programme that makes posting easy</li><li>Prompts and templates</li><li>A light game to keep it going</li></ul></article></div><div class="opening"><b>Opening move</b><p>A social teardown. Your last 30 posts, what’s working, and a few series ideas to try.</p></div><div class="built"><h5>Already built</h5><ul><li>Fix My Itch: 5.4M impressions, Shortys, Kyoorius, Abbys</li><li>IPL 2026 “Break to Build”: APAC Effies</li><li>Payroll “Trial of the Century”: Shortys, ET Brand Equity</li><li>T20 World Cup CTV: 67M+ impressions</li><li>Mental Capital Report: GTM for a founder-wellbeing report</li><li>Myntra campaigns with Masaba Gupta, Anushka Sharma and Kusha Kapila</li><li>Kingfisher “Indian Prank League” · JWT, client servicing</li></ul></div></template>
+<template id="t-make-noise"><div class="lead"><div class="bubble">“We post. Nobody notices.”</div><p>People notice brands that have an opinion and keep saying it in ways they start to recognise. I help you find yours, then set up a plan your team will actually stick to.</p></div><div class="devs"><article class="dev" data-item="Social strategy"><h4>Social strategy</h4><p class="when"><b>For when</b>you post when someone remembers to.</p><ul><li>An audit of what you’ve put out</li><li>Content buckets for each channel</li><li>A posting rhythm your team can keep up</li></ul></article><article class="dev" data-item="Content IPs"><h4>Content IPs</h4><p class="when"><b>For when</b>you want people to come back for the next one.</p><ul><li>A recurring series with a name, look and episode list</li><li>Scripts for the first few episodes</li></ul></article><article class="dev" data-item="Owned research and reports"><h4>Owned research and reports</h4><p class="when"><b>For when</b>you want press and sales conversations without buying ads.</p><ul><li>Survey and interview design</li><li>Finding the story in the data</li><li>A report people quote</li></ul></article><article class="dev" data-item="Creative briefs and agency management"><h4>Creative briefs and agency management</h4><p class="when"><b>For when</b>you’ve hired an agency, and the work keeps coming back not quite right.</p><ul><li>A brief the agency can actually work from</li><li>Briefing sessions and feedback on each round</li><li>One person on your side who speaks agency</li></ul></article><article class="dev" data-item="Influencer campaigns"><h4>Influencer campaigns</h4><p class="when"><b>For when</b>you want creators talking about you, and it keeps coming out sounding like an ad.</p><ul><li>Picking creators whose audience is your buyer</li><li>Briefs that leave room for their own voice</li><li>Contracts, timelines and approvals, handled</li></ul></article><article class="dev" data-item="UGC Videos"><h4>UGC Videos</h4><p class="when"><b>For when</b>your product needs to be seen in use.</p><ul><li>Concepts, hooks and scripts</li><li>Creator briefs and shot lists</li><li>Versions for organic and paid social</li></ul></article><article class="dev" data-item="Employee advocacy"><h4>Employee advocacy</h4><p class="when"><b>For when</b>your team has more reach than your company page.</p><ul><li>A programme that makes posting easy</li><li>Prompts and templates</li><li>A light game to keep it going</li></ul></article></div><div class="opening"><b>Opening move</b><p>A social teardown. Your last 30 posts, what’s working, and a few series ideas to try.</p></div><div class="built"><h5>Already built</h5><ul><li>Fix My Itch: 5.4M impressions, Shortys, Kyoorius, Abbys</li><li>IPL 2026 “Break to Build”: APAC Effies</li><li>Payroll “Trial of the Century”: Shortys, ET Brand Equity</li><li>T20 World Cup CTV: 67M+ impressions</li><li>Mental Capital Report: GTM for a founder-wellbeing report</li><li>Myntra campaigns with Masaba Gupta, Anushka Sharma and Kusha Kapila</li><li>Kingfisher “Indian Prank League” · JWT, client servicing</li></ul></div></template>
 <template id="t-take-it-to-market"><div class="lead"><div class="bubble">“We’ve built it. Now what?”</div><p>This is the product marketing part. The right people need to hear about what you built, get it the first time, and know what to do next.</p></div><div class="devs"><article class="dev" data-item="GTM plan"><h4>GTM plan</h4><p class="when"><b>For when</b>launch is six weeks away and nobody owns the plan.</p><ul><li>Who to go after first</li><li>The message for each of them</li><li>Channels and a week-by-week calendar</li></ul></article><article class="dev" data-item="Product and feature launches"><h4>Product and feature launches</h4><p class="when"><b>For when</b>you ship often and the market doesn’t notice.</p><ul><li>Launch tiers, so not everything is a big launch</li><li>Announcement copy</li><li>An internal brief so sales and support aren’t surprised</li></ul></article><article class="dev" data-item="ICP and buyer research"><h4>ICP and buyer research</h4><p class="when"><b>For when</b>“everyone” is your target customer.</p><ul><li>Customer interviews</li><li>Buyer profiles in their own words</li><li>Who to ignore for now</li></ul></article><article class="dev" data-item="Competitive battlecards"><h4>Competitive battlecards</h4><p class="when"><b>For when</b>sales keeps losing to the same two names.</p><ul><li>A teardown of each competitor</li><li>How to win against each one</li><li>Answers to the usual objections</li></ul></article><article class="dev" data-item="Sales enablement"><h4>Sales enablement</h4><p class="when"><b>For when</b>new reps take months to sound like they know the product, or the founder is still selling from their own inbox.</p><ul><li>A talk track and demo story</li><li>Outbound email sequences built on buying triggers</li><li>FAQs, in a kit that’s easy to keep updated</li></ul></article></div><div class="opening"><b>Opening move</b><p>A launch check. Tell me what’s going out and when, and I’ll flag the gaps before it ships.</p></div><div class="built"><h5>Already built</h5><ul><li>Myntra Home × Masaba: 174% growth in sessions</li><li>Myntra Beauty × Anushka Sharma: 27% revenue growth, 810K sign-ups</li><li>RazorpayX Corporate Cards: 66+ campaigns, 3,000+ qualified leads</li><li>Fastrack · Lowe Lintas, Senior Brand Director, client servicing</li><li>PMM for Capillary, BambooBox, Qyrus and Pennant</li></ul></div></template>
 <template id="t-about"><div class="about"><div class="portrait"><span class="kick" style="align-self:flex-start;background:rgba(255,255,255,.85)">Bengaluru</span><div class="ph">Your portrait goes here</div><div class="bubble" style="font-size:1.1rem">Twelve years on the board. Why, you ask?</div></div><div>
 <p>Calcutta, Trivandrum, Madras, Bombay, Goa, Bangalore.<br>Six cities, nine languages, and a lot of first days as the new girl.</p>
 <p>You learn to read a room before you understand a word of it. Who’s talking, who isn’t, what nobody’s saying out loud.</p>
 <div class="punch">Turns out that’s most of brand strategy.</div>
 <p>I started in audit at KPMG (yes, really), then moved to Ogilvy, JWT and Lowe Lintas, then went in-house at Myntra and Razorpay.</p>
-<p>I’ve sold beer, watches, real estate, ecommerce, fashion, home decor, footwear, confectionaries, chocolates, corporate cards, payroll software and agentic workflows. Different boards, same opening move.</p>
+<p>I’ve sold beer, watches, real estate, ecommerce, fashion, home decor, footwear, confectionaries, chocolates, corporate cards, payroll software and agentic workflows.<br>Different boards, same opening move.</p>
 <p>These days I’m especially into:</p>
 <ul class="interests"><li>Companies finding their story</li><li>Making complicated products feel simple</li><li>Launches that need a point of view</li></ul></div></div></template>
 <template id="t-expansion"><div class="lead"><div class="bubble">“We want something people actually play with.”</div><p>Some ideas land better when people can play with them. I plan them, write them and build the first version myself.</p></div>
-<div class="minis devs"><article class="dev" data-item="Campaign microsites"><h4>Campaign microsites</h4><p class="when">A small site built around one idea, for a launch or a moment.</p></article><article class="dev" data-item="AI marketing tools"><h4>AI marketing tools</h4><p class="when">Small AI helpers people come back to, that bring in leads on the side.</p></article><article class="dev" data-item="Branded games and quizzes"><h4>Branded games and quizzes</h4><p class="when">Something your audience wants to share, with your brand in it.</p></article><article class="dev" data-item="Interactive reports"><h4>Interactive reports</h4><p class="when">Research people can explore instead of a PDF nobody opens.</p></article></div>
+<div class="minis devs"><article class="dev" data-item="Campaign microsites"><h4>Campaign microsites</h4><p class="when">A small site built around one idea, for a launch or a moment.</p></article><article class="dev" data-item="AI marketing tools"><h4>AI marketing tools</h4><p class="when">Small AI helpers people come back to, that bring in leads on the side.</p></article><article class="dev" data-item="Interactive reports"><h4>Interactive reports</h4><p class="when">Research people can explore instead of a PDF nobody opens.</p></article></div>
 <div class="built"><h5>Already built</h5><ul><li>RazorpayX Savings Negotiator: the first AI marketing tool at RazorpayX, 20 MQLs a week</li><li>A gamified Slack bot that got employees to write 500+ LinkedIn posts during IPL</li></ul></div></template>
 <template id="t-games"><div class="cases">
 <div class="case"><div class="case-h"><h3>RazorpayX Corporate Cards</h3><span>B2B · Fintech · 2025–26</span></div>
@@ -697,7 +755,7 @@ body:not(.playing) .nextflag.on .nfi,body:not(.playing) .hx.next .rim,.hc.next .
 <template id="t-house-rules"><p class="intro">Things I build on weekends to test an idea, learn a tool or make a point about a city I love. Same thinking as the paid work, with nobody signing off on it.</p><div class="projs">
 <a class="proj" href="https://periodic-table-green-ten.vercel.app/" target="_blank" rel="noopener"><b>The Fashion Elements</b><span>A periodic table of Indian fashion. Flip the toggle and it becomes a periodic table of interesting Bangalore garbage.</span><em>Shows: turning a messy category into a system people want to browse.</em><i>Open ↗</i></a>
 <a class="proj" href="https://a-tale-of-two-cities-nine.vercel.app/" target="_blank" rel="noopener"><b>A Tale of Two Cities</b><span>A card deck that sets Bangalore and New York side by side.</span><em>Shows: a content IP with its own format, made to be shared.</em><i>Open ↗</i></a>
-<a class="proj" href="https://namma-arcana.vercel.app/" target="_blank" rel="noopener"><b>Namma Arcana</b><span>Tarot, but set in Bengaluru. An auto-anna narrates, and there are cows hidden along the way.</span><em>Shows: worldbuilding and a story that keeps people clicking.</em><i>Open ↗</i></a>
+<a class="proj" href="https://one-wish-willow.onrender.com/" target="_blank" rel="noopener"><b>One Wish Willow</b><span>An interactive wish-granting experience. Make a wish, then choose how badly it goes wrong.</span><em>Shows: a story shaped by what the visitor chooses.</em><i>Open ↗</i></a>
 <a class="proj" href="https://east-of-eden-tawny.vercel.app/" target="_blank" rel="noopener"><b>East of Eden × Super Mario</b><span>Steinbeck’s novel as a browser platformer.</span><em>Shows: game mechanics carrying a big idea.</em><i>Play ↗</i></a>
 </div></template>
 <template id="t-score-sheet"><table class="sheet"><thead><tr><th>Board</th><th>Seat</th><th>What I scored</th></tr></thead><tbody>
@@ -718,7 +776,7 @@ body:not(.playing) .nextflag.on .nfi,body:not(.playing) .hx.next .rim,.hc.next .
 <div class="playcta"><p>Not ready to talk yet? Play a quick round against three rival bots first.</p><button type="button" class="roll" data-play>Play the game →</button></div>
 </div></template>
 <template id="t-trade"><div class="trade">
-<div class="hello"><h3>Let’s trade.</h3><p>Tell me what’s broken. I’ll set up the board.</p><a class="emailcta" href="mailto:niveditatidevin@gmail.com">Email me</a><div class="cl"><a href="mailto:niveditatidevin@gmail.com">niveditatidevin@gmail.com</a><span>+91 97409 76950</span><a href="https://x.com/nivivacious" target="_blank" rel="noopener">@nivivacious</a></div></div>
+<div class="hello"><h3>Let’s trade.</h3><p>Tell me what’s broken. I’ll set up the board.</p><a class="emailcta" href="mailto:niveditatidevin@gmail.com">Email me</a><div class="cl"><a href="mailto:niveditatidevin@gmail.com">niveditatidevin@gmail.com</a><a href="https://x.com/nivivacious" target="_blank" rel="noopener">@nivivacious</a></div></div>
 <div class="fmts"><button type="button" class="fmt" data-size="One settlement" aria-pressed="false"><h4>One settlement</h4><p>One build, done properly.</p><ul><li>A website blueprint or a content IP</li><li>Clear scope, clear handover</li></ul><span class="pk">Pick this</span></button>
 <button type="button" class="fmt" data-size="Full game" aria-pressed="false"><h4>Full game</h4><p>A 2–4 week sprint, end to end.</p><ul><li>Positioning, then the site, then the launch</li><li>For when the whole thing has to hang together</li></ul><span class="pk">Pick this</span></button>
 <button type="button" class="fmt" data-size="A seat at the table" aria-pressed="false"><h4>A seat at the table</h4><p>A monthly fractional retainer.</p><ul><li>A part-time brand lead for your team</li><li>I’ll also review what your juniors and interns make</li></ul><span class="pk">Pick this</span></button></div>
@@ -748,8 +806,8 @@ function art(type,seed){
   if(type==='forest'){
     s+='<path d="M-80 -10 Q-30 -26 20 -12 T80 -18 V80 H-80Z" fill="#478a39"/>';for(i=0;i<30;i++){x=(r()-.5)*120;y=(r()-.5)*120;s+='<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+(1+r()*1.5).toFixed(1)+'" fill="#3a7a30" opacity=".6"/>'}
     spots(14,18).forEach(function(p,k){var sc=.85+r()*.35;
-      if(k%3!==1){s+='<g transform="translate('+p.x.toFixed(1)+','+p.y.toFixed(1)+') scale('+sc.toFixed(2)+')"><ellipse cx="0" cy="11" rx="7" ry="2.2" fill="rgba(0,0,0,.18)"/><rect x="-1.4" y="4" width="2.8" height="7" fill="#5b3d22"/><polygon points="0,-17 9,0 -9,0" fill="#2e6b2c"/><polygon points="0,-17 9,0 0,0" fill="#245722"/><polygon points="0,-10 10.5,6 -10.5,6" fill="#347a31"/><polygon points="0,-10 10.5,6 0,6" fill="#28622a"/></g>'}
-      else{s+='<g transform="translate('+p.x.toFixed(1)+','+p.y.toFixed(1)+') scale('+sc.toFixed(2)+')"><ellipse cx="0" cy="11" rx="8" ry="2.4" fill="rgba(0,0,0,.18)"/><rect x="-1.5" y="2" width="3" height="9" fill="#5b3d22"/><circle cx="0" cy="-4" r="9" fill="#3f8a35"/><path d="M0 -13 A9 9 0 0 1 0 5 A6 9 0 0 0 0 -13Z" fill="#2f6f2b"/><circle cx="-3" cy="-7" r="2.6" fill="#5ea54c"/></g>'}
+      if(k%3!==1){s+='<g class="tree" transform="translate('+p.x.toFixed(1)+','+p.y.toFixed(1)+') scale('+sc.toFixed(2)+')"><ellipse cx="0" cy="11" rx="7" ry="2.2" fill="rgba(0,0,0,.18)"/><rect x="-1.4" y="4" width="2.8" height="7" fill="#5b3d22"/><polygon points="0,-17 9,0 -9,0" fill="#2e6b2c"/><polygon points="0,-17 9,0 0,0" fill="#245722"/><polygon points="0,-10 10.5,6 -10.5,6" fill="#347a31"/><polygon points="0,-10 10.5,6 0,6" fill="#28622a"/></g>'}
+      else{s+='<g class="tree" transform="translate('+p.x.toFixed(1)+','+p.y.toFixed(1)+') scale('+sc.toFixed(2)+')"><ellipse cx="0" cy="11" rx="8" ry="2.4" fill="rgba(0,0,0,.18)"/><rect x="-1.5" y="2" width="3" height="9" fill="#5b3d22"/><circle cx="0" cy="-4" r="9" fill="#3f8a35"/><path d="M0 -13 A9 9 0 0 1 0 5 A6 9 0 0 0 0 -13Z" fill="#2f6f2b"/><circle cx="-3" cy="-7" r="2.6" fill="#5ea54c"/></g>'}
     });
   }
   if(type==='pasture'){
@@ -762,7 +820,7 @@ function art(type,seed){
   if(type==='fields'){
     s+='<path d="M-80 -80H80V80H-80Z" fill="#efc23c"/>';
     for(i=-12;i<=12;i++){var o=i*12;s+='<polygon points="'+(o-90)+',80 '+(o-84)+',80 '+(o+96)+',-80 '+(o+90)+',-80" fill="#dca72a" opacity=".55"/>'}
-    for(i=0;i<9;i++){x=-50+r()*100;y=-44+r()*88;s+='<g transform="translate('+x.toFixed(1)+','+y.toFixed(1)+')"><path d="M-4 7 L0 -6 L4 7Z" fill="#d39a1f"/><path d="M0 -6 L4 7 L0 7Z" fill="#b9821a"/><path d="M-5 1h10" stroke="#8f6414" stroke-width="1.2"/><ellipse cx="0" cy="8" rx="6" ry="1.6" fill="rgba(0,0,0,.15)"/></g>'}
+    for(i=0;i<9;i++){x=-50+r()*100;y=-44+r()*88;s+='<g class="sheaf" transform="translate('+x.toFixed(1)+','+y.toFixed(1)+')"><path d="M-4 7 L0 -6 L4 7Z" fill="#d39a1f"/><path d="M0 -6 L4 7 L0 7Z" fill="#b9821a"/><path d="M-5 1h10" stroke="#8f6414" stroke-width="1.2"/><ellipse cx="0" cy="8" rx="6" ry="1.6" fill="rgba(0,0,0,.15)"/></g>'}
   }
   if(type==='hills'){
     [[-6,40,120,'#cf7036','#b85f2d'],[-2,14,96,'#d77c40','#c26834'],[2,-12,72,'#de884a','#c9713a'],[4,-36,46,'#e5955a','#d07d44']].forEach(function(t){var cx=t[0],y0=t[1],w=t[2];
@@ -894,7 +952,7 @@ var wrap3=document.querySelector('.islandWrap'),flat=store('npi_flat')===true,bt
 function setView(){wrap3.classList.toggle('flat',flat);btn3.textContent=flat?'Switch to 3D view':'Switch to top view';btn3.setAttribute('aria-pressed',!flat)}
 btn3.addEventListener('click',function(){flat=!flat;store('npi_flat',flat);setView()});setView();
 if(!RM&&window.matchMedia('(hover:hover) and (pointer:fine)').matches){wrap3.addEventListener('mousemove',function(e){if(flat||G.active)return;var r=wrap3.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;wrap3.style.setProperty('--ry',(x*5).toFixed(2)+'deg');wrap3.style.setProperty('--rx',(-y*4).toFixed(2)+'deg')});wrap3.addEventListener('mouseleave',function(){wrap3.style.setProperty('--ry','0deg');wrap3.style.setProperty('--rx','0deg')})}
-function fitBoard(){svg.setAttribute('viewBox',window.innerWidth<=720?'-352 -318 704 636':'-420 -364 840 728')}fitBoard();window.addEventListener('resize',fitBoard);
+function fitBoard(){svg.setAttribute('viewBox',window.innerWidth<=720?'-430 -360 860 744':'-420 -364 840 728')}fitBoard();window.addEventListener('resize',fitBoard);
 /* ---------- dice ---------- */
 var faces={1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]};
 var d1=document.getElementById('d1'),d2=document.getElementById('d2'),log=document.getElementById('log');
@@ -930,7 +988,7 @@ function drawVP(){var n=Math.min(10,seen.length);[].forEach.call(pips.children,f
 drawVP();
 
 /* ---------- trade state ---------- */
-var order=store('npi_order')||[],size=store('npi_size')||'';
+var order=(store('npi_order')||[]).filter(function(item){return item!=='Branded games and quizzes'}),size=store('npi_size')||'';
 var tok=store('npi_tok')||(Math.floor(Math.random()*90)+10);store('npi_tok',tok);var T=('0'+tok).slice(-3);
 var badge=document.getElementById('tradeN');
 function syncBadge(bump){badge.hidden=!order.length;badge.textContent=order.length;if(bump){badge.classList.remove('pop');void badge.offsetWidth;badge.classList.add('pop')}}
@@ -975,11 +1033,18 @@ document.addEventListener('keydown',function(e){
 });
 window.addEventListener('hashchange',function(){var h=location.hash.slice(1);if(byId[h])openCard(h,true);else closeCard()});
 
+function syncServiceButtons(){
+  document.querySelectorAll('.dev[data-item] .add').forEach(function(b){
+    if(b.closest('.returnghost'))return;
+    var on=order.indexOf(b.closest('[data-item]').dataset.item)>=0;
+    b.setAttribute('aria-pressed',on);b.textContent=on?'Added ✓':'+ Add';
+  });
+}
 function wire(){
   body.querySelectorAll('.dev[data-item]').forEach(function(d){var name=d.dataset.item,b=document.createElement('button');b.type='button';b.className='add';
     function st(){var on=order.indexOf(name)>=0;b.setAttribute('aria-pressed',on);b.textContent=on?'Added ✓':'+ Add'}
     b.setAttribute('aria-label','Add '+name+' to your trade offer');st();
-    b.addEventListener('click',function(){var i=order.indexOf(name);if(i<0)order.push(name);else order.splice(i,1);save();st();syncBadge(i<0);document.querySelectorAll('.trade').forEach(function(t){t.dispatchEvent(new Event('offerchange'))})});d.appendChild(b)});
+    b.addEventListener('click',function(){var i=order.indexOf(name);if(i<0)order.push(name);else order.splice(i,1);save();st();syncServiceButtons();syncBadge(i<0);document.querySelectorAll('.trade').forEach(function(t){t.dispatchEvent(new Event('offerchange'))})});d.appendChild(b)});
   if(cur==='trade')wireTrade();
 }
 function wireTrade(){
@@ -995,7 +1060,7 @@ function wireTrade(){
     tradeRoot.querySelectorAll('.fmt').forEach(function(f){f.setAttribute('aria-pressed',f.dataset.size===size)});
     var txt='Hi Nivedita,\n\nHere’s my trade offer (turn '+T+').\n\nWhat we’d like:\n'+(order.length?order.map(function(o){return '• '+o}).join('\n'):'• Not sure yet, let’s talk')+'\n\nFormat: '+(size||'Not sure yet')+'\n\nAbout us:\n';
     send.href='mailto:niveditatidevin@gmail.com?subject='+encodeURIComponent('Trade offer · turn '+T)+'&body='+encodeURIComponent(txt);send.dataset.body=txt;
-    save();syncBadge();drawPins(added);
+    save();syncBadge();syncServiceButtons();drawPins(added);
   }
 
   var board=tradeElement('pinboard'),pos=store('npi_pos')||{};
@@ -1044,6 +1109,11 @@ var h0=location.hash.slice(1);if(byId[h0])openCard(h0,true);
 /* ================= PLAYABLE GAME ================= */
 var G={active:false};
 (function(){
+var gameTimers=[],gameSession=0;
+function later(fn,ms){var session=gameSession;var id=setTimeout(function(){
+  gameTimers=gameTimers.filter(function(t){return t!==id});if(G.active&&session===gameSession)fn();
+},ms);gameTimers.push(id);return id}
+function cancelGameTimers(){gameTimers.forEach(clearTimeout);gameTimers=[];gameSession++}
 var COST={road:{wood:1,brick:1},settlement:{wood:1,brick:1,wool:1,grain:1},city:{grain:2,ore:3}};
 var TARGET=8,RK=['wood','brick','wool','grain','ore'],PCOL=G.PCOL=['#c8372d','#2f6fb3','#e8892b','#f2f2f2'],PN=['You','The Competitor','The Copycat','The Incumbent'],NP=4,BOTS=[1,2,3];
 var VS=[],ES=[],vmap={},emap={};
@@ -1091,13 +1161,14 @@ function draw(){
 }
 function showHot(kind,list){var HR=window.innerWidth<=720?36:24;
   var s='';
-  if(kind==='v')list.forEach(function(i){var v=VS[i];s+='<g class="hs hv" data-v="'+i+'" transform="translate('+v.x+','+v.y+')"><circle r="'+HR+'" fill="transparent"/><circle class="d" r="7" fill="#fff" stroke="#22303a" stroke-width="2"/></g>'});
-  if(kind==='c')list.forEach(function(i){var v=VS[i];s+='<g class="hs hv" data-v="'+i+'" transform="translate('+v.x+','+v.y+')"><circle r="'+(HR+2)+'" fill="transparent"/><circle class="d ring" r="14" fill="none" stroke="#fff" stroke-width="3"/></g>'});
+  if(kind==='v')list.forEach(function(i){var v=VS[i];s+='<g class="hs hv" role="button" tabindex="0" aria-label="Place settlement at corner '+(i+1)+'" data-v="'+i+'" transform="translate('+v.x+','+v.y+')"><circle r="'+HR+'" fill="transparent"/><circle class="d" r="7" fill="#fff" stroke="#22303a" stroke-width="2"/></g>'});
+  if(kind==='c')list.forEach(function(i){var v=VS[i];s+='<g class="hs hv" role="button" tabindex="0" aria-label="Upgrade settlement at corner '+(i+1)+'" data-v="'+i+'" transform="translate('+v.x+','+v.y+')"><circle r="'+(HR+2)+'" fill="transparent"/><circle class="d ring" r="14" fill="none" stroke="#fff" stroke-width="3"/></g>'});
   if(kind==='e')list.forEach(function(i){var e=ES[i],A=VS[e.a],B=VS[e.b],x1=A.x+(B.x-A.x)*.22,y1=A.y+(B.y-A.y)*.22,x2=B.x+(A.x-B.x)*.22,y2=B.y+(A.y-B.y)*.22;
-    s+='<g class="hs he" data-e="'+i+'"><line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="transparent" stroke-width="'+(HR+4)+'"/><line class="d" x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-dasharray="3 7"/></g>'});
-  if(kind==='h')list.forEach(function(i){var h=HX[i];s+='<g class="hs hh" data-h="'+i+'" transform="translate('+h.x+','+h.y+')"><path d="'+rhex(R-8)+'" fill="rgba(255,255,255,.18)" stroke="#fff" stroke-width="3" stroke-dasharray="6 6"/></g>'});
+    s+='<g class="hs he" role="button" tabindex="0" aria-label="Place road on edge '+(i+1)+'" data-e="'+i+'"><line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="transparent" stroke-width="'+(HR+4)+'"/><line class="d" x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-dasharray="3 7"/></g>'});
+  if(kind==='h')list.forEach(function(i){var h=HX[i];s+='<g class="hs hh" role="button" tabindex="0" aria-label="Move robber to tile '+(i+1)+'" data-h="'+i+'" transform="translate('+h.x+','+h.y+')"><path d="'+rhex(R-8)+'" fill="rgba(255,255,255,.18)" stroke="#fff" stroke-width="3" stroke-dasharray="6 6"/></g>'});
   hot.innerHTML=s;
 }
+hot.addEventListener('keydown',function(e){if(e.key!=='Enter'&&e.key!==' ')return;var target=e.target.closest('.hs');if(!target)return;e.preventDefault();target.dispatchEvent(new MouseEvent('click',{bubbles:true}))});
 function clearHot(){hot.innerHTML=''}
 hot.addEventListener('click',function(e){var t=e.target.closest('.hs');if(!t||busy)return;
   if(t.dataset.v!==undefined)pickV(+t.dataset.v);else if(t.dataset.e!==undefined)pickE(+t.dataset.e);else if(t.dataset.h!==undefined)pickH(+t.dataset.h)});
@@ -1143,7 +1214,7 @@ var FACTS={
  'take-it-to-market':{t:'3,000+ qualified leads',f:'Ran 66+ campaigns for RazorpayX Corporate Cards that brought in more than 3,000 qualified leads.',go:'take-it-to-market'},
  'expansion':{t:'An AI tool that brings in leads',f:'Built RazorpayX’s first AI marketing tool, the Savings Negotiator. It brings in 20 MQLs a week.',go:'expansion'},
  'games':{t:'Six games, start to finish',f:'Six case studies with the brief, the insight and the numbers. The IPL, Fix My Itch and two Myntra launches are in there.',go:'games'},
- 'house-rules':{t:'Weekend builds',f:'A periodic table of Indian fashion, a Bengaluru tarot narrated by an auto-anna, and Steinbeck as a platformer.',go:'house-rules'},
+ 'house-rules':{t:'Weekend builds',f:'A periodic table of Indian fashion, a wish-granting story with a dark twist, and Steinbeck as a platformer.',go:'house-rules'},
  'score-sheet':{t:'From audit to awards',f:'Started in audit at KPMG. Then Ogilvy, JWT, Lowe Lintas, Myntra and Razorpay.',go:'score-sheet'},
  'trade':{t:'Fluent in trades',f:'She speaks nine languages, picked up across six cities.',go:'about'},
  'city':{t:'The award shelf',f:'APAC Effies, Shorty Awards, ET Brand Equity, Kyoorius, the Abbys, and an XStar Award for the top 1% at Razorpay.',go:'score-sheet'},
@@ -1154,7 +1225,7 @@ function unlock(id){if(!FACTS[id]||found.indexOf(id)>=0)return;found.push(id);st
   if(G.active){toast(id);return}fq.push(id);if(!fshow)nextFact()}
 var ftoast=document.createElement('button');ftoast.type='button';ftoast.className='ftoast';ftoast.hidden=true;document.querySelector('.islandWrap').appendChild(ftoast);var ftT=null;
 function toast(id){var F=FACTS[id];ftoast.dataset.f=id;ftoast.innerHTML='<span class="fk">New card · '+found.length+' of '+FORDER.length+'</span><b>'+F.t+'</b><span class="rd">Read</span>';
-  ftoast.hidden=false;ftoast.classList.remove('in');void ftoast.offsetWidth;ftoast.classList.add('in');clearTimeout(ftT);ftT=setTimeout(function(){ftoast.hidden=true},4200)}
+  ftoast.hidden=false;ftoast.classList.remove('in');void ftoast.offsetWidth;ftoast.classList.add('in');clearTimeout(ftT);ftT=later(function(){ftoast.hidden=true},4200)}
 ftoast.addEventListener('click',function(){ftoast.hidden=true;fq=[];showFact(ftoast.dataset.f,false)});
 function nextFact(){var id=fq.shift();if(!id){$('fact').hidden=true;fshow=null;return}showFact(id,true)}
 function showFact(id,fresh){fshow=id;var F=FACTS[id],el=$('fact');
@@ -1174,8 +1245,8 @@ function setupNext(){
   if(S.step>=ORDER.length){S.phase='roll';S.turn=0;clearHot();glog('Setup done. Your turn first.');ui();return}
   var p=ORDER[S.step];S.sub='settle';
   if(p===0){showHot('v',settleSpots(0,true));ui()}
-  else{busy=true;ui();setTimeout(function(){var spots=settleSpots(p,true);spots.sort(function(a,b){return score(b)-score(a)});var v=spots[Math.random()<.25&&spots[1]!==undefined?1:0];placeSettle(p,v,true);
-    setTimeout(function(){var es=roadSpots(p,v);es.sort(function(a,b){return pot(other(b,v))-pot(other(a,v))});placeRoad(p,es[0]);busy=false;S.step++;setupNext()},220)},300)}
+  else{busy=true;ui();later(function(){var spots=settleSpots(p,true);spots.sort(function(a,b){return score(b)-score(a)});var v=spots[Math.random()<.25&&spots[1]!==undefined?1:0];placeSettle(p,v,true);
+    later(function(){var es=roadSpots(p,v);es.sort(function(a,b){return pot(other(b,v))-pot(other(a,v))});placeRoad(p,es[0]);busy=false;S.step++;setupNext()},220)},300)}
 }
 function other(e,v){return ES[e].a===v?ES[e].b:ES[e].a}
 function pot(v){if(distOk(v))return score(v)+1;var m=0;VS[v].adj.forEach(function(a){if(distOk(a))m=Math.max(m,score(a)*.7)});return m}
@@ -1197,7 +1268,7 @@ function done(){S.mode=null;clearHot();if(!checkWin())ui()}
 /* ---- rolling ---- */
 function rollDice(p,cb){var a=1+Math.floor(Math.random()*6),b=1+Math.floor(Math.random()*6);
   
-  setTimeout(function(){face($('g1'),a);face($('g2'),b);cb(a+b)},RM?0:(p?280:450))}
+  later(function(){face($('g1'),a);face($('g2'),b);cb(a+b)},RM?0:(p?280:450))}
 function produce(s){var gains=[zero(),zero(),zero(),zero()];
   HX.forEach(function(h,hi){if(h.n!==s||!producing(hi))return;var k=RES[h.terrain],any=false;
     VS.forEach(function(v){if(v.owner>=0&&v.hexes.indexOf(hi)>=0){var n=v.city?2:1;S.players[v.owner].res[k]+=n;gains[v.owner][k]+=n;any=true}});
@@ -1213,7 +1284,7 @@ $('gRoll').addEventListener('click',function(){if(S.phase!=='roll'||S.turn!==0||
     unlockNext();if(s===7){discards();S.phase='robber';showHot('h',HX.map(function(h,i){return i}).filter(function(i){return i!==S.robber}))}
     else{produce(s);S.phase='main'}ui()})});
 function pickH(hi){if(S.phase!=='robber')return;S.robber=hi;draw();clearHot();glog(who(0)+' moved the robber.');steal(0,hi);S.phase='main';ui()}
-$('gEnd').addEventListener('click',function(){if(S.phase!=='main'||S.turn!==0)return;S.mode=null;clearHot();giveSel=getSel=null;S.turn=1;S.phase='bot';busy=true;ui();setTimeout(function(){botTurn(1)},400)});
+$('gEnd').addEventListener('click',function(){if(S.phase!=='main'||S.turn!==0)return;S.mode=null;clearHot();giveSel=getSel=null;S.turn=1;S.phase='bot';busy=true;ui();later(function(){botTurn(1)},400)});
 
 /* ---- the bots: plain rules, no AI calls ---- */
 function botTurn(p){
@@ -1221,11 +1292,11 @@ function botTurn(p){
     if(s===7){discards();var best=-1,bs=-99;HX.forEach(function(h,hi){if(hi===S.robber||!h.n)return;var sc=0,mine=false;VS.forEach(function(v){if(v.hexes.indexOf(hi)<0||v.owner<0)return;if(v.owner===p)mine=true;else sc+=dots[h.n]*(v.city?2:1)*(v.owner===0?1.3:1)});if(mine)sc-=10;if(sc>bs){bs=sc;best=hi}});
       S.robber=best;draw();glog(who(p)+' moved the robber.');steal(p,best)}
     else produce(s);
-    ui();S.botBuilds=0;S.botTrades=0;setTimeout(function(){botAct(p,0)},300)})}
+    ui();S.botBuilds=0;S.botTrades=0;later(function(){botAct(p,0)},300)})}
 function botAct(p,n){
   if(checkWin())return;
   if(n>10||S.botBuilds>=2)return botEnd(p);
-  var me=S.players[p],nx=function(){setTimeout(function(){botAct(p,n+1)},280)};
+  var me=S.players[p],nx=function(){later(function(){botAct(p,n+1)},280)};
   if(afford(p,'city')&&citySpots(p).length){var c=citySpots(p).sort(function(a,b){return score(b)-score(a)})[0];S.botBuilds++;pay(p,'city');VS[c].city=true;glog(who(p)+' upgraded to a city.');draw();ui();return nx()}
   var sp=settleSpots(p);
   if(sp.length&&afford(p,'settlement')){sp.sort(function(a,b){return score(b)-score(a)});S.botBuilds++;pay(p,'settlement');placeSettle(p,sp[0],false);ui();return nx()}
@@ -1236,7 +1307,7 @@ function botAct(p,n){
   if(lack.length&&spare.length&&S.botTrades<1){S.botTrades++;me.res[spare[0]]-=4;me.res[lack[0]]++;glog(who(p)+' traded with the bank.');ui();return nx()}
   botEnd(p);
 }
-function botEnd(p){if(S.phase==='win')return;if(p<NP-1){S.turn=p+1;ui();return setTimeout(function(){botTurn(p+1)},220)}S.turn=0;S.phase='roll';busy=false;ui()}
+function botEnd(p){if(S.phase==='win')return;if(p<NP-1){S.turn=p+1;ui();return later(function(){botTurn(p+1)},220)}S.turn=0;S.phase='roll';busy=false;ui()}
 
 /* ---- win ---- */
 function checkWin(){for(var p=0;p<NP;p++)if(vp(p)>=TARGET){S.phase='win';busy=false;clearHot();ui();
@@ -1246,6 +1317,7 @@ function checkWin(){for(var p=0;p<NP;p++)if(vp(p)>=TARGET){S.phase='win';busy=fa
 /* ---- start / exit ---- */
 G.redraw=function(){if(S){draw();ui()}};
 G.start=function(){
+  cancelGameTimers();svg.querySelectorAll('.hx.sec,.tradeport').forEach(function(el){el.setAttribute('tabindex','-1')});
   if(tourTimer!==null){clearTimeout(tourTimer);tourTimer=null;tourButton.disabled=false;}
   G.active=true;closeCard&&closeCard();document.body.classList.add('playing');hero.hidden=true;gp.hidden=false;$('winrow').hidden=true;
   var deco=$('deco');if(deco)deco.style.display='none';
@@ -1256,7 +1328,7 @@ G.start=function(){
   found=[];store('npi_facts',found);drawColl();$('fact').hidden=true;fq=[];fshow=null;draw();setupNext();
   if(window.innerWidth<=720)window.scrollTo({top:0,behavior:RM?'auto':'smooth'});else if(window.innerWidth<=980)gp.scrollIntoView({behavior:RM?'auto':'smooth',block:'start'});
 };
-G.exit=function(){$('fact').hidden=true;fq=[];fshow=null;G.active=false;busy=false;document.body.classList.remove('playing');hero.hidden=false;gp.hidden=true;layer.innerHTML='';clearHot();
+G.exit=function(){cancelGameTimers();svg.querySelectorAll('.hx.sec,.tradeport').forEach(function(el){el.setAttribute('tabindex','0')});$('fact').hidden=true;fq=[];fshow=null;G.active=false;busy=false;document.body.classList.remove('playing');hero.hidden=false;gp.hidden=true;layer.innerHTML='';clearHot();
   var deco=$('deco');if(deco)deco.style.display='';HX.forEach(function(h){h.el.classList.remove('robbed')});robOn=desert;placeRob(desert)};
 $('gpExit').addEventListener('click',G.exit);
 $('again').addEventListener('click',G.start);
@@ -1300,7 +1372,7 @@ if(!RM){
 }
 
 /* 3 · peek window on labelled hexes, card grows out of it */
-var PEEK={'about':'Grew up across six cities. Learned to read a room early.','find-the-story':'Sold the savings, not the software. Branded search 4x.','build-the-home':'Sites, homepages and case studies for sales.','make-noise':'Fix My Itch: 5.4M impressions and three awards.','take-it-to-market':'66+ campaigns, 3,000+ qualified leads.','expansion':'Built RazorpayX’s first AI marketing tool.','games':'Six case studies, from IPL to Myntra Home.','house-rules':'Weekend builds: fashion tables, Bengaluru tarot, Steinbeck.','score-sheet':'Twelve years: Ogilvy, JWT, Lintas, Myntra, Razorpay.','trade':'Three ways to work together. Make an offer.'};
+var PEEK={'about':'Grew up across six cities. Learned to read a room early.','find-the-story':'Sold the savings, not the software. Branded search 4x.','build-the-home':'Sites, homepages and case studies for sales.','make-noise':'Fix My Itch: 5.4M impressions and three awards.','take-it-to-market':'66+ campaigns, 3,000+ qualified leads.','expansion':'Built RazorpayX’s first AI marketing tool.','games':'Six case studies, from IPL to Myntra Home.','house-rules':'Weekend builds: fashion tables, wish-granting stories, Steinbeck.','score-sheet':'Twelve years: Ogilvy, JWT, Lintas, Myntra, Razorpay.','trade':'Three ways to work together. Make an offer.'};
 var peek=document.createElement('div');peek.className='peek';peek.setAttribute('aria-hidden','true');peek.hidden=true;document.body.appendChild(peek);
 var peekFor=null,lastPt=null;
 function showPeek(id,x,y){var s=byId[id];if(!s)return;peekFor=id;
@@ -1429,8 +1501,176 @@ document.addEventListener('click',function(e){if(!document.body.classList.contai
 if(location.hash==='#all')setTimeout(enter,50);
 })();
 
+
+/* ================= TACTILE DETAILS ================= */
+(function(){
+  var fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
+  var reduced=matchMedia('(prefers-reduced-motion:reduce)');
+  var mobile=matchMedia('(max-width:720px)');
+  var pan=document.createElement('div');pan.className='boardpan';
+  svg.parentNode.insertBefore(pan,svg);pan.appendChild(svg);
+  pan.setAttribute('role','region');pan.setAttribute('aria-label','Portfolio board. Swipe sideways to explore all tiles.');
+  var boardHint=document.createElement('p');boardHint.className='boardhint';boardHint.textContent='Swipe to explore. Tap a labelled hex to open.';
+  pan.after(boardHint);
+  function centerBoard(){pan.tabIndex=mobile.matches?0:-1;if(mobile.matches)pan.scrollLeft=Math.max(0,(pan.scrollWidth-pan.clientWidth)/2)}
+  requestAnimationFrame(centerBoard);mobile.addEventListener('change',centerBoard);
+
+  var hand=document.querySelector('.hand'),handCards=[].slice.call(document.querySelectorAll('.hc'));
+  function motion(){return !reduced.matches&&typeof card.animate==='function'}
+  function animate(el,frames,options){
+    if(!motion())return null;
+    return el.animate(frames,options);
+  }
+  function deal(){
+    handCards.forEach(function(c,i){
+      animate(c,[{opacity:0,translate:((3-i)*9)+'px 48px'},{opacity:1,translate:'0 0'}],
+        {duration:420,delay:i*55,easing:'cubic-bezier(.16,1,.3,1)'});
+    });
+  }
+  if(hand&&motion()){
+    if('IntersectionObserver' in window){
+      var handObserver=new IntersectionObserver(function(entries){
+        if(entries.some(function(e){return e.isIntersecting})){handObserver.disconnect();deal()}
+      },{threshold:.12});
+      handObserver.observe(hand);
+    }else deal();
+  }
+  if(fine){
+    handCards.forEach(function(c){
+      var frame=0,point=null;
+      c.addEventListener('pointermove',function(e){
+        if(!motion())return;point={x:e.clientX,y:e.clientY};
+        if(frame)return;
+        frame=requestAnimationFrame(function(){
+          frame=0;var r=c.getBoundingClientRect();
+          var x=Math.max(-.5,Math.min(.5,(point.x-r.left)/r.width-.5));
+          var y=Math.max(-.5,Math.min(.5,(point.y-r.top)/r.height-.5));
+          c.style.setProperty('--tip-x',(-y*7).toFixed(2)+'deg');c.style.setProperty('--tip-y',(x*8).toFixed(2)+'deg');
+          c.style.setProperty('--light-x',((x+.5)*100).toFixed(1)+'%');c.style.setProperty('--light-y',((y+.5)*100).toFixed(1)+'%');
+        });
+      });
+      c.addEventListener('pointerleave',function(){
+        if(frame)cancelAnimationFrame(frame);frame=0;
+        c.style.removeProperty('--tip-x');c.style.removeProperty('--tip-y');
+      });
+    });
+  }
+
+  /* Terrain reacts locally, once per hover or focus. */
+  HX.forEach(function(h){
+    var shine=null,last=0;
+    if(['mountains','hills','home'].indexOf(h.terrain)>=0){
+      var artRoot=h.el.querySelector('[clip-path]');
+      if(artRoot){shine=document.createElementNS(NS,'path');shine.setAttribute('class','terrain-glint');shine.setAttribute('d','M-100 -75L-78 -85 100 75 78 85Z');artRoot.appendChild(shine)}
+    }
+    function react(){
+      if(!motion()||G.active||performance.now()-last<850)return;last=performance.now();
+      if(h.terrain==='forest'||h.terrain==='fields'){
+        h.el.querySelectorAll(h.terrain==='forest'?'.tree':'.sheaf').forEach(function(t,i){
+          animate(t,[{rotate:'0deg'},{rotate:(i%2?'-3deg':'3deg')},{rotate:'0deg'}],
+            {duration:580,delay:i*12,easing:'ease-in-out'});
+        });
+      }else if(h.terrain==='pasture'){
+        h.el.querySelectorAll('.sheep').forEach(function(t,i){
+          animate(t,[{translate:'0 0'},{translate:'0 -3px'},{translate:'0 0'}],
+            {duration:360,delay:i*60,easing:'ease-out'});
+        });
+      }else if(shine){
+        animate(shine,[{translate:'-85px 0',opacity:0},{opacity:.45,offset:.5},{translate:'85px 0',opacity:0}],
+          {duration:650,easing:'ease-out'});
+      }
+    }
+    if(fine)h.el.addEventListener('pointerenter',react);
+    h.el.addEventListener('focus',react);
+    h.el.addEventListener('pointerdown',function(e){if(e.pointerType==='touch')react()});
+  });
+
+  /* Open from, and return to, the corresponding board tile or hand card. */
+  var nativeOpen=openCard,nativeClose=closeCard,origin=null,returnGhost=null;
+  function originFor(id){
+    var active=document.activeElement;
+    if(active&&active.matches&&active.matches('.hc')&&active.dataset.open===id)return active;
+    var h=HX.filter(function(x){return x.sec&&x.sec.id===id})[0];
+    return h?(h.el.querySelector('.plq')||h.el):document.querySelector('.tradeport');
+  }
+  function clearGhost(){if(returnGhost){returnGhost.remove();returnGhost=null}}
+  openCard=function(id,noHash){
+    var first=ov.hidden;if(!byId[id])return;
+    clearGhost();if(first)origin=originFor(id);
+    nativeOpen(id,noHash);card.classList.remove('grow');card.style.animation='none';
+    if(!motion())return;
+    var r=card.getBoundingClientRect(),o=origin&&origin.getBoundingClientRect();
+    if(first&&o&&innerWidth>720&&o.bottom>0&&o.top<innerHeight){
+      animate(card,[{opacity:0,transform:'translate('+(o.left+o.width/2-r.left-r.width/2)+'px,'+(o.top+o.height/2-r.top-r.height/2)+'px) scale(.16)'},{opacity:1,transform:'none'}],
+        {duration:320,easing:'cubic-bezier(.16,1,.3,1)'});
+    }else{
+      animate(card,[{opacity:.6,translate:'0 12px'},{opacity:1,translate:'0 0'}],
+        {duration:first?220:150,easing:'ease-out'});
+    }
+    if(!first)origin=originFor(id);
+  };
+  closeCard=function(){
+    if(ov.hidden){nativeClose();return}
+    clearGhost();
+    var r=card.getBoundingClientRect(),o=origin&&origin.getBoundingClientRect(),ghost=null;
+    if(motion()&&!G.active&&!document.body.classList.contains('onepage')){
+      ghost=card.cloneNode(true);ghost.classList.remove('grow');ghost.classList.add('returnghost');
+      ghost.removeAttribute('id');ghost.removeAttribute('role');ghost.removeAttribute('aria-modal');ghost.removeAttribute('aria-labelledby');
+      ghost.setAttribute('aria-hidden','true');ghost.setAttribute('inert','');
+      ghost.querySelectorAll('[id]').forEach(function(el){el.removeAttribute('id')});
+      ghost.style.left=r.left+'px';ghost.style.top=r.top+'px';ghost.style.width=r.width+'px';ghost.style.height=r.height+'px';
+      document.body.appendChild(ghost);ghost.querySelector('.dbody').scrollTop=body.scrollTop;returnGhost=ghost;
+    }
+    nativeClose();
+    if(ghost){
+      var visibleOrigin=o&&o.bottom>0&&o.top<innerHeight&&o.right>0&&o.left<innerWidth;
+      var dx=visibleOrigin?o.left+o.width/2-r.left-r.width/2:0;
+      var dy=visibleOrigin?o.top+o.height/2-r.top-r.height/2:24;
+      var scale=visibleOrigin?Math.max(.08,Math.min(.24,o.width/r.width)):.96;
+      var a=animate(ghost,[{opacity:1,transform:'none'},{opacity:0,transform:'translate('+dx+'px,'+dy+'px) scale('+scale+')'}],
+        {duration:220,easing:'cubic-bezier(.4,0,.8,.3)'});
+      if(a)a.onfinish=function(){ghost.remove();if(returnGhost===ghost)returnGhost=null};else clearGhost();
+    }
+  };
+
+  /* Service selection travels into a short-lived, usable offer confirmation. */
+  var feedback=document.createElement('div'),feedbackTimer=null;
+  feedback.className='offerfeedback';feedback.hidden=true;feedback.setAttribute('role','status');feedback.setAttribute('aria-live','polite');
+  feedback.innerHTML='<span class="feedbacktext"></span><button type="button" data-open="trade">View offer</button>';
+  document.body.appendChild(feedback);
+  function hideFeedback(){if(feedback.contains(document.activeElement))return;feedback.hidden=true}
+  feedback.addEventListener('pointerenter',function(){clearTimeout(feedbackTimer)});
+  feedback.addEventListener('pointerleave',function(){feedbackTimer=setTimeout(hideFeedback,2200)});
+  feedback.addEventListener('focusin',function(){clearTimeout(feedbackTimer)});
+  feedback.addEventListener('focusout',function(){feedbackTimer=setTimeout(hideFeedback,2200)});
+  feedback.querySelector('button').addEventListener('click',function(){feedback.hidden=true});
+  document.addEventListener('click',function(e){
+    if(e.target.closest('#clearOffer')){feedback.hidden=true;return}
+    var b=e.target.closest('.add');if(!b)return;if(b.getAttribute('aria-pressed')!=='true'){feedback.hidden=true;return}
+    var service=b.closest('[data-item]');if(!service)return;
+    var name=service.dataset.item;clearTimeout(feedbackTimer);
+    feedback.querySelector('.feedbacktext').textContent=name+' added to your offer';
+    feedback.hidden=false;feedbackTimer=setTimeout(hideFeedback,4200);
+    animate(feedback,[{opacity:0,translate:'0 10px'},{opacity:1,translate:'0 0'}],{duration:180,easing:'ease-out'});
+    if(!motion())return;
+    var r=b.getBoundingClientRect(),to=feedback.getBoundingClientRect(),token=document.createElement('div');
+    token.className='offertoken';token.textContent='+';token.setAttribute('aria-hidden','true');
+    token.style.left=(r.left+r.width/2-16)+'px';token.style.top=(r.top+r.height/2-18)+'px';document.body.appendChild(token);
+    var dx=to.left+18-r.left-r.width/2+16,dy=to.top+to.height/2-r.top-r.height/2;
+    var flight=animate(token,[{transform:'none',opacity:1},{transform:'translate('+(dx*.5)+'px,'+(dy*.5-36)+'px) rotate(10deg)',opacity:1},{transform:'translate('+dx+'px,'+dy+'px) scale(.35)',opacity:0}],
+      {duration:480,easing:'cubic-bezier(.4,0,.2,1)'});
+    if(flight)flight.onfinish=function(){token.remove()};else token.remove();
+  });
+  reduced.addEventListener('change',function(){
+    if(!reduced.matches)return;
+    handCards.forEach(function(c){c.style.removeProperty('--tip-x');c.style.removeProperty('--tip-y')});
+    document.querySelectorAll('.offertoken,.returnghost').forEach(function(el){el.remove()});
+  });
+})();
+
 })();
 
 </script>
 </body>
 </html>
+
