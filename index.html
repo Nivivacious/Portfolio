@@ -382,7 +382,7 @@ body.playing .vp{visibility:hidden}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rise{opacity:1}}
 #vp{display:none!important}
-.rbarwrap,.topbtns{display:none!important}
+.rbarwrap,.tradebtn{display:none!important}
 h1,h2,h3,h4{font-weight:900}
 .plq text{font-weight:800}
 .tok text{font-weight:900}
@@ -507,13 +507,21 @@ html,body{overflow-x:clip}
 @media (max-width:420px){.sheet{table-layout:fixed;font-size:.85rem}.sheet td,.sheet th{padding:8px 7px;overflow-wrap:anywhere}.roadwrap{padding-left:24px}.road{left:8px}.pinh{left:2px}}
 
 @media (max-width:560px){.sheet thead{display:none}.sheet,.sheet tbody,.sheet tr,.sheet td{display:block;width:100%}.sheet{table-layout:auto}.sheet tr{padding:10px 12px;border-bottom:1.5px solid var(--line)}.sheet td{border:0!important;padding:2px 0!important;background:none!important}.sheet tr:nth-child(even){background:#fffaf0}.sheet td:first-child{font-size:1.15rem}.sheet td:nth-child(2){font-weight:700;color:var(--ink2);font-size:.85rem}.sheet td:nth-child(2) small{display:inline;margin-left:6px}}
+
+/* play button, top right */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.topbtns{margin-left:auto}
+.playtop{font-size:1rem;padding:11px 18px;transition:translate .25s cubic-bezier(.2,.8,.2,1)}
+.playtop:hover{filter:brightness(1.08)}.playtop:active{transform:translateY(2px);box-shadow:0 2px 0 #8f241d}
+body.playing .topbtns{display:none}
+@media (max-width:720px){.top{flex-wrap:nowrap!important;align-items:flex-start}.topbtns{width:auto!important;flex:none}.playtop{flex:none!important;padding:9px 13px;font-size:.88rem;white-space:nowrap}}
 </style>
 </head>
 <body>
 <header class="top">
   <a class="me" href="#" data-close><b>Nivedita Prabhu</b><span class="bar" aria-hidden="true"></span><small>Brand and Product Marketing</small></a>
   <div class="vp" id="vp" aria-live="polite"><span class="lbl" id="vpLbl">Victory points</span><span class="pips" id="pips" aria-hidden="true"></span><b id="vpNum">0/10</b></div>
-  <div class="topbtns"><button class="playtop" type="button" data-play>Play the game</button><button class="tradebtn" type="button" data-open="trade">Trade offer <span class="n" id="tradeN" hidden>0</span></button></div>
+  <div class="topbtns"><button class="playtop" type="button" data-play>Play Catan</button><button class="tradebtn" type="button" data-open="trade">Trade offer <span class="n" id="tradeN" hidden>0</span></button></div>
 </header>
 
 <main class="table">
