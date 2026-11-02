@@ -464,6 +464,26 @@ h1,h2,h3,h4{font-weight:900}
 @keyframes bump{0%,100%{translate:0 0}15%{translate:-7px 3px}30%{translate:6px -3px}45%{translate:-4px 2px}60%{translate:3px -1px}80%{translate:-1px 0}}
 @media (max-width:720px){.cases>.case{position:static}}
 @media (prefers-reduced-motion:reduce){.mtrack{animation:none;flex-wrap:wrap;width:auto}.marq{-webkit-mask:none;mask:none;flex-wrap:wrap!important}}
+
+/* follow the numbers */
+.seqtok text{font-family:var(--body);font-weight:900;fill:#22303a;text-anchor:middle}
+.seqtok{transition:opacity .4s}
+.hx.visited .seqtok path:nth-of-type(3){fill:#22303a!important}.hx.visited .seqtok path:nth-of-type(2){fill:#11181d!important}.hx.visited .seqtok path:nth-of-type(1){fill:#000!important}
+body:not(.playing) .hx.sec .tok{opacity:0}
+body.playing .seqtok{opacity:0}
+.nextflag{opacity:0;transition:opacity .3s}
+.nextflag text{font-family:var(--body);font-weight:800;font-size:13px;fill:#fff;text-anchor:middle}
+.visit{opacity:0;transform:translateY(-10px);transition:opacity .3s,transform .4s cubic-bezier(.3,1.6,.5,1)}
+.hx.visited .visit{opacity:1;transform:none}
+body:not(.playing) .nextflag.on{opacity:1}body:not(.playing) .nextflag.on .nfi{animation:nf 1.6s ease-in-out infinite}.nextflag{pointer-events:none}
+body:not(.playing) .hx.next .rim{stroke:#fff;stroke-width:6;animation:nr 1.6s ease-in-out infinite}
+@keyframes nf{50%{transform:translateY(-4px)}}
+@keyframes nr{50%{stroke-opacity:.25}}
+body:not(.playing) .hx:not(.sec){filter:saturate(.5) brightness(.96)}
+body:not(.playing) .hx:not(.sec) .tok{opacity:0}
+.hx .tok{transition:opacity .4s}
+body.playing .nextflag,body.playing .visit{display:none}
+@media (prefers-reduced-motion:reduce){.nextflag .nfi,.hx.next .rim{animation:none!important}}
 </style>
 </head>
 <body>
@@ -483,7 +503,7 @@ h1,h2,h3,h4{font-weight:900}
       <span class="chip"><svg viewBox="0 0 24 24"><path d="M3 21h18v-9l-9-8-9 8z" fill="#f2f2f2" stroke="#22303a" stroke-width="1.8" stroke-linejoin="round"/></svg>B2C</span>
       <span class="chip"><svg viewBox="0 0 24 24"><path d="M3 21h18v-9l-9-8-9 8z" fill="#e8892b" stroke="#22303a" stroke-width="1.8" stroke-linejoin="round"/></svg>E‑commerce</span>
     </div>
-    <div class="dicebox"><div class="die" id="d1" aria-hidden="true"></div><div class="die y" id="d2" aria-hidden="true"></div><button class="roll" id="roll" type="button">Roll</button><div class="gl"><span class="glh">Game log</span><ul id="glog" aria-live="polite"><li class="tip">Roll to see what pays out, or tap any labelled hex to look around.</li></ul></div><div class="rbarwrap"><span class="glh">Your resources</span><div class="rbar" id="rbar"></div></div></div>
+    <div class="dicebox"><div class="die" id="d1" aria-hidden="true"></div><div class="die y" id="d2" aria-hidden="true"></div><button class="roll" id="roll" type="button">Roll</button><div class="gl"><span class="glh">Game log</span><ul id="glog" aria-live="polite"><li class="tip">Start at 1 and follow the numbers. Or roll, and the dice will take you in the same order.</li></ul></div><div class="rbarwrap"><span class="glh">Your resources</span><div class="rbar" id="rbar"></div></div></div>
   </section>
   <section class="gamepanel" id="gp" hidden aria-label="Play the game">
     <div class="gp-top"><span class="kick">Quick game · first to 8 points</span><button type="button" class="gp-x" id="gpExit">Exit game</button></div>
@@ -693,6 +713,7 @@ var frame='<polygon points="'+fp.join(' ')+'" transform="translate(0,16)" fill="
 svg.innerHTML=defs+'<g id="frame">'+frame+'</g><g id="back">'+back+'</g>';
 var dots={2:1,3:2,4:3,5:4,6:5,8:5,9:4,10:3,11:2,12:1};
 function cog(cx,cy,r,t){var d='',n=16;for(var i=0;i<n*2;i++){var a=Math.PI*2*i/(n*2),rr=i%2?r:r-t;d+=(i?'L':'M')+(cx+rr*Math.cos(a)).toFixed(1)+' '+(cy+rr*Math.sin(a)).toFixed(1)}return d+'Z'}
+function seqTok(n,cx,cy,rad){return '<g class="seqtok"><ellipse cx="'+cx+'" cy="'+(cy+9)+'" rx="'+(rad+3)+'" ry="'+(rad*.45)+'" fill="rgba(0,0,0,.25)"/><path d="'+cog(cx,cy+6,rad+3,2.4)+'" fill="#7c1f19"/><path d="'+cog(cx,cy+3,rad+3,2.4)+'" fill="#a02a22"/><path d="'+cog(cx,cy,rad+3,2.4)+'" fill="#c8372d" filter="url(#soft)"/><circle cx="'+cx+'" cy="'+cy+'" r="'+(rad-1)+'" fill="url(#tokg)"/><text x="'+cx+'" y="'+(cy+rad*.42)+'" style="font-size:'+(rad*1.25)+'px">'+n+'</text></g>'}
 function token(n,cx,cy,rad){var hot=n===6||n===8;return '<g class="tok"><ellipse cx="'+cx+'" cy="'+(cy+9)+'" rx="'+(rad+3)+'" ry="'+(rad*.45)+'" fill="rgba(0,0,0,.25)"/><path d="'+cog(cx,cy+6,rad+3,2.4)+'" fill="#5a3d22"/><path d="'+cog(cx,cy+3,rad+3,2.4)+'" fill="#7a5530"/><path d="'+cog(cx,cy,rad+3,2.4)+'" fill="'+(hot?'#c8372d':'#a8793f')+'" filter="url(#soft)"/><circle class="c" cx="'+cx+'" cy="'+cy+'" r="'+(rad-1)+'" fill="url(#tokg)"/><text x="'+cx+'" y="'+(cy+5)+'"'+(hot?' class="hot"':'')+' style="font-size:'+(rad*1.05)+'px">'+n+'</text><text class="pp" x="'+cx+'" y="'+(cy+rad*.68)+'" fill="'+(hot?'#c8372d':'#22303a')+'">'+'•'.repeat(dots[n])+'</text></g>'}
 land.forEach(function(h,idx){
   var p=ax(h.q,h.r),g=document.createElementNS(NS,'g');h.x=p.x;h.y=p.y;h.el=g;
@@ -700,7 +721,11 @@ land.forEach(function(h,idx){
   var inner='<path d="'+rhex(R-3.5)+'" transform="translate(0,15)" fill="rgba(40,30,10,.35)"/>'+[12,9,6,3].map(function(o,j){return '<path d="'+rhex(R-3.5)+'" transform="translate(0,'+o+')" fill="'+SIDE[h.terrain]+'" opacity="'+(1-j*.05)+'"/>'}).join('')+'<g filter="url(#tile)"><g clip-path="url(#hc)">'+art(h.terrain,idx+3)+'<path d="'+rhex(R-3.5)+'" fill="url(#bev)"/><path d="'+rhex(R-3.5)+'" fill="none" stroke="rgba(0,0,0,.22)" stroke-width="5"/></g></g><path class="rim" d="'+rhex(R-6)+'"/>';
   if(h.sec){
     var L=h.sec.label,w=Math.min(118,Math.max.apply(null,L.map(function(t){return t.length}))*9.6+20),hh=L.length*19+10,ty=h.n?-16:0;
+    var stp=SEC.indexOf(h.sec)+1,bx=-w/2+2,by=ty-hh/2+2;
+    inner+='<g class="visit" aria-hidden="true"><path d="M'+(w/2-14)+' '+(ty+hh/2+20)+'h22v-13l-11-10-11 10z" fill="var(--pc,#c8372d)" stroke="#22303a" stroke-width="2.5" stroke-linejoin="round" filter="url(#soft)"/></g>';
     inner+='<g class="plq" filter="url(#soft)"><rect class="pside" x="'+(-w/2)+'" y="'+(ty-hh/2+5)+'" width="'+w+'" height="'+hh+'" rx="9"/><rect x="'+(-w/2)+'" y="'+(ty-hh/2)+'" width="'+w+'" height="'+hh+'" rx="9"/>'+L.map(function(t,k){return '<text x="0" y="'+(ty-hh/2+21+k*19)+'">'+t+'</text>'}).join('')+'</g>';
+    inner+=seqTok(stp,0,h.n?34:44,16);
+    h.fy=ty-hh/2;
     if(h.n)inner+=token(h.n,0,34,16);
     g.setAttribute('class','hx sec');g.setAttribute('tabindex','0');g.setAttribute('role','button');g.setAttribute('aria-label','Open '+h.sec.title);
     g.addEventListener('click',function(){if(G.active)return;openCard(h.sec.id)});
@@ -1278,6 +1303,21 @@ G.onWin=function(p){var wr=document.querySelector('#winrow .roll');if(wr){wr.cla
 /* 9 · roll twice fast and the table gets bumped */
 var lastRoll=0;document.addEventListener('click',function(e){if(!e.target.closest('#roll,#gRoll'))return;var n=Date.now();
   if(n-lastRoll<1300&&!RM&&wrapI){wrapI.classList.remove('bump');void wrapI.offsetWidth;wrapI.classList.add('bump')}lastRoll=n},true);
+})();
+
+
+/* ================= FOLLOW THE NUMBERS ================= */
+(function(){
+var _dv=drawVP;drawVP=function(){_dv();mark()};
+function mark(){var nxt=null;SEC.forEach(function(s){var h=HX.filter(function(x){return x.sec===s})[0];var v=seen.indexOf(s.id)>=0;
+  if(h){h.el.classList.toggle('visited',v);h.el.classList.remove('next')}
+  if(!v&&!nxt)nxt=s});
+  var fl=document.getElementById('nflag');if(!fl){fl=document.createElementNS('http://www.w3.org/2000/svg','g');fl.id='nflag';fl.setAttribute('class','nextflag');fl.setAttribute('aria-hidden','true');svg.appendChild(fl)}
+  var tp=document.querySelector('.tradeport');if(tp)tp.classList.toggle('next',!!nxt&&nxt.id==='trade');
+  fl.classList.remove('on');if(nxt&&nxt.id!=='trade'){var h=HX.filter(function(x){return x.sec===nxt})[0];if(h){h.el.classList.add('next');var lab=SEC.indexOf(nxt)===0?'Start here':'Next';
+    fl.innerHTML='<g class="nfi"><rect x="-46" y="-28" width="92" height="25" rx="12.5" fill="#22303a"/><path d="M-6 -3.5l6 7 6-7z" fill="#22303a"/><text x="0" y="-10.5">'+lab+'</text></g>';
+    fl.setAttribute('transform','translate('+h.x+','+(h.y+h.fy-6)+')');fl.classList.add('on')}}}
+mark();
 })();
 
 })();
