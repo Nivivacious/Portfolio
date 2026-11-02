@@ -565,25 +565,52 @@ body.onepage .table,body.onepage .hand,body.onepage .playtop{display:none!import
 #onepage .cases>.case{position:static}
 @media (max-width:720px){.onebtn{font-size:.82rem;padding:9px 11px}.opnav{overflow-x:auto;flex-wrap:nowrap;padding:6px;scrollbar-width:none;top:6px}.opnav::-webkit-scrollbar{display:none}.opprint{flex:none}.opnav a{flex:none}.opsec{border-width:5px}.opsec .dhead{flex-wrap:nowrap}.top{flex-wrap:wrap!important}.topbtns{margin-left:0}}
 @media print{.top .topbtns,.opnav,.hand,.hint{display:none!important}body{background:#fff!important}#onepage{max-width:none;padding:0}.opsec{box-shadow:none;break-inside:auto}.dev .add{display:none}}
+/* interaction hierarchy: work, reading, contact, then optional play */
+.heroactions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:0 0 20px}
+.herocontact{border:0;background:none;color:#fff;padding:10px 0;font-weight:800;cursor:pointer;text-decoration:underline;text-underline-offset:4px}
+.topbtns{flex-wrap:wrap;justify-content:flex-end}
+.playtop,.onebtn{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.5);box-shadow:none}
+.playtop:hover,.onebtn:hover{background:rgba(255,255,255,.12)}
+.tradebtn{display:flex!important;background:rgba(10,50,75,.35);color:#fff;border:1px solid rgba(255,255,255,.35);box-shadow:none}
+.dicebox{background:rgba(10,50,75,.22);color:#fff;border:1px solid rgba(255,255,255,.2);box-shadow:none;padding:12px;gap:10px}
+.dicebox .die{width:32px;height:32px;margin:0 2px}
+.dicebox .die .fc{padding:4px}.dicebox .die .fc i{width:5px;height:5px}
+.dicebox .die .f1{transform:translateZ(16px)}.dicebox .die .f6{transform:rotateY(180deg) translateZ(16px)}
+.dicebox .die .f2{transform:rotateY(90deg) translateZ(16px)}.dicebox .die .f5{transform:rotateY(-90deg) translateZ(16px)}
+.dicebox .die .f3{transform:rotateX(90deg) translateZ(16px)}.dicebox .die .f4{transform:rotateX(-90deg) translateZ(16px)}
+.tourbtn{border:1px solid rgba(255,255,255,.55);background:transparent;color:#fff;border-radius:10px;padding:9px 12px;font-weight:800;cursor:pointer}
+.tourbtn:disabled{opacity:.6;cursor:wait}
+.hero .tourhint{font-size:.82rem;line-height:1.4;margin:2px 0 0;flex-basis:100%}
+.trade>.hello{grid-column:1/-1;order:-2}.trade>.fmts{order:-1}.trade>.route{order:3}.trade>.playcta{order:4}
+.emailcta{align-self:flex-start;display:inline-block;background:#ffd34d;color:var(--ink);font-weight:800;text-decoration:none;padding:10px 16px;border-radius:10px;margin-bottom:14px}
+.offer[hidden],.pinwrap[hidden]{display:none!important}
+.cases>.case{position:static}
+body:not(.playing) .nextflag.on .nfi,body:not(.playing) .hx.next .rim,.hc.next .hn{animation:none}
+.hx.sec:hover .land,.hx.sec:focus-visible .land{filter:none}
+.hx.sec:hover .plq rect:not(.pside),.hx.sec:focus-visible .plq rect:not(.pside){fill:#fffaf0;stroke:var(--ink)}
+@media (hover:hover) and (pointer:fine){body:not(.playing) .hx.sec{transition:translate .18s ease}body:not(.playing) .hx.sec:hover{translate:0 -4px}}
+@media (prefers-reduced-motion:reduce){body:not(.playing) .hx.sec{transition:none}}
+@media (max-width:720px){.topbtns{width:100%;justify-content:flex-start}.topbtns .playtop,.topbtns .onebtn,.topbtns .tradebtn{flex:0 1 auto;padding:8px 10px;font-size:.82rem}.heroactions{gap:14px}.trade>.hello{padding:20px}}
 </style>
 </head>
 <body>
 <header class="top">
   <a class="me" href="#" data-close><b>Nivedita Prabhu</b><span class="bar" aria-hidden="true"></span><small>Brand and Product Marketing</small></a>
   <div class="vp" id="vp" aria-live="polite"><span class="lbl" id="vpLbl">Victory points</span><span class="pips" id="pips" aria-hidden="true"></span><b id="vpNum">0/10</b></div>
-  <div class="topbtns"><button class="playtop" type="button" data-play>Play Catan</button><button class="tradebtn" type="button" data-open="trade">Trade offer <span class="n" id="tradeN" hidden>0</span></button></div>
+  <div class="topbtns"><button class="playtop" type="button" data-play>Play Catan</button><button class="tradebtn" type="button" data-open="trade">Let’s trade <span class="n" id="tradeN" hidden>0</span></button></div>
 </header>
 
 <main class="table">
   <section class="hero">
     <h1>Twelve years on the board. <em>Strategy first.</em></h1>
-    <p>Most games are decided by where you build in your first two turns. Brands work the same way. Place the strategy right and every roll after that pays out.</p>
+    <p>From alcohol, ecommerce, beauty, home to agentic workflows. I help companies get their positioning right, create original content IPs and provide clear communication as they take their products to market</p>
+    <div class="heroactions"><button class="roll" type="button" data-open="games">Selected work</button><button class="herocontact" type="button" data-open="trade">Let’s trade →</button></div>
     <div class="settled"><span>Settled in</span>
       <span class="chip"><svg viewBox="0 0 24 24"><path d="M3 21h18v-9l-9-8-9 8z" fill="#c8372d" stroke="#22303a" stroke-width="1.8" stroke-linejoin="round"/></svg>B2B</span>
       <span class="chip"><svg viewBox="0 0 24 24"><path d="M3 21h18v-9l-9-8-9 8z" fill="#f2f2f2" stroke="#22303a" stroke-width="1.8" stroke-linejoin="round"/></svg>B2C</span>
       <span class="chip"><svg viewBox="0 0 24 24"><path d="M3 21h18v-9l-9-8-9 8z" fill="#e8892b" stroke="#22303a" stroke-width="1.8" stroke-linejoin="round"/></svg>E‑commerce</span>
     </div>
-    <div class="dicebox"><div class="die" id="d1" aria-hidden="true"></div><div class="die y" id="d2" aria-hidden="true"></div><button class="roll" id="roll" type="button">Roll</button><div class="gl"><span class="glh">Game log</span><ul id="glog" aria-live="polite"><li class="tip">Start at 1 and follow the numbers. Or roll, and the dice will take you in the same order.</li></ul></div><div class="rbarwrap"><span class="glh">Your resources</span><div class="rbar" id="rbar"></div></div></div>
+    <div class="dicebox"><div class="die" id="d1" aria-hidden="true"></div><div class="die y" id="d2" aria-hidden="true"></div><button class="tourbtn" id="roll" type="button">Show me around</button><p class="tourhint" id="tourHint" aria-live="polite">Pick any hex, or take the guided tour.</p></div>
   </section>
   <section class="gamepanel" id="gp" hidden aria-label="Play the game">
     <div class="gp-top"><span class="kick">Quick game · first to 8 points</span><button type="button" class="gp-x" id="gpExit">Exit game</button></div>
@@ -686,13 +713,13 @@ body.onepage .table,body.onepage .hand,body.onepage .playtop{display:none!import
 <div class="playcta"><p>Not ready to talk yet? Play a quick round against three rival bots first.</p><button type="button" class="roll" data-play>Play the game →</button></div>
 </div></template>
 <template id="t-trade"><div class="trade">
-<div class="route"><svg viewBox="0 40 1100 300" id="routeSvg" role="img" aria-label="Six settlements, one long road: Calcutta, Trivandrum, Madras, Bombay, Goa and Bangalore"></svg></div>
+<div class="hello"><h3>Let’s trade.</h3><p>Tell me what’s broken. I’ll set up the board.</p><a class="emailcta" href="mailto:niveditatidevin@gmail.com">Email me</a><div class="cl"><a href="mailto:niveditatidevin@gmail.com">niveditatidevin@gmail.com</a><span>+91 97409 76950</span><a href="https://x.com/nivivacious" target="_blank" rel="noopener">@nivivacious</a></div></div>
 <div class="fmts"><button type="button" class="fmt" data-size="One settlement" aria-pressed="false"><h4>One settlement</h4><p>One build, done properly.</p><ul><li>A website blueprint or a content IP</li><li>Clear scope, clear handover</li></ul><span class="pk">Pick this</span></button>
 <button type="button" class="fmt" data-size="Full game" aria-pressed="false"><h4>Full game</h4><p>A 2–4 week sprint, end to end.</p><ul><li>Positioning, then the site, then the launch</li><li>For when the whole thing has to hang together</li></ul><span class="pk">Pick this</span></button>
 <button type="button" class="fmt" data-size="A seat at the table" aria-pressed="false"><h4>A seat at the table</h4><p>A monthly fractional retainer.</p><ul><li>A part-time brand lead for your team</li><li>I’ll also review what your juniors and interns make</li></ul><span class="pk">Pick this</span></button></div>
-<div class="hello"><h3>Let’s trade.</h3><p>Tell me what’s broken. I’ll set up the board.</p><div class="cl"><a href="mailto:niveditatidevin@gmail.com">niveditatidevin@gmail.com</a><span>+91 97409 76950</span><a href="https://x.com/nivivacious" target="_blank" rel="noopener">@nivivacious</a></div></div>
-<div class="offer" aria-live="polite"><div class="oh"><b>Trade offer</b><span>Turn <span id="turn">042</span></span></div><ul id="offerList"></ul><div class="orow"><span>Format</span><b id="offerFmt">Not picked</b></div><div class="orow"><span>In return</span><b>Settled over a call</b></div><div class="obtns"><a id="sendOffer" href="mailto:niveditatidevin@gmail.com">Send offer</a><button class="p" type="button" id="copyOffer">Copy offer</button><button class="c" type="button" id="clearOffer">Clear</button></div></div>
-<div class="pinwrap"><div class="pinhead"><div><b>Arrange your offer</b><span>Drag the cards into the order that matters to you, then save it to send.</span></div><button type="button" class="ghost" id="saveImg">Save as image</button></div><div class="pinboard" id="pinboard" role="list" aria-label="Your trade offer, arrangeable"></div></div>
+<div class="offer" hidden aria-live="polite"><div class="oh"><b>Trade offer</b><span>Turn <span id="turn">042</span></span></div><ul id="offerList"></ul><div class="orow"><span>Format</span><b id="offerFmt">Not picked</b></div><div class="orow"><span>In return</span><b>Settled over a call</b></div><div class="obtns"><a id="sendOffer" href="mailto:niveditatidevin@gmail.com">Send offer</a><button class="p" type="button" id="copyOffer">Copy offer</button><button class="c" type="button" id="clearOffer">Clear</button></div></div>
+<div class="pinwrap" hidden><div class="pinhead"><div><b>Arrange your offer</b><span>Drag the cards into the order that matters to you, then save it to send.</span></div><button type="button" class="ghost" id="saveImg">Save as image</button></div><div class="pinboard" id="pinboard" role="list" aria-label="Your trade offer, arrangeable"></div></div>
+<div class="route"><svg viewBox="0 40 1100 300" id="routeSvg" role="img" aria-label="Six settlements, one long road: Calcutta, Trivandrum, Madras, Bombay, Goa and Bangalore"></svg></div>
 <div class="playcta"><p>Not ready to talk yet? Play a quick round against three rival bots first.</p><button type="button" class="roll" data-play>Play the game →</button></div>
 </div></template>
 
@@ -873,23 +900,15 @@ function face(d,n){var c=d.querySelector('.cube');if(!c)return;d._t=(d._t===unde
 face(d1,5);face(d2,3);
 function popRes(h,t){var e=document.createElementNS(NS,'text');e.setAttribute('class','res');e.setAttribute('x',h.x);e.setAttribute('y',h.y-30);e.textContent=t;svg.appendChild(e);setTimeout(function(){e.remove()},1550)}
 function hit(h){var g=h.el;g.classList.remove('hit');void g.getBoundingClientRect();g.classList.add('hit')}
-var glog=document.getElementById('glog'),rbar=document.getElementById('rbar');
-var RES_ORDER=['wood','brick','wool','grain','ore'],inv=store('npi_inv')||{wood:0,brick:0,wool:0,grain:0,ore:0};
-function drawInv(bump){rbar.innerHTML=RES_ORDER.map(function(k){return '<div class="rc'+(bump&&bump.indexOf(k)>=0?' got':'')+'" title="'+k+'"><svg viewBox="-13 -13 26 26" aria-hidden="true">'+ICON[k]+'</svg><b>'+inv[k]+'</b><span>'+k+'</span></div>'}).join('')}
-drawInv();
-function addLog(html){var li=document.createElement('li');li.innerHTML=html;glog.insertBefore(li,glog.firstChild);while(glog.children.length>4)glog.removeChild(glog.lastChild);var h=glog.querySelector('.tip');if(h)h.remove()}
-function ic(k){return '<svg class="li" viewBox="-13 -13 26 26" aria-hidden="true">'+ICON[k]+'</svg>'}
-var exIdx=0;
-document.getElementById('roll').addEventListener('click',function(){
-  var a=1+Math.floor(Math.random()*6),b=1+Math.floor(Math.random()*6),s=a+b;
-  
-  setTimeout(function(){face(d1,a);face(d2,b);
-    var tag='<span class="rl">'+s+'</span>';
-    if(s===7){var opts=HX.filter(function(h){return h!==cen&&h!==robOn});var rh=opts[Math.floor(Math.random()*opts.length)];
-      if(robOn)robOn.el.classList.remove('robbed');robOn=rh;if(rh!==desert)rh.el.classList.add('robbed');placeRob(rh)}
-    else{var hits=HX.filter(function(h){return h.n===s&&h!==robOn});var got=[];hits.forEach(function(h){hit(h);var k=RES[h.terrain];popRes(h,'+1 '+k);inv[k]++;got.push(k)});if(got.length){store('npi_inv',inv);drawInv(got)}}
-    var nx=SEC[exIdx%SEC.length];exIdx++;var hx=HX.filter(function(h){return h.sec===nx})[0];if(hx)hit(hx);
-    addLog(tag+(exIdx===1?'First stop: ':'Next stop: ')+'<b>'+nx.title+'</b> <button type="button" data-open="'+nx.id+'">Open</button>');
+var exIdx=0,tourTimer=null,tourButton=document.getElementById('roll');
+tourButton.addEventListener('click',function(){
+  if(tourButton.disabled)return;
+  var a=1+Math.floor(Math.random()*6),b=1+Math.floor(Math.random()*6);
+  tourButton.disabled=true;face(d1,a);face(d2,b);
+  tourTimer=setTimeout(function(){
+    var nx=SEC[exIdx%SEC.length];exIdx++;
+    document.getElementById('tourHint').textContent='Tour stop '+((exIdx-1)%SEC.length+1)+' of '+SEC.length+': '+nx.title;
+    tourButton.disabled=false;tourTimer=null;openCard(nx.id);
   },RM?0:450);
 });
 
@@ -955,23 +974,26 @@ function wire(){
   body.querySelectorAll('.dev[data-item]').forEach(function(d){var name=d.dataset.item,b=document.createElement('button');b.type='button';b.className='add';
     function st(){var on=order.indexOf(name)>=0;b.setAttribute('aria-pressed',on);b.textContent=on?'Added ✓':'+ Add'}
     b.setAttribute('aria-label','Add '+name+' to your trade offer');st();
-    b.addEventListener('click',function(){var i=order.indexOf(name);if(i<0)order.push(name);else order.splice(i,1);save();st();syncBadge(i<0)});d.appendChild(b)});
+    b.addEventListener('click',function(){var i=order.indexOf(name);if(i<0)order.push(name);else order.splice(i,1);save();st();syncBadge(i<0);document.querySelectorAll('.trade').forEach(function(t){t.dispatchEvent(new Event('offerchange'))})});d.appendChild(b)});
   if(cur==='trade')wireTrade();
 }
 function wireTrade(){
-  var list=document.getElementById('offerList'),fmt=document.getElementById('offerFmt'),send=document.getElementById('sendOffer');
-  document.getElementById('turn').textContent=T;
+  var tradeRoot=body,trade=tradeRoot.querySelector('.trade');
+  function tradeElement(id){return tradeRoot.querySelector('#'+id)}
+  var list=tradeElement('offerList'),fmt=tradeElement('offerFmt'),send=tradeElement('sendOffer');
+  tradeElement('turn').textContent=T;
   function render(added){
+    trade.querySelector('.offer').hidden=!(order.length||size);trade.querySelector('.pinwrap').hidden=!order.length;
     list.innerHTML=order.length?'':'<li class="empty">Nothing yet. Tap “+ Add” on anything on the island.</li>';
     order.forEach(function(o){var li=document.createElement('li');li.textContent=o;if(o===added)li.className='new';list.appendChild(li)});
     fmt.textContent=size||'Not picked';
-    body.querySelectorAll('.fmt').forEach(function(f){f.setAttribute('aria-pressed',f.dataset.size===size)});
+    tradeRoot.querySelectorAll('.fmt').forEach(function(f){f.setAttribute('aria-pressed',f.dataset.size===size)});
     var txt='Hi Nivedita,\n\nHere’s my trade offer (turn '+T+').\n\nWhat we’d like:\n'+(order.length?order.map(function(o){return '• '+o}).join('\n'):'• Not sure yet, let’s talk')+'\n\nFormat: '+(size||'Not sure yet')+'\n\nAbout us:\n';
     send.href='mailto:niveditatidevin@gmail.com?subject='+encodeURIComponent('Trade offer · turn '+T)+'&body='+encodeURIComponent(txt);send.dataset.body=txt;
     save();syncBadge();drawPins(added);
   }
 
-  var board=document.getElementById('pinboard'),pos=store('npi_pos')||{};
+  var board=tradeElement('pinboard'),pos=store('npi_pos')||{};
   function drawPins(added){if(!board)return;board.innerHTML='';
     if(!order.length){board.innerHTML='<p class="pinempty">Tap “+ Add” on any service and it lands here as a card you can move around.</p>';return}
     var W=board.clientWidth||600;
@@ -984,7 +1006,7 @@ function wireTrade(){
         el.addEventListener('pointermove',mv);el.addEventListener('pointerup',up)});
       board.appendChild(el)});
     store('npi_pos',pos)}
-  var sv=document.getElementById('saveImg');
+  var sv=tradeElement('saveImg');
   if(sv)sv.addEventListener('click',function(){if(!order.length){sv.textContent='Add something first';setTimeout(function(){sv.textContent='Save as image'},1500);return}
     var bw=board.clientWidth,bh=board.clientHeight,k=2,cv=document.createElement('canvas');cv.width=bw*k;cv.height=(bh+90)*k;var x=cv.getContext('2d');x.scale(k,k);
     x.fillStyle='#2fa3d6';x.fillRect(0,0,bw,bh+90);x.fillStyle='#fbf4e2';x.beginPath();x.roundRect(12,12,bw-24,bh+66,16);x.fill();
@@ -993,12 +1015,13 @@ function wireTrade(){
       x.save();x.translate(cx,cy);x.rotate(p.r*Math.PI/180);x.fillStyle='rgba(0,0,0,.18)';x.beginPath();x.roundRect(-w/2+2,-h/2+4,w,h,10);x.fill();x.fillStyle='#fff';x.strokeStyle='#22303a';x.lineWidth=2;x.beginPath();x.roundRect(-w/2,-h/2,w,h,10);x.fill();x.stroke();
       x.fillStyle='#c8372d';x.fillRect(-w/2+10,-h/2,w-20,5);x.fillStyle='#22303a';x.font='800 15px Nunito, sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText(order[i],0,2);x.restore()});
     try{var a=document.createElement('a');a.href=cv.toDataURL('image/png');a.download='trade-offer-'+T+'.png';document.body.appendChild(a);a.click();a.remove();sv.textContent='Saved';setTimeout(function(){sv.textContent='Save as image'},1500)}catch(e){sv.textContent='Saving blocked here'}});
-  body.querySelectorAll('.fmt').forEach(function(f){f.addEventListener('click',function(){size=size===f.dataset.size?'':f.dataset.size;render()})});
-  document.getElementById('clearOffer').addEventListener('click',function(){order=[];size='';render()});
-  var cp=document.getElementById('copyOffer');cp.addEventListener('click',function(){try{navigator.clipboard.writeText(send.dataset.body).then(function(){cp.textContent='Copied';setTimeout(function(){cp.textContent='Copy offer'},1500)},function(){cp.textContent='Copy blocked, use Send'})}catch(e){cp.textContent='Copy blocked, use Send'}});
+  tradeRoot.querySelectorAll('.fmt').forEach(function(f){f.addEventListener('click',function(){size=size===f.dataset.size?'':f.dataset.size;render()})});
+  tradeElement('clearOffer').addEventListener('click',function(){order=[];size='';render()});
+  var cp=tradeElement('copyOffer');cp.addEventListener('click',function(){try{navigator.clipboard.writeText(send.dataset.body).then(function(){cp.textContent='Copied';setTimeout(function(){cp.textContent='Copy offer'},1500)},function(){cp.textContent='Copy blocked, use Send'})}catch(e){cp.textContent='Copy blocked, use Send'}});
+  trade.addEventListener('offerchange',function(){render()});
   render();
   /* route */
-  var rs=document.getElementById('routeSvg'),d='M80 250 C200 140 300 320 400 230 S560 120 640 200 S820 320 880 220 S1000 140 1040 210';
+  var rs=tradeElement('routeSvg'),d='M80 250 C200 140 300 320 400 230 S560 120 640 200 S820 320 880 220 S1000 140 1040 210';
   rs.innerHTML='<text x="24" y="92" font-family="Nunito" font-weight="900" font-size="34" fill="#fff">Six settlements, one long road</text><path d="'+d+'" fill="none" stroke="#f1dca3" stroke-width="54" stroke-linecap="round" opacity=".95"/><path d="'+d+'" fill="none" stroke="#22303a" stroke-width="13" stroke-linecap="round"/><path id="rd" d="'+d+'" fill="none" stroke="#c8372d" stroke-width="8" stroke-linecap="round"/>';
   var track=rs.querySelector('#rd'),L=track.getTotalLength();
   if(!RM){track.style.strokeDasharray=L;track.style.strokeDashoffset=L;track.getBoundingClientRect();track.style.transition='stroke-dashoffset 1.6s ease-out';track.style.strokeDashoffset=0}
@@ -1218,6 +1241,7 @@ function checkWin(){for(var p=0;p<NP;p++)if(vp(p)>=TARGET){S.phase='win';busy=fa
 /* ---- start / exit ---- */
 G.redraw=function(){if(S){draw();ui()}};
 G.start=function(){
+  if(tourTimer!==null){clearTimeout(tourTimer);tourTimer=null;tourButton.disabled=false;}
   G.active=true;closeCard&&closeCard();document.body.classList.add('playing');hero.hidden=true;gp.hidden=false;$('winrow').hidden=true;
   var deco=$('deco');if(deco)deco.style.display='none';
   VS.forEach(function(v){v.owner=-1;v.city=false});ES.forEach(function(e){e.owner=-1});
@@ -1300,19 +1324,6 @@ var tintEl=document.createElement('div');tintEl.className='seatint';tintEl.setAt
 function tint(id){var s=byId[id];tintEl.style.background=s?(C[s.terrain]||'#2fa3d6'):'transparent';tintEl.classList.toggle('on',!!s&&s.terrain!=='sea')}
 var _close=closeCard;closeCard=function(){_close();tintEl.classList.remove('on')};
 
-/* 4 · paint the headline with the board */
-var h1=document.querySelector('.hero h1');
-if(h1&&FINE&&!RM){
-  var wrap=document.createElement('div');wrap.className='h1wrap';h1.parentNode.insertBefore(wrap,h1);wrap.appendChild(h1);
-  var paint=h1.cloneNode(true);paint.className='paint';paint.setAttribute('aria-hidden','true');wrap.appendChild(paint);
-  var trail=[];
-  wrap.addEventListener('pointermove',function(e){var r=wrap.getBoundingClientRect();trail.push({x:e.clientX-r.left,y:e.clientY-r.top,t:performance.now()});if(trail.length>14)trail.shift();if(!wrap._raf)wrap._raf=requestAnimationFrame(drawMask)});
-  function drawMask(){wrap._raf=0;var now=performance.now();trail=trail.filter(function(p){return now-p.t<1400});
-    if(!trail.length){paint.style.webkitMaskImage=paint.style.maskImage='linear-gradient(transparent,transparent)';return}
-    var m=trail.map(function(p){var a=Math.max(0,1-(now-p.t)/1400);return 'radial-gradient(circle 70px at '+p.x+'px '+p.y+'px, rgba(0,0,0,'+a.toFixed(2)+') 35%, transparent 100%)'}).join(',');
-    paint.style.webkitMaskImage=paint.style.maskImage=m;wrap._raf=requestAnimationFrame(drawMask)}
-}
-
 /* 6 · pick your player colour */
 var CHOICES=[['Red','#c8372d'],['Orange','#e8892b'],['Blue','#2f6fb3'],['White','#f2f2f2']];
 var pick=document.createElement('div');pick.className='pcpick';
@@ -1336,22 +1347,6 @@ G.arrange=true;
 var FINE=window.matchMedia('(hover:hover) and (pointer:fine)').matches;
 var body=document.getElementById('dBody'),wrapI=document.querySelector('.islandWrap');
 
-/* 1 · stats count up */
-function parseStat(t){var m=t.match(/^([+]?)([\d,.]+)(.*)$/);if(!m)return null;var raw=m[2].replace(/,/g,'');return {pre:m[1],n:parseFloat(raw),dec:(raw.split('.')[1]||'').length,comma:m[2].indexOf(',')>=0,suf:m[3]}}
-function fmt(p,v){var s=v.toFixed(p.dec);if(p.comma)s=Math.round(v).toLocaleString('en-US');return p.pre+s+p.suf}
-function countUp(el){if(el._done)return;el._done=1;var p=parseStat(el.textContent.trim());if(!p||RM)return;var t0=performance.now(),D=1100;
-  (function step(now){var k=Math.min(1,(now-t0)/D),e=1-Math.pow(1-k,3);
-    el.textContent=k<.55&&Math.random()<.5?fmt(p,p.n*Math.random()):fmt(p,p.n*e);
-    if(k<1)requestAnimationFrame(step);else el.textContent=fmt(p,p.n)})(t0)}
-var io=('IntersectionObserver' in window)?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){countUp(e.target);io.unobserve(e.target)}})},{root:body,threshold:.6}):null;
-function wireStats(){body.querySelectorAll('.stat b').forEach(function(b){if(io&&!RM)io.observe(b)})}
-
-/* 2 · card titles shuffle into place */
-var GLY='ABCDEFGHKMNPRSTUVWXYZ◆▲●■';
-function scramble(el){if(RM)return;var fin=el.textContent,t0=performance.now(),D=520;clearInterval(el._s);
-  el._s=setInterval(function(){var k=(performance.now()-t0)/D;if(k>=1){clearInterval(el._s);el.textContent=fin;return}
-    var n=Math.floor(fin.length*k);el.textContent=fin.slice(0,n)+fin.slice(n).replace(/[^\s’,]/g,function(){return GLY[Math.floor(Math.random()*GLY.length)]})},40)}
-
 /* 4 · cases stack like a hand of cards */
 function wireStack(){body.querySelectorAll('.cases>.case').forEach(function(c,i){c.style.setProperty('--i',i)})}
 
@@ -1373,13 +1368,7 @@ function wireRoad(){var t=body.querySelector('table.sheet');if(!t||t.parentNode.
     pins.forEach(function(s){s.classList.toggle('on',s.getBoundingClientRect().top<=line+4)})}
   layout();prog();body.addEventListener('scroll',prog,{passive:true});window.addEventListener('resize',function(){layout();prog()});setTimeout(function(){layout();prog()},400)}
 
-var _o2=openCard;openCard=function(id,noHash){_o2(id,noHash);var t=document.getElementById('dTitle');scramble(t);wireStats();wireStack();wireAwards();wireRoad()};
-
-/* 3 · magnetic buttons */
-if(FINE&&!RM){var mx=-1e4,my=-1e4,raf=0;
-  document.addEventListener('pointermove',function(e){mx=e.clientX;my=e.clientY;if(!raf)raf=requestAnimationFrame(mag)},{passive:true});
-  function mag(){raf=0;document.querySelectorAll('.roll,.mag').forEach(function(b){if(!b.offsetParent||b.closest('#gp')){b.style.translate='';return}var r=b.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,dx=mx-cx,dy=my-cy,d=Math.hypot(dx,dy),R=Math.max(r.width,r.height)*.5+46;
-    if(d<R){var k=(1-d/R)*.35;b.style.translate=(dx*k).toFixed(1)+'px '+(dy*k).toFixed(1)+'px';b.classList.add('pulled')}else if(b.classList.contains('pulled')){b.style.translate='';b.classList.remove('pulled')}})}}
+var _o2=openCard;openCard=function(id,noHash){_o2(id,noHash);wireStack();wireRoad()};
 
 /* 8 · victory: resource cards rain down */
 var RC=['#c8643a','#3f7d3a','#e9b934','#8cc152','#8e969d'];
@@ -1390,9 +1379,6 @@ G.onWin=function(p){var wr=document.querySelector('#winrow .roll');if(wr){wr.cla
     x.save();x.translate(q.x,q.y);x.rotate(q.r);x.scale(1,Math.cos(q.r*1.7));x.fillStyle='#fbf1d6';x.fillRect(-q.w/2,-q.w*.7,q.w,q.w*1.4);x.fillStyle=q.c;x.fillRect(-q.w/2+2.5,-q.w*.7+2.5,q.w-5,q.w*1.4-5);x.restore()});
     if(el<3200)requestAnimationFrame(f);else cv.remove()})(t0)};
 
-/* 9 · roll twice fast and the table gets bumped */
-var lastRoll=0;document.addEventListener('click',function(e){if(!e.target.closest('#roll,#gRoll'))return;var n=Date.now();
-  if(n-lastRoll<1300&&!RM&&wrapI&&!G.active){wrapI.classList.remove('bump');void wrapI.offsetWidth;wrapI.classList.add('bump')}lastRoll=n},true);
 })();
 
 
