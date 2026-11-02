@@ -399,11 +399,48 @@ h1,h2,h3,h4{font-weight:900}
 .settled > span:first-child{font-size:min(.82rem,3.1cqw)!important;margin-right:min(10px,1.6cqw)!important}
 .settled .chip{font-size:min(1rem,3.9cqw)!important;padding:6px min(14px,2.4cqw)!important;gap:min(8px,1.5cqw)!important}
 .settled .chip svg{width:min(22px,4.6cqw)!important;height:min(22px,4.6cqw)!important;flex:none}
+.me{display:flex!important;align-items:center;gap:16px;flex-wrap:wrap}
+.me b{font-family:var(--display);font-weight:900!important;font-size:clamp(2rem,3.4vw,3rem)!important;line-height:1.05;letter-spacing:-.01em}
+.me .bar{width:3px;height:clamp(28px,2.8vw,42px);background:rgba(255,255,255,.55);border-radius:2px}
+.me small{display:block!important;font-size:clamp(1.15rem,2vw,1.75rem)!important;font-weight:700;opacity:.95;letter-spacing:0;text-transform:none;margin:0}
+@media (max-width:720px){.me .bar{display:none}.me{gap:2px;flex-direction:column;align-items:flex-start}.me small{display:block!important}}
+.reyes{transition:transform .08s;transform-origin:0px -14px}.reyes.blink{transform:scaleY(.12)}
+.sheep{transition:transform .35s ease}
+.peek{position:fixed;z-index:45;width:270px;background:#fbf4e2;color:var(--ink);border:5px solid var(--c);border-radius:16px;padding:12px 14px 12px;box-shadow:0 20px 40px -16px rgba(8,40,62,.55);pointer-events:none;opacity:0;transform:scale(.55);transform-origin:top left;transition:opacity .16s,transform .28s cubic-bezier(.2,1.4,.4,1);display:flex;flex-direction:column;gap:3px}
+.peek[hidden]{display:none}.peek.on{opacity:1;transform:none}
+.peek .pk{font-size:.66rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2)}
+.peek b{font-family:var(--display);font-weight:900;font-size:1.3rem;line-height:1.1}
+.peek .pl{font-size:.9rem;line-height:1.35}
+.peek .go{margin-top:4px;font-weight:800;font-size:.8rem;color:var(--red)}
+.dcard.grow{animation:grow .6s cubic-bezier(.2,.9,.25,1)!important}
+@keyframes grow{from{opacity:.4;transform:translate(var(--gx),var(--gy)) scale(.1)}to{opacity:1;transform:none}}
+.seatint{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity .7s ease,background-color .7s ease}
+.seatint.on{opacity:.3}
+.h1wrap{position:relative;display:flow-root}
+.hero h1.paint{position:absolute;left:0;top:0;right:0;pointer-events:none;color:transparent!important;-webkit-text-fill-color:transparent;text-shadow:none!important;background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2796%27%20height%3D%2796%27%3E%3Crect%20width%3D%2748%27%20height%3D%2748%27%20fill%3D%27%23f1c740%27/%3E%3Cpath%20d%3D%27M0%2048L48%200M-12%2036L36%20-12M12%2060L60%2012M24%2072L72%2024%27%20stroke%3D%27%23d39a1f%27%20stroke-width%3D%273%27/%3E%3Crect%20x%3D%2748%27%20width%3D%2748%27%20height%3D%2748%27%20fill%3D%27%234f9440%27/%3E%3Cpath%20d%3D%27M58%2040l7-16%207%2016zM74%2034l6-14%206%2014zM62%2020l5-12%205%2012z%27%20fill%3D%27%232c6a2a%27/%3E%3Crect%20y%3D%2748%27%20width%3D%2748%27%20height%3D%2748%27%20fill%3D%27%23e08a4c%27/%3E%3Cg%20fill%3D%27%23b5462a%27%3E%3Crect%20x%3D%273%27%20y%3D%2754%27%20width%3D%2719%27%20height%3D%279%27/%3E%3Crect%20x%3D%2725%27%20y%3D%2754%27%20width%3D%2719%27%20height%3D%279%27/%3E%3Crect%20x%3D%2713%27%20y%3D%2766%27%20width%3D%2719%27%20height%3D%279%27/%3E%3Crect%20x%3D%273%27%20y%3D%2778%27%20width%3D%2719%27%20height%3D%279%27/%3E%3Crect%20x%3D%2725%27%20y%3D%2778%27%20width%3D%2719%27%20height%3D%279%27/%3E%3C/g%3E%3Crect%20x%3D%2748%27%20y%3D%2748%27%20width%3D%2748%27%20height%3D%2748%27%20fill%3D%27%23a3d55e%27/%3E%3Cg%20fill%3D%27%23fff%27%3E%3Cellipse%20cx%3D%2762%27%20cy%3D%2764%27%20rx%3D%277%27%20ry%3D%275%27/%3E%3Cellipse%20cx%3D%2782%27%20cy%3D%2782%27%20rx%3D%277%27%20ry%3D%275%27/%3E%3C/g%3E%3C/svg%3E") 0 0/72px 72px;-webkit-background-clip:text;background-clip:text;-webkit-mask-image:linear-gradient(transparent,transparent);mask-image:linear-gradient(transparent,transparent)}
+.hero h1.paint em{color:transparent!important;-webkit-text-fill-color:transparent}
+.pcpick{display:flex;align-items:center;gap:12px;margin:-2px 0 10px}
+.pcpick .glh{margin:0!important}
+.pcpick .sw{display:flex;gap:8px}
+.pcpick button{width:30px;height:30px;border-radius:50%;background:var(--sw);border:2px solid rgba(34,48,58,.35);cursor:pointer;padding:0}
+.pcpick button[aria-pressed="true"]{outline:3px solid var(--ink);outline-offset:2px}
+.pinwrap{grid-column:1/-1;background:#fff;border:2px solid var(--line);border-radius:16px;padding:14px 16px}
+.pinhead{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.pinhead b{display:block;font-family:var(--display);font-weight:900;font-size:1.2rem}
+.pinhead span{font-size:.88rem;color:var(--ink2)}
+.pinboard{position:relative;height:200px;border-radius:12px;background:repeating-linear-gradient(0deg,#f6efdc 0 22px,#f1e8d1 22px 23px);overflow:hidden}
+.pinempty{margin:0;padding:24px;color:var(--ink2);font-weight:600;text-align:center}
+.pin{position:absolute;max-width:46%;background:#fff;border:2px solid var(--ink);border-radius:10px;padding:10px 14px;font-weight:800;font-size:.92rem;cursor:grab;touch-action:none;user-select:none;transform:rotate(var(--r));box-shadow:0 4px 0 rgba(0,0,0,.15);transition:box-shadow .2s,transform .2s}
+.pin::before{content:"";position:absolute;left:10px;right:10px;top:-2px;height:5px;background:var(--red);border-radius:0 0 4px 4px}
+.pin.drag{cursor:grabbing;transform:rotate(0) scale(1.05);box-shadow:0 12px 20px -6px rgba(0,0,0,.3);z-index:3}
+.pin.drop{animation:pdrop .5s cubic-bezier(.3,1.5,.5,1)}
+@keyframes pdrop{from{transform:translateY(-40px) rotate(0);opacity:0}}
+@media (prefers-reduced-motion:reduce){.peek{transition:none}.seatint{transition:none}}
 </style>
 </head>
 <body>
 <header class="top">
-  <a class="me" href="#" data-close><span><b>Nivedita Prabhu</b><small>Brand &amp; product marketing</small></span></a>
+  <a class="me" href="#" data-close><b>Nivedita Prabhu</b><span class="bar" aria-hidden="true"></span><small>Brand and Product Marketing</small></a>
   <div class="vp" id="vp" aria-live="polite"><span class="lbl" id="vpLbl">Victory points</span><span class="pips" id="pips" aria-hidden="true"></span><b id="vpNum">0/10</b></div>
   <div class="topbtns"><button class="playtop" type="button" data-play>Play the game</button><button class="tradebtn" type="button" data-open="trade">Trade offer <span class="n" id="tradeN" hidden>0</span></button></div>
 </header>
@@ -411,7 +448,7 @@ h1,h2,h3,h4{font-weight:900}
 <main class="table">
   <section class="hero">
     <span class="kick">Brand strategist · Bengaluru</span>
-    <h1>Twelve years on the board. <em>Strategy, settled first.</em></h1>
+    <h1>Twelve years on the board. <em>Strategy first.</em></h1>
     <p>Most games are decided by where you build in your first two turns. Brands work the same way. Place the strategy right and every roll after that pays out.</p>
     <div class="settled"><span>Settled in</span>
       <span class="chip"><svg viewBox="0 0 24 24"><path d="M3 21h18v-9l-9-8-9 8z" fill="#c8372d" stroke="#22303a" stroke-width="1.8" stroke-linejoin="round"/></svg>B2B</span>
@@ -456,18 +493,18 @@ h1,h2,h3,h4{font-weight:900}
   </article>
 </div>
 
-<template id="t-find-the-story"><div class="lead"><div class="bubble">“We can’t explain what we do in one line.”</div><p>Before the logo, the website or the launch: what are you, who is it for, and why should they care? I get that down to one line, then build everything else on it.</p></div><div class="devs"><article class="dev" data-item="Positioning sprint"><h4>Positioning sprint</h4><p class="when"><b>For when</b>you explain the company differently every time someone asks.</p><ul><li>Founder and customer interviews</li><li>A teardown of how competitors talk</li><li>One positioning line, with the reasoning written down</li></ul></article><article class="dev" data-item="Messaging framework"><h4>Messaging framework</h4><p class="when"><b>For when</b>sales, the website and the deck all say slightly different things.</p><ul><li>Value propositions for each buyer</li><li>Proof points to back every claim</li><li>Words to use, and words to drop</li></ul></article><article class="dev" data-item="Category narrative"><h4>Category narrative</h4><p class="when"><b>For when</b>buyers keep filing you under the wrong category.</p><ul><li>A name for the space you want to own</li><li>The old way vs the new way story</li><li>A launch line the team can repeat</li></ul></article><article class="dev" data-item="Brand audit"><h4>Brand audit</h4><p class="when"><b>For when</b>you grew fast and the brand grew in five directions.</p><ul><li>A review of everything you’ve put out</li><li>What to keep, fix and retire</li></ul></article><article class="dev" data-item="Naming and taglines"><h4>Naming and taglines</h4><p class="when"><b>For when</b>a new product, feature or sub-brand needs a name you won’t regret in a year.</p><ul><li>A shortlist with the thinking behind each</li><li>Quick checks on domains and handles</li><li>Tagline options</li></ul></article><article class="dev" data-item="Voice and tone guide"><h4>Voice and tone guide</h4><p class="when"><b>For when</b>five people write for the brand, and you can tell.</p><ul><li>How you sound, with real before-and-after examples</li><li>A one-page cheat sheet for interns and agencies</li></ul></article></div><div class="opening"><b>Opening move</b><p>A one-hour positioning read. Send me your website and deck, and I’ll tell you what’s unclear and what I’d fix first.</p></div><div class="built"><h5>Already built</h5><ul><li>RazorpayX Corporate Cards: spend management to savings, 4x branded search</li><li>A legal-tech startup: out of the “another CLM” box, into its own category</li><li>Positioning and GTM narratives for Nyayanidhi</li></ul></div></template>
-<template id="t-build-the-home"><div class="lead"><div class="bubble">“Our website says everything and nothing.”</div><p>Your website is the one salesperson who never logs off. I plan what goes on it and write the words, so a designer or developer can build it without guessing.</p></div><div class="devs"><article class="dev" data-item="Website blueprint"><h4>Website blueprint</h4><p class="when"><b>For when</b>you’re building or rebuilding the site.</p><ul><li>A sitemap</li><li>Block-by-block wireframes for each key page</li><li>All the copy</li></ul></article><article class="dev" data-item="Homepage rewrite"><h4>Homepage rewrite</h4><p class="when"><b>For when</b>the site is live, but visitors still ask “so what do you do?”</p><ul><li>An audit of the current page</li><li>A new structure</li><li>Rewritten copy</li></ul></article><article class="dev" data-item="Landing pages"><h4>Landing pages</h4><p class="when"><b>For when</b>a launch, campaign or new segment needs its own page.</p><ul><li>Page structure and copy</li><li>Headline options worth testing</li></ul></article><article class="dev" data-item="Case studies"><h4>Case studies</h4><p class="when"><b>For when</b>customers love you, but you have nothing to show the next one.</p><ul><li>A customer interview</li><li>A written case study, named or anonymised</li><li>A one-page version for sales</li></ul></article><article class="dev" data-item="Sales deck and one-pagers"><h4>Sales deck and one-pagers</h4><p class="when"><b>For when</b>every rep has their own version of the deck.</p><ul><li>One master story</li><li>Deck copy and a leave-behind one-pager</li></ul></article></div><div class="opening"><b>Opening move</b><p>A homepage roast. I go through your homepage and send back a recorded walkthrough of what to fix.</p></div><div class="built"><h5>Already built</h5><ul><li>A legal-tech startup’s website, blueprinted and written from scratch</li><li>An anonymised customer case study sales actually uses</li><li>RazorpayX Rewards microsite, 500+ partner offers</li></ul></div></template>
-<template id="t-make-noise"><div class="lead"><div class="bubble">“We post. Nobody notices.”</div><p>Getting noticed comes down to having a point of view and saying it in a few recognisable ways, again and again. I help you find yours, then set up a rhythm your team can actually keep.</p></div><div class="devs"><article class="dev" data-item="Social strategy"><h4>Social strategy</h4><p class="when"><b>For when</b>you post when someone remembers to.</p><ul><li>An audit of what you’ve put out</li><li>Content buckets for each channel</li><li>A posting rhythm your team can keep up</li></ul></article><article class="dev" data-item="Content IPs"><h4>Content IPs</h4><p class="when"><b>For when</b>you want people to come back for something, not just scroll past.</p><ul><li>A recurring series with a name, look and episode list</li><li>Scripts for the first few episodes</li></ul></article><article class="dev" data-item="Launch films and campaigns"><h4>Launch films and campaigns</h4><p class="when"><b>For when</b>you have one big moment and need people to talk about it.</p><ul><li>The idea and scripts</li><li>Working with the production team through the shoot</li><li>The plan for after it goes live</li></ul></article><article class="dev" data-item="Owned research and reports"><h4>Owned research and reports</h4><p class="when"><b>For when</b>you want press and sales conversations without buying ads.</p><ul><li>Survey and interview design</li><li>Finding the story in the data</li><li>A report people quote</li></ul></article><article class="dev" data-item="Employee advocacy"><h4>Employee advocacy</h4><p class="when"><b>For when</b>your team has more reach than your company page.</p><ul><li>A programme that makes posting easy</li><li>Prompts and templates</li><li>A light game to keep it going</li></ul></article></div><div class="opening"><b>Opening move</b><p>A social teardown. Your last 30 posts, what’s working, and a few series ideas to try.</p></div><div class="built"><h5>Already built</h5><ul><li>Fix My Itch: 5.4M impressions, Shortys, Kyoorius, Abbys</li><li>IPL 2026 “Break to Build”: APAC Effies</li><li>Payroll “Trial of the Century”: Shortys, ET Brand Equity</li><li>T20 World Cup CTV: 67M+ impressions</li><li>Mental Capital Report: GTM for a founder-wellbeing report</li><li>Kingfisher “Indian Prank League” · JWT, client servicing</li></ul></div></template>
+<template id="t-find-the-story"><div class="lead"><div class="bubble">“We can’t explain what we do in one line.”</div><p>Before the logo, the website or the launch: what are you, who is it for, and why should they care? I get that down to one line, then build everything else on it.</p></div><div class="devs"><article class="dev" data-item="Positioning sprint"><h4>Positioning sprint</h4><p class="when"><b>For when</b>you explain the company differently every time someone asks.</p><ul><li>Founder and customer interviews</li><li>A teardown of how competitors talk</li><li>One positioning line, with the reasoning written down</li></ul></article><article class="dev" data-item="Messaging framework"><h4>Messaging framework</h4><p class="when"><b>For when</b>sales, the website and the deck all say slightly different things.</p><ul><li>Value propositions for each buyer</li><li>Proof points to back every claim</li><li>Words to use, and words to drop</li></ul></article><article class="dev" data-item="Category narrative"><h4>Category narrative</h4><p class="when"><b>For when</b>buyers keep filing you under the wrong category.</p><ul><li>A name for the space you want to own</li><li>The old way vs the new way story</li><li>A launch line the team can repeat</li></ul></article><article class="dev" data-item="Brand audit"><h4>Brand audit</h4><p class="when"><b>For when</b>you grew fast and the brand grew in five directions.</p><ul><li>A review of everything you’ve put out</li><li>What to keep, fix and retire</li></ul></article><article class="dev" data-item="Voice and tone guide"><h4>Voice and tone guide</h4><p class="when"><b>For when</b>five people write for the brand, and you can tell.</p><ul><li>How you sound, with real before-and-after examples</li><li>A one-page cheat sheet for interns and agencies</li></ul></article></div><div class="opening"><b>Opening move</b><p>A one-hour positioning read. Send me your website and deck, and I’ll tell you what’s unclear and what I’d fix first.</p></div><div class="built"><h5>Already built</h5><ul><li>RazorpayX Corporate Cards: spend management to savings, 4x branded search</li><li>A legal-tech startup: out of the “another CLM” box, into its own category</li><li>Positioning for Myntra Beauty and Myntra Home</li></ul></div></template>
+<template id="t-build-the-home"><div class="lead"><div class="bubble">“Our website says everything and nothing.”</div><p>Your website is the one salesperson who never logs off. I plan what goes on it and write the words, so a designer or developer can build it without guessing.</p></div><div class="devs"><article class="dev" data-item="Website blueprint"><h4>Website blueprint</h4><p class="when"><b>For when</b>you’re building or rebuilding the site.</p><ul><li>A sitemap</li><li>Block-by-block wireframes for each key page</li><li>All the copy</li></ul></article><article class="dev" data-item="Homepage rewrite"><h4>Homepage rewrite</h4><p class="when"><b>For when</b>the site is live, but visitors still ask “so what do you do?”</p><ul><li>An audit of the current page</li><li>A new structure</li><li>Rewritten copy</li></ul></article><article class="dev" data-item="Landing pages"><h4>Landing pages</h4><p class="when"><b>For when</b>a launch, campaign or new segment needs its own page.</p><ul><li>Page structure and copy</li><li>Headline options worth testing</li></ul></article><article class="dev" data-item="Case studies"><h4>Case studies</h4><p class="when"><b>For when</b>customers love you, but you have nothing to show the next one.</p><ul><li>A customer interview</li><li>A written case study, named or anonymised</li><li>A one-page version for sales</li></ul></article><article class="dev" data-item="Sales deck and one-pagers"><h4>Sales deck and one-pagers</h4><p class="when"><b>For when</b>every rep has their own version of the deck.</p><ul><li>One master story</li><li>Deck copy and a leave-behind one-pager</li></ul></article></div><div class="opening"><b>Opening move</b><p>A homepage roast. I go through your homepage and send back a recorded walkthrough of what to fix.</p></div><div class="built"><h5>Already built</h5><ul><li>A legal-tech startup’s website, blueprinted and written from scratch</li><li>An anonymised customer case study the sales team uses</li><li>RazorpayX Rewards microsite, 500+ partner offers</li></ul></div></template>
+<template id="t-make-noise"><div class="lead"><div class="bubble">“We post. Nobody notices.”</div><p>Getting noticed comes down to having a point of view and saying it in a few recognisable ways, again and again. I help you find yours, then set up a rhythm your team can keep.</p></div><div class="devs"><article class="dev" data-item="Social strategy"><h4>Social strategy</h4><p class="when"><b>For when</b>you post when someone remembers to.</p><ul><li>An audit of what you’ve put out</li><li>Content buckets for each channel</li><li>A posting rhythm your team can keep up</li></ul></article><article class="dev" data-item="Content IPs"><h4>Content IPs</h4><p class="when"><b>For when</b>you want people to come back for the next one.</p><ul><li>A recurring series with a name, look and episode list</li><li>Scripts for the first few episodes</li></ul></article><article class="dev" data-item="Owned research and reports"><h4>Owned research and reports</h4><p class="when"><b>For when</b>you want press and sales conversations without buying ads.</p><ul><li>Survey and interview design</li><li>Finding the story in the data</li><li>A report people quote</li></ul></article><article class="dev" data-item="Employee advocacy"><h4>Employee advocacy</h4><p class="when"><b>For when</b>your team has more reach than your company page.</p><ul><li>A programme that makes posting easy</li><li>Prompts and templates</li><li>A light game to keep it going</li></ul></article></div><div class="opening"><b>Opening move</b><p>A social teardown. Your last 30 posts, what’s working, and a few series ideas to try.</p></div><div class="built"><h5>Already built</h5><ul><li>Fix My Itch: 5.4M impressions, Shortys, Kyoorius, Abbys</li><li>IPL 2026 “Break to Build”: APAC Effies</li><li>Payroll “Trial of the Century”: Shortys, ET Brand Equity</li><li>T20 World Cup CTV: 67M+ impressions</li><li>Mental Capital Report: GTM for a founder-wellbeing report</li><li>Kingfisher “Indian Prank League” · JWT, client servicing</li></ul></div></template>
 <template id="t-take-it-to-market"><div class="lead"><div class="bubble">“We’ve built it. Now what?”</div><p>This is the product marketing part. The right people need to hear about what you built, get it the first time, and know what to do next.</p></div><div class="devs"><article class="dev" data-item="GTM plan"><h4>GTM plan</h4><p class="when"><b>For when</b>launch is six weeks away and nobody owns the plan.</p><ul><li>Who to go after first</li><li>The message for each of them</li><li>Channels and a week-by-week calendar</li></ul></article><article class="dev" data-item="Product and feature launches"><h4>Product and feature launches</h4><p class="when"><b>For when</b>you ship often and the market doesn’t notice.</p><ul><li>Launch tiers, so not everything is a big launch</li><li>Announcement copy</li><li>An internal brief so sales and support aren’t surprised</li></ul></article><article class="dev" data-item="ICP and buyer research"><h4>ICP and buyer research</h4><p class="when"><b>For when</b>“everyone” is your target customer.</p><ul><li>Customer interviews</li><li>Buyer profiles in their own words</li><li>Who to ignore for now</li></ul></article><article class="dev" data-item="Competitive battlecards"><h4>Competitive battlecards</h4><p class="when"><b>For when</b>sales keeps losing to the same two names.</p><ul><li>A teardown of each competitor</li><li>How to win against each one</li><li>Answers to the usual objections</li></ul></article><article class="dev" data-item="Outbound sequences"><h4>Outbound sequences</h4><p class="when"><b>For when</b>the founder is doing sales from their own inbox.</p><ul><li>Email sequences built on buying triggers</li><li>First lines that don’t read like templates</li><li>Follow-ups</li></ul></article><article class="dev" data-item="Sales enablement"><h4>Sales enablement</h4><p class="when"><b>For when</b>new reps take months to sound like they know the product.</p><ul><li>A talk track and demo story</li><li>FAQs</li><li>A kit that’s easy to keep updated</li></ul></article></div><div class="opening"><b>Opening move</b><p>A launch check. Tell me what’s going out and when, and I’ll flag the gaps before it ships.</p></div><div class="built"><h5>Already built</h5><ul><li>Myntra Home × Masaba: 174% growth in sessions</li><li>Myntra Beauty × Anushka Sharma: 27% revenue growth, 810K sign-ups</li><li>RazorpayX Corporate Cards: 66+ campaigns, 3,000+ qualified leads</li><li>Fastrack · Lowe Lintas, Senior Brand Director, client servicing</li><li>PMM for Capillary, BambooBox, Qyrus and Pennant</li></ul></div></template>
 <template id="t-about"><div class="about"><div class="portrait"><span class="kick" style="align-self:flex-start;background:rgba(255,255,255,.85)">Bengaluru</span><div class="ph">Your portrait goes here</div><div class="bubble" style="font-size:1.1rem">Twelve years on the board. Why, you ask?</div></div><div>
 <p>Calcutta, Trivandrum, Madras, Bombay, Goa, Bangalore. Six cities, nine languages, and a lot of first days as the new girl.</p>
 <p>You learn to read a room before you understand a word of it. Who’s talking, who isn’t, what nobody’s saying out loud.</p>
 <div class="punch">Turns out that’s most of brand strategy.</div>
 <p>I started in audit at KPMG (yes, really), then moved to Ogilvy, JWT and Lowe Lintas, then went in-house at Myntra and Razorpay.</p>
-<p>I’ve sold beer, watches, fashion, home decor, corporate cards and payroll software. Consumers, CFOs, shoppers. Different boards, same opening move.</p>
-<p>These days I work with founders who’ve built something good and can’t yet say why it matters in one line. I’m especially into:</p>
-<ul class="interests"><li>Early-stage companies finding their story</li><li>Making complicated products feel simple</li><li>Brands built for India, by people who get India</li></ul></div></div></template>
+<p>I’ve sold beer, watches, real estate, ecommerce, fashion, home decor, footwear, confectionaries, chocolates, corporate cards, payroll software and agentic workflows. Different boards, same opening move.</p>
+<p>These days I’m especially into:</p>
+<ul class="interests"><li>Early-stage companies finding their story</li><li>Making complicated products feel simple</li><li>Launches that need a point of view</li></ul></div></div></template>
 <template id="t-expansion"><div class="lead"><div class="bubble">“We want something people actually play with.”</div><p>Some ideas work better as something people can click, play or try. I plan them, write them and build the first version myself.</p></div>
 <div class="minis devs"><article class="dev" data-item="Campaign microsites"><h4>Campaign microsites</h4><p class="when">A small site built around one idea, for a launch or a moment.</p></article><article class="dev" data-item="AI marketing tools"><h4>AI marketing tools</h4><p class="when">Calculators, negotiators and helpers that bring in leads while they’re useful.</p></article><article class="dev" data-item="Branded games and quizzes"><h4>Branded games and quizzes</h4><p class="when">Something your audience wants to share, with your brand in it.</p></article><article class="dev" data-item="Interactive reports"><h4>Interactive reports</h4><p class="when">Research people can explore instead of a PDF nobody opens.</p></article></div>
 <div class="built"><h5>Already built</h5><ul><li>RazorpayX Savings Negotiator: the first AI marketing tool at RazorpayX, 20 MQLs a week</li><li>A gamified Slack bot that got employees to write 500+ LinkedIn posts during IPL</li></ul></div></template>
@@ -505,11 +542,12 @@ h1,h2,h3,h4{font-weight:900}
 </div></template>
 <template id="t-trade"><div class="trade">
 <div class="route"><svg viewBox="0 40 1100 300" id="routeSvg" role="img" aria-label="Six settlements, one long road: Calcutta, Trivandrum, Madras, Bombay, Goa and Bangalore"></svg></div>
-<div class="fmts"><button type="button" class="fmt" data-size="One settlement" aria-pressed="false"><h4>One settlement</h4><p>One build, done properly.</p><ul><li>A website blueprint, a launch film or a content IP</li><li>Clear scope, clear handover</li></ul><span class="pk">Pick this</span></button>
+<div class="fmts"><button type="button" class="fmt" data-size="One settlement" aria-pressed="false"><h4>One settlement</h4><p>One build, done properly.</p><ul><li>A website blueprint or a content IP</li><li>Clear scope, clear handover</li></ul><span class="pk">Pick this</span></button>
 <button type="button" class="fmt" data-size="Full game" aria-pressed="false"><h4>Full game</h4><p>A 2–4 week sprint, end to end.</p><ul><li>Positioning, then the site, then the launch</li><li>For when the whole thing has to hang together</li></ul><span class="pk">Pick this</span></button>
 <button type="button" class="fmt" data-size="A seat at the table" aria-pressed="false"><h4>A seat at the table</h4><p>A monthly fractional retainer.</p><ul><li>Your part-time brand lead, sharing my time across your team</li><li>Including reviewing what your juniors and interns make</li></ul><span class="pk">Pick this</span></button></div>
 <div class="hello"><h3>Let’s trade.</h3><p>Tell me what’s broken. I’ll set up the board.</p><div class="cl"><a href="mailto:niveditatidevin@gmail.com">niveditatidevin@gmail.com</a><span>+91 97409 76950</span><a href="https://x.com/nivivacious" target="_blank" rel="noopener">@nivivacious</a></div></div>
 <div class="offer" aria-live="polite"><div class="oh"><b>Trade offer</b><span>Turn <span id="turn">042</span></span></div><ul id="offerList"></ul><div class="orow"><span>Format</span><b id="offerFmt">Not picked</b></div><div class="orow"><span>In return</span><b>Settled over a call</b></div><div class="obtns"><a id="sendOffer" href="mailto:niveditatidevin@gmail.com">Send offer</a><button class="p" type="button" id="copyOffer">Copy offer</button><button class="c" type="button" id="clearOffer">Clear</button></div></div>
+<div class="pinwrap"><div class="pinhead"><div><b>Arrange your offer</b><span>Drag the cards into the order that matters to you, then save it to send.</span></div><button type="button" class="ghost" id="saveImg">Save as image</button></div><div class="pinboard" id="pinboard" role="list" aria-label="Your trade offer, arrangeable"></div></div>
 <div class="playcta"><p>Not ready to talk yet? Play a quick round against The Competitor first.</p><button type="button" class="roll" data-play>Play the game →</button></div>
 </div></template>
 
@@ -542,7 +580,7 @@ function art(type,seed){
     s+='<path d="M-80 -24 Q-30 -44 10 -28 T80 -34 V80 H-80Z" fill="#98cc56"/><path d="M-80 18 Q-20 -2 30 14 T80 8 V80 H-80Z" fill="#8cc24c"/>';
     s+='<g stroke="#8a6a44" stroke-width="1.6" stroke-linecap="round"><path d="M-62 34 L-6 52 M-62 40 L-6 58" /><path d="M-62 31v12 M-48 35v12 M-34 40v12 M-20 44v12 M-6 49v12"/></g>';
     [[-22,-16,1],[14,-30,-1],[26,12,1],[-40,4,-1]].forEach(function(q){
-      s+='<g transform="translate('+q[0]+','+q[1]+') scale('+q[2]+',1)"><ellipse cx="0" cy="9" rx="9" ry="2" fill="rgba(0,0,0,.15)"/><rect x="-4.5" y="3" width="1.6" height="6" fill="#3d3d3d"/><rect x="3" y="3" width="1.6" height="6" fill="#3d3d3d"/><rect x="-8" y="-5" width="15" height="10" rx="5" fill="#fbfaf4"/><rect x="-8" y="0" width="15" height="5" rx="2.5" fill="#e6e3d8"/><ellipse cx="9" cy="-3" rx="3.6" ry="2.8" fill="#3d3d3d"/></g>'});
+      s+='<g class="sheep" data-x="'+q[0]+'" data-y="'+q[1]+'" data-face="'+q[2]+'" style="transform:translate('+q[0]+'px,'+q[1]+'px) scale('+q[2]+',1)"><ellipse cx="0" cy="9" rx="9" ry="2" fill="rgba(0,0,0,.15)"/><rect x="-4.5" y="3" width="1.6" height="6" fill="#3d3d3d"/><rect x="3" y="3" width="1.6" height="6" fill="#3d3d3d"/><rect x="-8" y="-5" width="15" height="10" rx="5" fill="#fbfaf4"/><rect x="-8" y="0" width="15" height="5" rx="2.5" fill="#e6e3d8"/><ellipse cx="9" cy="-3" rx="3.6" ry="2.8" fill="#3d3d3d"/></g>'});
   }
   if(type==='fields'){
     s+='<path d="M-80 -80H80V80H-80Z" fill="#efc23c"/>';
@@ -780,8 +818,31 @@ function wireTrade(){
     body.querySelectorAll('.fmt').forEach(function(f){f.setAttribute('aria-pressed',f.dataset.size===size)});
     var txt='Hi Nivedita,\n\nHere’s my trade offer (turn '+T+').\n\nWhat we’d like:\n'+(order.length?order.map(function(o){return '• '+o}).join('\n'):'• Not sure yet, let’s talk')+'\n\nFormat: '+(size||'Not sure yet')+'\n\nAbout us:\n';
     send.href='mailto:niveditatidevin@gmail.com?subject='+encodeURIComponent('Trade offer · turn '+T)+'&body='+encodeURIComponent(txt);send.dataset.body=txt;
-    save();syncBadge();
+    save();syncBadge();drawPins(added);
   }
+
+  var board=document.getElementById('pinboard'),pos=store('npi_pos')||{};
+  function drawPins(added){if(!board)return;board.innerHTML='';
+    if(!order.length){board.innerHTML='<p class="pinempty">Tap “+ Add” on any service and it lands here as a card you can move around.</p>';return}
+    var W=board.clientWidth||600;
+    order.forEach(function(o,i){var p=pos[o];if(!p){p=pos[o]={x:.04+((i%4)*.24),y:14+Math.floor(i/4)*86+(i%2)*10,r:(Math.random()*10-5)}}
+      var el=document.createElement('div');el.className='pin'+(o===added?' drop':'');el.textContent=o;el.setAttribute('role','listitem');
+      el.style.left=(p.x*100)+'%';el.style.top=p.y+'px';el.style.setProperty('--r',p.r+'deg');
+      el.addEventListener('pointerdown',function(e){e.preventDefault();el.setPointerCapture(e.pointerId);el.classList.add('drag');var bw=board.clientWidth,bh=board.clientHeight,sx=e.clientX,sy=e.clientY,ox=p.x*bw,oy=p.y;
+        function mv(ev){var nx=Math.max(0,Math.min(bw-el.offsetWidth,ox+ev.clientX-sx)),ny=Math.max(0,Math.min(bh-el.offsetHeight,oy+ev.clientY-sy));p.x=nx/bw;p.y=ny;el.style.left=(p.x*100)+'%';el.style.top=ny+'px'}
+        function up(){el.removeEventListener('pointermove',mv);el.removeEventListener('pointerup',up);el.classList.remove('drag');store('npi_pos',pos)}
+        el.addEventListener('pointermove',mv);el.addEventListener('pointerup',up)});
+      board.appendChild(el)});
+    store('npi_pos',pos)}
+  var sv=document.getElementById('saveImg');
+  if(sv)sv.addEventListener('click',function(){if(!order.length){sv.textContent='Add something first';setTimeout(function(){sv.textContent='Save as image'},1500);return}
+    var bw=board.clientWidth,bh=board.clientHeight,k=2,cv=document.createElement('canvas');cv.width=bw*k;cv.height=(bh+90)*k;var x=cv.getContext('2d');x.scale(k,k);
+    x.fillStyle='#2fa3d6';x.fillRect(0,0,bw,bh+90);x.fillStyle='#fbf4e2';x.beginPath();x.roundRect(12,12,bw-24,bh+66,16);x.fill();
+    x.fillStyle='#22303a';x.font='900 22px Nunito, sans-serif';x.fillText('Trade offer for Nivedita Prabhu · turn '+T,28,46);x.font='700 14px Nunito, sans-serif';x.fillStyle='#45535e';x.fillText('Format: '+(size||'Not picked yet'),28,68);
+    board.querySelectorAll('.pin').forEach(function(el,i){var p=pos[order[i]];if(!p)return;var w=el.offsetWidth,h=el.offsetHeight,cx=p.x*bw+w/2,cy=p.y+h/2+80;
+      x.save();x.translate(cx,cy);x.rotate(p.r*Math.PI/180);x.fillStyle='rgba(0,0,0,.18)';x.beginPath();x.roundRect(-w/2+2,-h/2+4,w,h,10);x.fill();x.fillStyle='#fff';x.strokeStyle='#22303a';x.lineWidth=2;x.beginPath();x.roundRect(-w/2,-h/2,w,h,10);x.fill();x.stroke();
+      x.fillStyle='#c8372d';x.fillRect(-w/2+10,-h/2,w-20,5);x.fillStyle='#22303a';x.font='800 15px Nunito, sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText(order[i],0,2);x.restore()});
+    try{var a=document.createElement('a');a.href=cv.toDataURL('image/png');a.download='trade-offer-'+T+'.png';document.body.appendChild(a);a.click();a.remove();sv.textContent='Saved';setTimeout(function(){sv.textContent='Save as image'},1500)}catch(e){sv.textContent='Saving blocked here'}});
   body.querySelectorAll('.fmt').forEach(function(f){f.addEventListener('click',function(){size=size===f.dataset.size?'':f.dataset.size;render()})});
   document.getElementById('clearOffer').addEventListener('click',function(){order=[];size='';render()});
   var cp=document.getElementById('copyOffer');cp.addEventListener('click',function(){try{navigator.clipboard.writeText(send.dataset.body).then(function(){cp.textContent='Copied';setTimeout(function(){cp.textContent='Copy offer'},1500)},function(){cp.textContent='Copy blocked, use Send'})}catch(e){cp.textContent='Copy blocked, use Send'}});
@@ -806,7 +867,7 @@ var h0=location.hash.slice(1);if(byId[h0])openCard(h0,true);
 var G={active:false};
 (function(){
 var COST={road:{wood:1,brick:1},settlement:{wood:1,brick:1,wool:1,grain:1},city:{grain:2,ore:3}};
-var TARGET=8,RK=['wood','brick','wool','grain','ore'],PCOL=['#c8372d','#2f6fb3'],PN=['You','The Competitor'];
+var TARGET=8,RK=['wood','brick','wool','grain','ore'],PCOL=G.PCOL=['#c8372d','#2f6fb3'],PN=['You','The Competitor'];
 var VS=[],ES=[],vmap={},emap={};
 function key(x,y){return Math.round(x)+','+Math.round(y)}
 HX.forEach(function(h,hi){var ids=[];
@@ -899,13 +960,13 @@ $('tGo').addEventListener('click',function(){var r=S.players[0].res;if(!giveSel|
 var FACTS={
  'about':{t:'Six cities growing up',f:'Calcutta, Trivandrum, Madras, Bombay, Goa, Bangalore. She learned to read a room before she understood a word of it.',go:'about'},
  'find-the-story':{t:'Sell the savings, not the software',f:'Repositioned RazorpayX Corporate Cards from spend management to savings. Branded search grew 4x.',go:'find-the-story'},
- 'build-the-home':{t:'A website from a blank page',f:'Blueprinted and wrote a legal-tech startup’s website from scratch, plus a customer case study that sales actually uses.',go:'build-the-home'},
+ 'build-the-home':{t:'A website from a blank page',f:'Blueprinted and wrote a legal-tech startup’s website from scratch, plus a customer case study the sales team uses.',go:'build-the-home'},
  'make-noise':{t:'5.4 million impressions',f:'Fix My Itch reached 5.4M impressions and won at the Shortys, Kyoorius and the Abbys.',go:'make-noise'},
  'take-it-to-market':{t:'3,000+ qualified leads',f:'Ran 66+ campaigns for RazorpayX Corporate Cards that brought in more than 3,000 qualified leads.',go:'take-it-to-market'},
  'expansion':{t:'An AI tool that brings in leads',f:'Built RazorpayX’s first AI marketing tool, the Savings Negotiator. It brings in 20 MQLs a week.',go:'expansion'},
  'games':{t:'Two games, start to finish',f:'A corporate card that sold savings, and a legal-tech launch that started its own category.',go:'games'},
  'house-rules':{t:'Weekend builds',f:'A periodic table of Indian fashion, a Bengaluru tarot narrated by an auto-anna, and Steinbeck as a platformer.',go:'house-rules'},
- 'score-sheet':{t:'From audit to awards',f:'Started in audit at KPMG. Then Ogilvy, JWT, Lowe Lintas, Myntra and Razorpay. Twelve years and counting.',go:'score-sheet'},
+ 'score-sheet':{t:'From audit to awards',f:'Started in audit at KPMG. Then Ogilvy, JWT, Lowe Lintas, Myntra and Razorpay.',go:'score-sheet'},
  'trade':{t:'Fluent in trades',f:'She speaks nine languages, picked up across six cities.',go:'about'},
  'city':{t:'The award shelf',f:'APAC Effies, Shorty Awards, ET Brand Equity, Kyoorius, the Abbys, and an XStar Award for the top 1% at Razorpay.',go:'score-sheet'},
  'seven':{t:'Built for the big moment',f:'Core team on Razorpay’s IPL 2026 “Break to Build” campaign, which won at the APAC Effies.',go:'make-noise'}
@@ -996,10 +1057,11 @@ function botEnd(){S.turn=0;S.phase='roll';busy=false;ui()}
 
 /* ---- win ---- */
 function checkWin(){for(var p=0;p<2;p++)if(vp(p)>=TARGET){S.phase='win';busy=false;clearHot();ui();
-  prompt((p===0?'<strong>You win.</strong> Settle well, build fast, trade smart. That’s brand strategy too.':'<strong>The Competitor wins this one.</strong> It usually comes down to where you settle first.')+' You collected '+found.length+' of '+FORDER.length+' cards about Nivedita'+(found.length<FORDER.length?'. Play again to find the rest, or skip ahead and talk to her.':'. That’s all of them. Time to talk?'));
+  prompt((p===0?'<strong>You win.</strong> Where you settle first decides most of it. Brands work the same way.':'<strong>The Competitor wins this one.</strong> It usually comes down to where you settle first.')+' You collected '+found.length+' of '+FORDER.length+' cards about Nivedita'+(found.length<FORDER.length?'. Play again to find the rest, or skip ahead and talk to her.':'. That’s all of them. Time to talk?'));
   $('winrow').hidden=false;glog(who(p)+' reached '+TARGET+' points and won.');return true}return false}
 
 /* ---- start / exit ---- */
+G.redraw=function(){if(S){draw();ui()}};
 G.start=function(){
   G.active=true;closeCard&&closeCard();document.body.classList.add('playing');hero.hidden=true;gp.hidden=false;$('winrow').hidden=true;
   var deco=$('deco');if(deco)deco.style.display='none';
@@ -1015,6 +1077,102 @@ G.exit=function(){$('fact').hidden=true;fq=[];fshow=null;G.active=false;busy=fal
 $('gpExit').addEventListener('click',G.exit);
 $('again').addEventListener('click',G.start);
 document.addEventListener('click',function(e){var b=e.target.closest('[data-play]');if(b){e.preventDefault();G.start()}});
+})();
+
+
+/* ================= MOTION LAYER (motionsites-inspired) ================= */
+(function(){
+var FINE=window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+var mx=-1e4,my=-1e4,raf=0;
+document.addEventListener('pointermove',function(e){mx=e.clientX;my=e.clientY;if(!raf)raf=requestAnimationFrame(watch)},{passive:true});
+
+/* 1 · things on the board watch you */
+var eyes=document.createElementNS(NS,'g');eyes.setAttribute('class','reyes');
+eyes.innerHTML='<circle cx="-2.8" cy="-14" r="2.2" fill="#fff"/><circle cx="2.8" cy="-14" r="2.2" fill="#fff"/><circle class="pu" cx="-2.8" cy="-14" r="1.1" fill="#111"/><circle class="pu" cx="2.8" cy="-14" r="1.1" fill="#111"/>';
+rob.appendChild(eyes);
+var pupils=eyes.querySelectorAll('.pu');
+function watch(){raf=0;if(RM)return;
+  var r=rob.getBoundingClientRect();if(r.width){var cx=r.left+r.width/2,cy=r.top+r.height*.25,dx=mx-cx,dy=my-cy,d=Math.hypot(dx,dy)||1,k=Math.min(1,d/60);
+    pupils.forEach(function(p,i){p.setAttribute('cx',((i?2.8:-2.8)+dx/d*1.1*k).toFixed(2));p.setAttribute('cy',(-14+dy/d*1.1*k).toFixed(2))})}
+  document.querySelectorAll('.sheep').forEach(function(sh){var b=sh.getBoundingClientRect(),c=b.left+b.width/2;if(Math.abs(c-mx)<6)return;
+    var want=mx<c?-1:1;if(sh.dataset.face!=want){sh.dataset.face=want;sh.style.transform='translate('+sh.dataset.x+'px,'+sh.dataset.y+'px) scale('+want+',1)'}});
+}
+setInterval(function(){if(RM||document.hidden)return;eyes.classList.add('blink');setTimeout(function(){eyes.classList.remove('blink')},160)},3800);
+
+/* 2 · a sea that keeps moving */
+if(!RM){
+  var lane='M -360 0 A 360 312 0 1 1 360 0 A 360 312 0 1 1 -360 0';
+  var fleet=document.createElementNS(NS,'g');fleet.setAttribute('class','fleet');
+  var boat='<g class="sail"><path d="M-14 2h28l-5 7h-18z" fill="#7a4f2a" stroke="#4a2f18" stroke-width="1.4" stroke-linejoin="round"/><path d="M-1 1v-22" stroke="#4a2f18" stroke-width="1.8"/><path d="M1 -20q10 9 0 19z" fill="#f6efdc" stroke="#c9bfa6" stroke-width=".8"/><path d="M-3 -17q-8 7 0 16z" fill="#efe6cf" stroke="#c9bfa6" stroke-width=".8"/><path d="M-1 -21l5 -2.5v3.5z" fill="#c8372d"/><path d="M-20 10q6 3 12 0t12 0t12 0" fill="none" stroke="#fff" stroke-width="1.6" opacity=".7"/></g>';
+  [0,.34,.67].forEach(function(o,i){
+    var g=document.createElementNS(NS,'g');g.innerHTML='<g transform="scale('+(i===1?.85:1)+')">'+boat+'</g><animateMotion dur="'+(120+i*30)+'s" repeatCount="indefinite" path="'+lane+'" begin="-'+Math.round(o*(120+i*30))+'s"/>';
+    fleet.appendChild(g)});
+  var gull=document.createElementNS(NS,'g');gull.setAttribute('class','gull');
+  gull.innerHTML='<path d="M-9 0q4.5 -6 9 0q4.5 -6 9 0" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/><animateMotion dur="26s" repeatCount="indefinite" path="M -470 -250 C -200 -320 120 -180 470 -290"/>';
+  fleet.appendChild(gull);
+  var back=document.getElementById('back');back.parentNode.insertBefore(fleet,back);
+  fleet.addEventListener('pointerenter',function(e){if(e.target.closest&&e.target.closest('.sail'))svg.pauseAnimations()},true);
+  fleet.addEventListener('pointerleave',function(){svg.unpauseAnimations()},true);
+}
+
+/* 3 · peek window on labelled hexes, card grows out of it */
+var PEEK={'about':'Grew up across six cities. Learned to read a room early.','find-the-story':'Sold the savings, not the software. Branded search 4x.','build-the-home':'Sites, homepages and case studies for sales.','make-noise':'Fix My Itch: 5.4M impressions and three awards.','take-it-to-market':'66+ campaigns, 3,000+ qualified leads.','expansion':'Built RazorpayX’s first AI marketing tool.','games':'Two full case studies, brief to results.','house-rules':'Weekend builds: fashion tables, Bengaluru tarot, Steinbeck.','score-sheet':'Twelve years: Ogilvy, JWT, Lintas, Myntra, Razorpay.','trade':'Three ways to work together. Make an offer.'};
+var peek=document.createElement('div');peek.className='peek';peek.setAttribute('aria-hidden','true');peek.hidden=true;document.body.appendChild(peek);
+var peekFor=null,lastPt=null;
+function showPeek(id,x,y){var s=byId[id];if(!s)return;peekFor=id;
+  peek.style.setProperty('--c',C[s.terrain]||'#2fa3d6');
+  peek.innerHTML='<span class="pk">'+s.kick+'</span><b>'+s.title+'</b><span class="pl">'+(PEEK[id]||'')+'</span><span class="go">Click to open →</span>';
+  peek.hidden=false;placePeek(x,y);requestAnimationFrame(function(){peek.classList.add('on')})}
+function placePeek(x,y){var w=peek.offsetWidth||260,h=peek.offsetHeight||120,px=x+22,py=y+18;if(px+w>innerWidth-12)px=x-w-22;if(py+h>innerHeight-12)py=y-h-18;peek.style.left=px+'px';peek.style.top=py+'px'}
+function hidePeek(){peekFor=null;peek.classList.remove('on');peek.hidden=true}
+if(FINE){
+  svg.addEventListener('pointermove',function(e){if(G.active){if(peekFor)hidePeek();return}
+    var t=e.target.closest&&e.target.closest('.hx.sec,.tradeport');if(!t){if(peekFor)hidePeek();return}
+    var id=t.classList.contains('tradeport')?'trade':(HX.filter(function(h){return h.el===t})[0]||{}).sec&&HX.filter(function(h){return h.el===t})[0].sec.id;
+    if(!id)return;if(id!==peekFor)showPeek(id,e.clientX,e.clientY);else placePeek(e.clientX,e.clientY)});
+  svg.addEventListener('pointerleave',hidePeek);
+}
+svg.addEventListener('pointerdown',function(e){lastPt={x:e.clientX,y:e.clientY,t:Date.now()}},true);
+var _open=openCard;
+openCard=function(id,noHash){var wasHidden=ov.hidden;_open(id,noHash);hidePeek();
+  if(wasHidden&&lastPt&&Date.now()-lastPt.t<900&&!RM){var r=card.getBoundingClientRect();
+    card.style.setProperty('--gx',(lastPt.x-(r.left+r.width/2))+'px');card.style.setProperty('--gy',(lastPt.y-(r.top+r.height/2))+'px');
+    card.classList.remove('grow');void card.offsetWidth;card.classList.add('grow')}
+  lastPt=null;tint(id)};
+
+/* 5 · the sea takes on each section's colour */
+var tintEl=document.createElement('div');tintEl.className='seatint';tintEl.setAttribute('aria-hidden','true');document.body.insertBefore(tintEl,document.body.firstChild);
+function tint(id){var s=byId[id];tintEl.style.background=s?(C[s.terrain]||'#2fa3d6'):'transparent';tintEl.classList.toggle('on',!!s&&s.terrain!=='sea')}
+var _close=closeCard;closeCard=function(){_close();tintEl.classList.remove('on')};
+
+/* 4 · paint the headline with the board */
+var h1=document.querySelector('.hero h1');
+if(h1&&FINE&&!RM){
+  var wrap=document.createElement('div');wrap.className='h1wrap';h1.parentNode.insertBefore(wrap,h1);wrap.appendChild(h1);
+  var paint=h1.cloneNode(true);paint.className='paint';paint.setAttribute('aria-hidden','true');wrap.appendChild(paint);
+  var trail=[];
+  wrap.addEventListener('pointermove',function(e){var r=wrap.getBoundingClientRect();trail.push({x:e.clientX-r.left,y:e.clientY-r.top,t:performance.now()});if(trail.length>14)trail.shift();if(!wrap._raf)wrap._raf=requestAnimationFrame(drawMask)});
+  function drawMask(){wrap._raf=0;var now=performance.now();trail=trail.filter(function(p){return now-p.t<1400});
+    if(!trail.length){paint.style.webkitMaskImage=paint.style.maskImage='linear-gradient(transparent,transparent)';return}
+    var m=trail.map(function(p){var a=Math.max(0,1-(now-p.t)/1400);return 'radial-gradient(circle 70px at '+p.x+'px '+p.y+'px, rgba(0,0,0,'+a.toFixed(2)+') 35%, transparent 100%)'}).join(',');
+    paint.style.webkitMaskImage=paint.style.maskImage=m;wrap._raf=requestAnimationFrame(drawMask)}
+}
+
+/* 6 · pick your player colour */
+var CHOICES=[['Red','#c8372d'],['Orange','#e8892b'],['Blue','#2f6fb3'],['White','#f2f2f2']];
+var pick=document.createElement('div');pick.className='pcpick';
+pick.innerHTML='<span class="glh">Your colour</span><div class="sw">'+CHOICES.map(function(c){return '<button type="button" data-c="'+c[1]+'" aria-label="Play as '+c[0]+'" style="--sw:'+c[1]+'"></button>'}).join('')+'</div>';
+var sc=document.querySelector('#gp .score');sc.parentNode.insertBefore(pick,sc.nextSibling);
+var myCol=store('npi_col')||'#c8372d';
+function applyCol(c){myCol=c;store('npi_col',c);var PC=G.PCOL;PC[0]=c;PC[1]=c==='#2f6fb3'?'#c8372d':'#2f6fb3';
+  pick.querySelectorAll('button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.c===c)});
+  var ds=document.querySelectorAll('#gp .pl i');if(ds[0])ds[0].style.background=PC[0];if(ds[1])ds[1].style.background=PC[1];
+  if(G.active&&typeof G.redraw==='function')G.redraw()}
+pick.addEventListener('click',function(e){var b=e.target.closest('button');if(b)applyCol(b.dataset.c)});
+applyCol(myCol);
+
+/* 7 · a trade offer you can arrange */
+G.arrange=true;
 })();
 
 })();
