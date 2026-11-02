@@ -436,6 +436,34 @@ h1,h2,h3,h4{font-weight:900}
 .pin.drop{animation:pdrop .5s cubic-bezier(.3,1.5,.5,1)}
 @keyframes pdrop{from{transform:translateY(-40px) rotate(0);opacity:0}}
 @media (prefers-reduced-motion:reduce){.peek{transition:none}.seatint{transition:none}}
+
+/* motion layer 2 */
+.cases>.case{position:sticky;top:calc(var(--i,0) * 12px);box-shadow:0 -6px 18px rgba(60,40,10,.12);transition:box-shadow .3s}
+.marq{flex-wrap:nowrap!important;overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.mtrack{display:flex;gap:10px;width:max-content;animation:sail 26s linear infinite}
+.marq:hover .mtrack{animation-play-state:paused}
+.marq span{position:relative;padding-left:26px!important;white-space:nowrap}
+.marq span::before{content:"";position:absolute;left:9px;top:50%;width:2px;height:16px;margin-top:-9px;background:#22303a;border-radius:2px}
+.marq span::after{content:"";position:absolute;left:11px;top:50%;margin-top:-9px;border-left:9px solid var(--red);border-top:4px solid transparent;border-bottom:4px solid transparent}
+@keyframes sail{to{transform:translateX(-50%)}}
+.roadwrap{position:relative;padding-left:34px}
+.road{position:absolute;left:12px;width:8px;border-radius:4px;background:repeating-linear-gradient(#e4d3a9 0 8px,transparent 8px 14px)}
+.road .fill{position:absolute;inset:0;border-radius:4px;background:var(--red);transform-origin:top;transform:scaleY(0);transition:transform .15s linear}
+.pinh{position:absolute;left:6px;width:20px;height:20px;margin-top:-10px;transform:scale(0);transition:transform .35s cubic-bezier(.3,1.6,.5,1)}
+.pinh.on{transform:scale(1)}.pinh svg{width:100%;height:100%;display:block}
+.pinh.on svg path{fill:var(--red)}
+.roll,.mag{transition:translate .25s cubic-bezier(.2,.8,.2,1),filter .15s}
+.roll.pulled{transition:translate .08s linear}
+@media (hover:hover) and (pointer:fine){
+#island,#island *{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cpath d='M5 26h20V14L15 5 5 14z' fill='%23c8372d' stroke='%2322303a' stroke-width='2.5' stroke-linejoin='round'/%3E%3C/svg%3E") 15 26,pointer}
+#island .tradeport,#island .tradeport *{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='30' viewBox='0 0 34 30'%3E%3Cpath d='M3 27h28V15h-8V9L16 3 9 9v18z' fill='%23c8372d' stroke='%2322303a' stroke-width='2.5' stroke-linejoin='round'/%3E%3C/svg%3E") 17 27,pointer}}
+.confetti{position:fixed;inset:0;z-index:200;pointer-events:none}
+.flipin{animation:flipin .7s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes flipin{0%{transform:perspective(500px) rotateY(180deg) scale(.6);opacity:0}100%{transform:none;opacity:1}}
+.islandWrap.bump{animation:bump .45s ease-out}
+@keyframes bump{0%,100%{translate:0 0}15%{translate:-7px 3px}30%{translate:6px -3px}45%{translate:-4px 2px}60%{translate:3px -1px}80%{translate:-1px 0}}
+@media (max-width:720px){.cases>.case{position:static}}
+@media (prefers-reduced-motion:reduce){.mtrack{animation:none;flex-wrap:wrap;width:auto}.marq{-webkit-mask:none;mask:none;flex-wrap:wrap!important}}
 </style>
 </head>
 <body>
@@ -1070,7 +1098,7 @@ function botEnd(){S.turn=0;S.phase='roll';busy=false;ui()}
 /* ---- win ---- */
 function checkWin(){for(var p=0;p<2;p++)if(vp(p)>=TARGET){S.phase='win';busy=false;clearHot();ui();
   prompt((p===0?'<strong>You win.</strong> Where you settle first decides most of it. Brands work the same way.':'<strong>The Competitor wins this one.</strong> It usually comes down to where you settle first.')+' You collected '+found.length+' of '+FORDER.length+' cards about Nivedita'+(found.length<FORDER.length?'. Play again to find the rest, or skip ahead and talk to her.':'. That’s all of them. Time to talk?'));
-  $('winrow').hidden=false;glog(who(p)+' reached '+TARGET+' points and won.');return true}return false}
+  $('winrow').hidden=false;glog(who(p)+' reached '+TARGET+' points and won.');if(G.onWin)G.onWin(p);return true}return false}
 
 /* ---- start / exit ---- */
 G.redraw=function(){if(S){draw();ui()}};
@@ -1185,6 +1213,71 @@ applyCol(myCol);
 
 /* 7 · a trade offer you can arrange */
 G.arrange=true;
+})();
+
+
+/* ================= MOTION LAYER 2 ================= */
+(function(){
+var FINE=window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+var body=document.getElementById('dBody'),wrapI=document.querySelector('.islandWrap');
+
+/* 1 · stats count up */
+function parseStat(t){var m=t.match(/^([+]?)([\d,.]+)(.*)$/);if(!m)return null;var raw=m[2].replace(/,/g,'');return {pre:m[1],n:parseFloat(raw),dec:(raw.split('.')[1]||'').length,comma:m[2].indexOf(',')>=0,suf:m[3]}}
+function fmt(p,v){var s=v.toFixed(p.dec);if(p.comma)s=Math.round(v).toLocaleString('en-US');return p.pre+s+p.suf}
+function countUp(el){if(el._done)return;el._done=1;var p=parseStat(el.textContent.trim());if(!p||RM)return;var t0=performance.now(),D=1100;
+  (function step(now){var k=Math.min(1,(now-t0)/D),e=1-Math.pow(1-k,3);
+    el.textContent=k<.55&&Math.random()<.5?fmt(p,p.n*Math.random()):fmt(p,p.n*e);
+    if(k<1)requestAnimationFrame(step);else el.textContent=fmt(p,p.n)})(t0)}
+var io=('IntersectionObserver' in window)?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){countUp(e.target);io.unobserve(e.target)}})},{root:body,threshold:.6}):null;
+function wireStats(){body.querySelectorAll('.stat b').forEach(function(b){if(io&&!RM)io.observe(b)})}
+
+/* 2 · card titles shuffle into place */
+var GLY='ABCDEFGHKMNPRSTUVWXYZ◆▲●■';
+function scramble(el){if(RM)return;var fin=el.textContent,t0=performance.now(),D=520;clearInterval(el._s);
+  el._s=setInterval(function(){var k=(performance.now()-t0)/D;if(k>=1){clearInterval(el._s);el.textContent=fin;return}
+    var n=Math.floor(fin.length*k);el.textContent=fin.slice(0,n)+fin.slice(n).replace(/[^\s’,]/g,function(){return GLY[Math.floor(Math.random()*GLY.length)]})},40)}
+
+/* 4 · cases stack like a hand of cards */
+function wireStack(){body.querySelectorAll('.cases>.case').forEach(function(c,i){c.style.setProperty('--i',i)})}
+
+/* 5 · awards as a sailing ribbon */
+function wireAwards(){var a=body.querySelector('.awards');if(!a||a.dataset.m)return;a.dataset.m=1;a.classList.add('marq');
+  var items=a.innerHTML;a.innerHTML='<div class="mtrack">'+items+items+'</div>';a.setAttribute('aria-label','Awards');
+  a.querySelectorAll('.mtrack span').forEach(function(s,i){if(i>=a.querySelectorAll('.mtrack span').length/2)s.setAttribute('aria-hidden','true')})}
+
+/* 6 · the career road draws itself */
+var HOUSE='<svg viewBox="-10 -12 20 20" aria-hidden="true"><path d="M-7 7h14v-7l-7-6.5-7 6.5z" fill="#fff" stroke="#22303a" stroke-width="2" stroke-linejoin="round"/></svg>';
+function wireRoad(){var t=body.querySelector('table.sheet');if(!t||t.parentNode.classList.contains('roadwrap'))return;
+  var w=document.createElement('div');w.className='roadwrap';t.parentNode.insertBefore(w,t);w.appendChild(t);
+  var r=document.createElement('div');r.className='road';r.innerHTML='<i class="fill"></i>';w.appendChild(r);
+  var rows=[].slice.call(t.tBodies[0].rows),pins=rows.map(function(){var s=document.createElement('span');s.className='pinh';s.innerHTML=HOUSE;w.appendChild(s);return s});
+  function layout(){var wr=w.getBoundingClientRect();rows.forEach(function(row,i){var rr=row.getBoundingClientRect();pins[i].style.top=(rr.top-wr.top+Math.min(26,rr.height/2))+'px'});
+    var th=t.tHead.getBoundingClientRect();r.style.top=(th.bottom-wr.top)+'px';r.style.height=(wr.bottom-th.bottom-8)+'px'}
+  function prog(){var br=body.getBoundingClientRect(),rr=r.getBoundingClientRect();var p=RM?1:Math.max(0,Math.min(1,(br.bottom-60-rr.top)/rr.height));
+    r.firstChild.style.transform='scaleY('+p.toFixed(3)+')';var line=rr.top+rr.height*p;
+    pins.forEach(function(s){s.classList.toggle('on',s.getBoundingClientRect().top<=line+4)})}
+  layout();prog();body.addEventListener('scroll',prog,{passive:true});window.addEventListener('resize',function(){layout();prog()});setTimeout(function(){layout();prog()},400)}
+
+var _o2=openCard;openCard=function(id,noHash){_o2(id,noHash);var t=document.getElementById('dTitle');scramble(t);wireStats();wireStack();wireAwards();wireRoad()};
+
+/* 3 · magnetic buttons */
+if(FINE&&!RM){var mx=-1e4,my=-1e4,raf=0;
+  document.addEventListener('pointermove',function(e){mx=e.clientX;my=e.clientY;if(!raf)raf=requestAnimationFrame(mag)},{passive:true});
+  function mag(){raf=0;document.querySelectorAll('.roll,.mag').forEach(function(b){if(!b.offsetParent){b.style.translate='';return}var r=b.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,dx=mx-cx,dy=my-cy,d=Math.hypot(dx,dy),R=Math.max(r.width,r.height)*.5+46;
+    if(d<R){var k=(1-d/R)*.35;b.style.translate=(dx*k).toFixed(1)+'px '+(dy*k).toFixed(1)+'px';b.classList.add('pulled')}else if(b.classList.contains('pulled')){b.style.translate='';b.classList.remove('pulled')}})}}
+
+/* 8 · victory: resource cards rain down */
+var RC=['#c8643a','#3f7d3a','#e9b934','#8cc152','#8e969d'];
+G.onWin=function(p){var wr=document.querySelector('#winrow .roll');if(wr){wr.classList.remove('flipin');void wr.offsetWidth;wr.classList.add('flipin')}
+  if(p!==0||RM)return;var cv=document.createElement('canvas');cv.className='confetti';document.body.appendChild(cv);var W=cv.width=innerWidth,H=cv.height=innerHeight,x=cv.getContext('2d');
+  var ps=[];for(var i=0;i<120;i++)ps.push({x:W*.5+(Math.random()-.5)*W*.3,y:H*.45,vx:(Math.random()-.5)*14,vy:-6-Math.random()*12,r:Math.random()*6,vr:(Math.random()-.5)*.3,c:RC[i%5],w:14+Math.random()*6});
+  var t0=performance.now();(function f(now){var el=now-t0;x.clearRect(0,0,W,H);ps.forEach(function(q){q.vy+=.38;q.vx*=.99;q.x+=q.vx;q.y+=q.vy;q.r+=q.vr;
+    x.save();x.translate(q.x,q.y);x.rotate(q.r);x.scale(1,Math.cos(q.r*1.7));x.fillStyle='#fbf1d6';x.fillRect(-q.w/2,-q.w*.7,q.w,q.w*1.4);x.fillStyle=q.c;x.fillRect(-q.w/2+2.5,-q.w*.7+2.5,q.w-5,q.w*1.4-5);x.restore()});
+    if(el<3200)requestAnimationFrame(f);else cv.remove()})(t0)};
+
+/* 9 · roll twice fast and the table gets bumped */
+var lastRoll=0;document.addEventListener('click',function(e){if(!e.target.closest('#roll,#gRoll'))return;var n=Date.now();
+  if(n-lastRoll<1300&&!RM&&wrapI){wrapI.classList.remove('bump');void wrapI.offsetWidth;wrapI.classList.add('bump')}lastRoll=n},true);
 })();
 
 })();
