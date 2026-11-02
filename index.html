@@ -120,12 +120,8 @@ body.playing .islandWrap:not(.flat) #island{transform:rotateX(32deg) scale(1.02)
 /* ===== hand ===== */
 .hand{position:relative;z-index:4;display:flex;justify-content:center;height:120px;margin-top:-6px}
 .hand .lab{position:absolute;left:24px;bottom:16px;color:#fff;font-weight:800;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;opacity:.85}
-.hc{position:relative;width:205px;height:250px;margin:0 -14px;border:0;padding:0;background:var(--parch);border-radius:16px;box-shadow:var(--shadow);text-align:left;cursor:pointer;transform-origin:50% 120%;transition:transform .3s cubic-bezier(.2,.8,.2,1);overflow:hidden;align-self:flex-start}
-.hc:nth-child(2){transform:rotate(-7deg) translateY(14px)}
-.hc:nth-child(3){transform:rotate(-2.3deg) translateY(2px)}
-.hc:nth-child(4){transform:rotate(2.3deg) translateY(2px)}
-.hc:nth-child(5){transform:rotate(7deg) translateY(14px)}
-.hc:hover,.hc:focus-visible{transform:translateY(-110px) rotate(0) scale(1.04);z-index:3}
+.hc{position:relative;width:138px;height:220px;margin:0 -9px;transform:rotate(var(--r,0)) translateY(var(--y,0));border:0;padding:0;background:var(--parch);border-radius:16px;box-shadow:var(--shadow);text-align:left;cursor:pointer;transform-origin:50% 120%;transition:transform .3s cubic-bezier(.2,.8,.2,1);overflow:hidden;align-self:flex-start}
+.hc:hover,.hc:focus-visible{transform:translateY(-104px) rotate(0) scale(1.06);z-index:3}
 .hc .art{height:74px;background:var(--c)}
 .hc .art svg{width:100%;height:100%;display:block}
 .hc .txt{padding:10px 14px 12px;display:flex;flex-direction:column;gap:4px}
@@ -299,7 +295,7 @@ body.playing .islandWrap:not(.flat) #island{transform:rotateX(32deg) scale(1.02)
 .gp-x{border:0;background:none;font-weight:700;font-size:.85rem;text-decoration:underline;cursor:pointer;color:var(--ink2)}
 .score{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
 .pl{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:4px 8px;background:#f2f6f8;border-radius:12px;padding:8px 10px}
-.pl i{width:12px;height:12px;border-radius:3px}
+.pl i{width:12px;height:12px;border-radius:3px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.25)}
 .pl b{font-size:.88rem}
 .pl span{font-family:var(--display);font-weight:900;font-size:1.5rem;line-height:1}
 .pl small{grid-column:2/4;font-size:.72rem;color:var(--ink2);font-weight:600}
@@ -484,6 +480,33 @@ body:not(.playing) .hx:not(.sec) .tok{opacity:0}
 .hx .tok{transition:opacity .4s}
 body.playing .nextflag,body.playing .visit{display:none}
 @media (prefers-reduced-motion:reduce){.nextflag .nfi,.hx.next .rim{animation:none!important}}
+
+/* full hand */
+.hand .lab{display:none}
+.hc .art{height:64px}
+.hc .hn{position:absolute;left:50%;top:44px;transform:translateX(-50%);width:38px;height:38px;border-radius:50%;background:#fbf1d6;border:4px solid var(--red);display:grid;place-items:center;font-weight:900;font-size:1.05rem;color:var(--ink);box-shadow:0 3px 0 #7c1f19}
+.hc .txt{padding:26px 12px 12px;text-align:center;align-items:center}
+.hc h3{font-size:1rem;line-height:1.15}
+.hc p{font-size:.78rem;line-height:1.3}
+.hc.visited .hn{border-color:var(--ink);box-shadow:0 3px 0 #000}
+.hc.next{outline:3px solid #fff;outline-offset:-3px}
+.hc.next .hn{animation:nf 1.6s ease-in-out infinite}
+@media (max-width:1100px){.hc{width:118px;margin:0 -12px}.hc p{display:none}}
+
+html,body{overflow-x:clip}
+/* hover without flicker: keep a hit area under the lifted card */
+.hc{overflow:visible!important}
+.hc .art{border-radius:16px 16px 0 0;overflow:hidden}
+.hc::after{content:"";position:absolute;left:0;right:0;top:100%;height:0}
+.hc:hover::after,.hc:focus-visible::after{height:130px}
+.hc{width:clamp(92px,9.4vw,138px)!important}
+@media (max-width:1100px){.hc{margin:0 -8px}}
+@media (min-width:721px){.hand{overflow-x:clip}}
+@media (max-width:720px){.hc{width:132px!important}.hc::after{display:none}.hc p{display:block}}
+.roadwrap{padding-left:30px}
+@media (max-width:420px){.sheet{table-layout:fixed;font-size:.85rem}.sheet td,.sheet th{padding:8px 7px;overflow-wrap:anywhere}.roadwrap{padding-left:24px}.road{left:8px}.pinh{left:2px}}
+
+@media (max-width:560px){.sheet thead{display:none}.sheet,.sheet tbody,.sheet tr,.sheet td{display:block;width:100%}.sheet{table-layout:auto}.sheet tr{padding:10px 12px;border-bottom:1.5px solid var(--line)}.sheet td{border:0!important;padding:2px 0!important;background:none!important}.sheet tr:nth-child(even){background:#fffaf0}.sheet td:first-child{font-size:1.15rem}.sheet td:nth-child(2){font-weight:700;color:var(--ink2);font-size:.85rem}.sheet td:nth-child(2) small{display:inline;margin-left:6px}}
 </style>
 </head>
 <body>
@@ -507,14 +530,14 @@ body.playing .nextflag,body.playing .visit{display:none}
   </section>
   <section class="gamepanel" id="gp" hidden aria-label="Play the game">
     <div class="gp-top"><span class="kick">Quick game · first to 8 points</span><button type="button" class="gp-x" id="gpExit">Exit game</button></div>
-    <div class="score"><div class="pl"><i style="background:#c8372d"></i><b>You</b><span id="vp0">0</span></div><div class="pl"><i style="background:#2f6fb3"></i><b>The Competitor</b><span id="vp1">0</span><small id="bc">0 cards</small></div></div>
+    <div class="score"><div class="pl"><i style="background:#c8372d"></i><b>You</b><span id="vp0">0</span></div><div class="pl"><i style="background:#2f6fb3"></i><b>The Competitor</b><span id="vp1">0</span><small id="bc1">0 cards</small></div><div class="pl"><i style="background:#e8892b"></i><b>The Copycat</b><span id="vp2">0</span><small id="bc2">0 cards</small></div><div class="pl"><i style="background:#f2f2f2"></i><b>The Incumbent</b><span id="vp3">0</span><small id="bc3">0 cards</small></div></div>
     <p class="prompt" id="prompt" aria-live="polite"></p>
     <div class="winrow" id="winrow" hidden><button type="button" class="roll" data-open="trade">Let’s trade →</button><button type="button" class="ghost" id="again">Play again</button></div>
     <div class="gp-dice"><div class="die" id="g1" aria-hidden="true"></div><div class="die y" id="g2" aria-hidden="true"></div><button class="roll" id="gRoll" type="button">Roll</button><button class="ghost" id="gEnd" type="button">End turn</button></div>
     <span class="glh">Your hand</span><div class="rbar" id="gHand"></div>
     <span class="glh">Build</span><div class="builds" id="gBuild"></div>
     <span class="glh">Trade with the bank · give 4, get 1</span><div class="trade4"><div class="tg" id="tGive"></div><span class="arr">→</span><div class="tg" id="tGet"></div><button type="button" class="ghost" id="tGo">Trade</button></div>
-    <span class="glh">Cards about Nivedita · <b id="fc">0</b> of 12</span><div class="coll" id="coll"></div><p class="collnote">Every roll, yours or The Competitor’s, turns over the next card, starting with who she is.</p>
+    <span class="glh">Cards about Nivedita · <b id="fc">0</b> of 12</span><div class="coll" id="coll"></div><p class="collnote">Every roll, yours or a bot’s, turns over the next card, starting with who she is.</p>
     <span class="glh">Game log</span><ul id="glog2" aria-live="polite"></ul>
   </section>
   <div class="islandWrap">
@@ -526,10 +549,16 @@ body.playing .nextflag,body.playing .visit{display:none}
 
 <div class="hand" aria-label="Your hand">
   <span class="lab">Your hand</span>
-  <button class="hc" type="button" data-open="find-the-story" style="--c:var(--hills)"><div class="art" data-terrain="hills"></div><div class="txt"><span class="k">Settles first</span><h3>Strategy before the logo.</h3><p>Get the first move right and the rest gets easier.</p><span class="to">Find the story →</span></div></button>
-  <button class="hc" type="button" data-open="build-the-home" style="--c:var(--forest)"><div class="art" data-terrain="forest"></div><div class="txt"><span class="k">Twelve years</span><h3>Played a lot of boards.</h3><p>Agencies, startups, big brands.</p><span class="to">Build the home →</span></div></button>
-  <button class="hc" type="button" data-open="make-noise" style="--c:var(--fields)"><div class="art" data-terrain="fields"></div><div class="txt"><span class="k">Trades well</span><h3>Founders, teams, interns.</h3><p>Whoever’s at the table.</p><span class="to">Make noise →</span></div></button>
-  <button class="hc" type="button" data-open="take-it-to-market" style="--c:var(--pasture)"><div class="art" data-terrain="pasture"></div><div class="txt"><span class="k">Plays to ten</span><h3>Work that counts.</h3><p>If it doesn’t score, it doesn’t ship.</p><span class="to">Take it to market →</span></div></button>
+  <button class="hc" type="button" data-open="about" data-step="about" style="--c:var(--desert);--r:-14.4deg;--y:36.5px"><div class="art" data-terrain="home"></div><span class="hn">1</span><div class="txt"><h3>Hi, I’m Nivedita</h3><p>Six cities, nine languages.</p></div></button>
+  <button class="hc" type="button" data-open="find-the-story" data-step="find-the-story" style="--c:var(--hills);--r:-11.2deg;--y:22.1px"><div class="art" data-terrain="hills"></div><span class="hn">2</span><div class="txt"><h3>Find the story</h3><p>Positioning and messaging.</p></div></button>
+  <button class="hc" type="button" data-open="build-the-home" data-step="build-the-home" style="--c:var(--forest);--r:-8.0deg;--y:11.2px"><div class="art" data-terrain="forest"></div><span class="hn">3</span><div class="txt"><h3>Build the home</h3><p>Websites and case studies.</p></div></button>
+  <button class="hc" type="button" data-open="make-noise" data-step="make-noise" style="--c:var(--fields);--r:-4.8deg;--y:4.0px"><div class="art" data-terrain="fields"></div><span class="hn">4</span><div class="txt"><h3>Make noise</h3><p>Social, content IPs, research.</p></div></button>
+  <button class="hc" type="button" data-open="take-it-to-market" data-step="take-it-to-market" style="--c:var(--pasture);--r:-1.6deg;--y:0.5px"><div class="art" data-terrain="pasture"></div><span class="hn">5</span><div class="txt"><h3>Take it to market</h3><p>GTM, launches, sales kits.</p></div></button>
+  <button class="hc" type="button" data-open="expansion" data-step="expansion" style="--c:var(--mountains);--r:1.6deg;--y:0.5px"><div class="art" data-terrain="mountains"></div><span class="hn">6</span><div class="txt"><h3>Expansion pack</h3><p>Microsites, AI tools, games.</p></div></button>
+  <button class="hc" type="button" data-open="games" data-step="games" style="--c:var(--fields);--r:4.8deg;--y:4.0px"><div class="art" data-terrain="fields"></div><span class="hn">7</span><div class="txt"><h3>Games played</h3><p>Six case studies.</p></div></button>
+  <button class="hc" type="button" data-open="house-rules" data-step="house-rules" style="--c:var(--forest);--r:8.0deg;--y:11.2px"><div class="art" data-terrain="forest"></div><span class="hn">8</span><div class="txt"><h3>House rules</h3><p>Weekend side projects.</p></div></button>
+  <button class="hc" type="button" data-open="score-sheet" data-step="score-sheet" style="--c:var(--hills);--r:11.2deg;--y:22.1px"><div class="art" data-terrain="hills"></div><span class="hn">9</span><div class="txt"><h3>Score sheet</h3><p>CV and awards.</p></div></button>
+  <button class="hc" type="button" data-open="trade" data-step="trade" style="--c:var(--sea);--r:14.4deg;--y:36.5px"><div class="art" data-terrain="sea"></div><span class="hn">10</span><div class="txt"><h3>Let’s trade</h3><p>Three ways to work together.</p></div></button>
 </div>
 
 <div class="ov" id="ov" hidden>
@@ -541,10 +570,10 @@ body.playing .nextflag,body.playing .visit{display:none}
   </article>
 </div>
 
-<template id="t-find-the-story"><div class="lead"><div class="bubble">“We can’t explain what we do in one line.”</div><p>Before the logo or the website, someone has to answer two questions: what is this, and who is it for? I get the answer down to one line, then build everything else on it.</p></div><div class="devs"><article class="dev" data-item="Positioning sprint"><h4>Positioning sprint</h4><p class="when"><b>For when</b>you explain the company differently every time someone asks.</p><ul><li>Founder and customer interviews</li><li>A teardown of how competitors talk</li><li>One positioning line, with the reasoning written down</li></ul></article><article class="dev" data-item="Messaging framework"><h4>Messaging framework</h4><p class="when"><b>For when</b>sales, the website and the deck all say slightly different things.</p><ul><li>Value propositions for each buyer</li><li>Proof points to back every claim</li><li>Words to use, and words to drop</li></ul></article><article class="dev" data-item="Category narrative"><h4>Category narrative</h4><p class="when"><b>For when</b>buyers keep filing you under the wrong category.</p><ul><li>A name for the space you want to own</li><li>The old way vs the new way story</li><li>A launch line the team can repeat</li></ul></article><article class="dev" data-item="Brand audit"><h4>Brand audit</h4><p class="when"><b>For when</b>you grew fast and the brand grew in five directions.</p><ul><li>A review of everything you’ve put out</li><li>What to keep, fix and retire</li></ul></article><article class="dev" data-item="Voice and tone guide"><h4>Voice and tone guide</h4><p class="when"><b>For when</b>five people write for the brand, and you can tell.</p><ul><li>How you sound, with real before-and-after examples</li><li>A one-page cheat sheet for interns and agencies</li></ul></article></div><div class="opening"><b>Opening move</b><p>A one-hour positioning read. Send me your website and deck, and I’ll tell you what’s unclear and what I’d fix first.</p></div><div class="built"><h5>Already built</h5><ul><li>RazorpayX Corporate Cards: spend management to savings, 4x branded search</li><li>A legal-tech startup: out of the “another CLM” box, into its own category</li><li>Positioning for Myntra Beauty and Myntra Home</li></ul></div></template>
-<template id="t-build-the-home"><div class="lead"><div class="bubble">“Our website says everything and nothing.”</div><p>Most people meet you on your website before they meet anyone on your team. I plan what goes on it and write the words, so a designer or developer can build it without guessing.</p></div><div class="devs"><article class="dev" data-item="Website blueprint"><h4>Website blueprint</h4><p class="when"><b>For when</b>you’re building or rebuilding the site.</p><ul><li>A sitemap</li><li>Block-by-block wireframes for each key page</li><li>All the copy</li></ul></article><article class="dev" data-item="Homepage rewrite"><h4>Homepage rewrite</h4><p class="when"><b>For when</b>the site is live, but visitors still ask “so what do you do?”</p><ul><li>An audit of the current page</li><li>A new structure</li><li>Rewritten copy</li></ul></article><article class="dev" data-item="Landing pages"><h4>Landing pages</h4><p class="when"><b>For when</b>a launch, campaign or new segment needs its own page.</p><ul><li>Page structure and copy</li><li>Headline options worth testing</li></ul></article><article class="dev" data-item="Case studies"><h4>Case studies</h4><p class="when"><b>For when</b>customers love you, but you have nothing to show the next one.</p><ul><li>A customer interview</li><li>A written case study, named or anonymised</li><li>A one-page version for sales</li></ul></article><article class="dev" data-item="Sales deck and one-pagers"><h4>Sales deck and one-pagers</h4><p class="when"><b>For when</b>every rep has their own version of the deck.</p><ul><li>One master story</li><li>Deck copy and a leave-behind one-pager</li></ul></article></div><div class="opening"><b>Opening move</b><p>A homepage roast. I go through your homepage and send back a recorded walkthrough of what to fix.</p></div><div class="built"><h5>Already built</h5><ul><li>A legal-tech startup’s website, blueprinted and written from scratch</li><li>An anonymised customer case study the sales team uses</li><li>RazorpayX Rewards microsite, 500+ partner offers</li></ul></div></template>
-<template id="t-make-noise"><div class="lead"><div class="bubble">“We post. Nobody notices.”</div><p>People notice brands that have an opinion and keep saying it in ways they start to recognise. I help you find yours, then set up a plan your team will actually stick to.</p></div><div class="devs"><article class="dev" data-item="Social strategy"><h4>Social strategy</h4><p class="when"><b>For when</b>you post when someone remembers to.</p><ul><li>An audit of what you’ve put out</li><li>Content buckets for each channel</li><li>A posting rhythm your team can keep up</li></ul></article><article class="dev" data-item="Content IPs"><h4>Content IPs</h4><p class="when"><b>For when</b>you want people to come back for the next one.</p><ul><li>A recurring series with a name, look and episode list</li><li>Scripts for the first few episodes</li></ul></article><article class="dev" data-item="Owned research and reports"><h4>Owned research and reports</h4><p class="when"><b>For when</b>you want press and sales conversations without buying ads.</p><ul><li>Survey and interview design</li><li>Finding the story in the data</li><li>A report people quote</li></ul></article><article class="dev" data-item="Employee advocacy"><h4>Employee advocacy</h4><p class="when"><b>For when</b>your team has more reach than your company page.</p><ul><li>A programme that makes posting easy</li><li>Prompts and templates</li><li>A light game to keep it going</li></ul></article></div><div class="opening"><b>Opening move</b><p>A social teardown. Your last 30 posts, what’s working, and a few series ideas to try.</p></div><div class="built"><h5>Already built</h5><ul><li>Fix My Itch: 5.4M impressions, Shortys, Kyoorius, Abbys</li><li>IPL 2026 “Break to Build”: APAC Effies</li><li>Payroll “Trial of the Century”: Shortys, ET Brand Equity</li><li>T20 World Cup CTV: 67M+ impressions</li><li>Mental Capital Report: GTM for a founder-wellbeing report</li><li>Kingfisher “Indian Prank League” · JWT, client servicing</li></ul></div></template>
-<template id="t-take-it-to-market"><div class="lead"><div class="bubble">“We’ve built it. Now what?”</div><p>This is the product marketing part. The right people need to hear about what you built, get it the first time, and know what to do next.</p></div><div class="devs"><article class="dev" data-item="GTM plan"><h4>GTM plan</h4><p class="when"><b>For when</b>launch is six weeks away and nobody owns the plan.</p><ul><li>Who to go after first</li><li>The message for each of them</li><li>Channels and a week-by-week calendar</li></ul></article><article class="dev" data-item="Product and feature launches"><h4>Product and feature launches</h4><p class="when"><b>For when</b>you ship often and the market doesn’t notice.</p><ul><li>Launch tiers, so not everything is a big launch</li><li>Announcement copy</li><li>An internal brief so sales and support aren’t surprised</li></ul></article><article class="dev" data-item="ICP and buyer research"><h4>ICP and buyer research</h4><p class="when"><b>For when</b>“everyone” is your target customer.</p><ul><li>Customer interviews</li><li>Buyer profiles in their own words</li><li>Who to ignore for now</li></ul></article><article class="dev" data-item="Competitive battlecards"><h4>Competitive battlecards</h4><p class="when"><b>For when</b>sales keeps losing to the same two names.</p><ul><li>A teardown of each competitor</li><li>How to win against each one</li><li>Answers to the usual objections</li></ul></article><article class="dev" data-item="Outbound sequences"><h4>Outbound sequences</h4><p class="when"><b>For when</b>the founder is doing sales from their own inbox.</p><ul><li>Email sequences built on buying triggers</li><li>First lines that don’t read like templates</li><li>Follow-ups</li></ul></article><article class="dev" data-item="Sales enablement"><h4>Sales enablement</h4><p class="when"><b>For when</b>new reps take months to sound like they know the product.</p><ul><li>A talk track and demo story</li><li>FAQs</li><li>A kit that’s easy to keep updated</li></ul></article></div><div class="opening"><b>Opening move</b><p>A launch check. Tell me what’s going out and when, and I’ll flag the gaps before it ships.</p></div><div class="built"><h5>Already built</h5><ul><li>Myntra Home × Masaba: 174% growth in sessions</li><li>Myntra Beauty × Anushka Sharma: 27% revenue growth, 810K sign-ups</li><li>RazorpayX Corporate Cards: 66+ campaigns, 3,000+ qualified leads</li><li>Fastrack · Lowe Lintas, Senior Brand Director, client servicing</li><li>PMM for Capillary, BambooBox, Qyrus and Pennant</li></ul></div></template>
+<template id="t-find-the-story"><div class="lead"><div class="bubble">“We can’t explain what we do in one line.”</div><p>Before the logo or the website, someone has to answer two questions: what is this, and who is it for? I get the answer down to one line, then build everything else on it.</p></div><div class="devs"><article class="dev" data-item="Positioning sprint"><h4>Positioning sprint</h4><p class="when"><b>For when</b>you explain the company differently every time someone asks.</p><ul><li>Founder and customer interviews</li><li>A teardown of how competitors talk</li><li>One positioning line, with the reasoning written down</li></ul></article><article class="dev" data-item="Messaging framework"><h4>Messaging framework</h4><p class="when"><b>For when</b>sales, the website and the deck all say slightly different things.</p><ul><li>Value propositions for each buyer</li><li>Proof points to back every claim</li><li>Words to use, and words to drop</li></ul></article><article class="dev" data-item="Category narrative"><h4>Category narrative</h4><p class="when"><b>For when</b>buyers keep filing you under the wrong category.</p><ul><li>A name for the space you want to own</li><li>The old way vs the new way story</li><li>A launch line the team can repeat</li></ul></article><article class="dev" data-item="Brand architecture"><h4>Brand architecture</h4><p class="when"><b>For when</b>you’re adding a product, a category or a sub-brand, and nobody’s sure how it sits next to the main brand.</p><ul><li>A map of the parent brand and everything under it</li><li>Rules for naming, logos and how each one speaks</li><li>What to fold in, keep separate or retire</li></ul></article><article class="dev" data-item="Brand audit"><h4>Brand audit</h4><p class="when"><b>For when</b>you grew fast and the brand grew in five directions.</p><ul><li>A review of everything you’ve put out</li><li>What to keep, fix and retire</li></ul></article><article class="dev" data-item="Voice and tone guide"><h4>Voice and tone guide</h4><p class="when"><b>For when</b>five people write for the brand, and you can tell.</p><ul><li>How you sound, with real before-and-after examples</li><li>A one-page cheat sheet for interns and agencies</li></ul></article></div><div class="opening"><b>Opening move</b><p>A one-hour positioning read. Send me your website and deck, and I’ll tell you what’s unclear and what I’d fix first.</p></div><div class="built"><h5>Already built</h5><ul><li>RazorpayX Corporate Cards: spend management to savings, 4x branded search</li><li>A legal-tech startup: out of the “another CLM” box, into its own category</li><li>Positioning for Myntra Beauty and Myntra Home</li></ul></div></template>
+<template id="t-build-the-home"><div class="lead"><div class="bubble">“Our website says everything and nothing.”</div><p>Most people meet you on your website before they meet anyone on your team. I plan what goes on it and write the words, so a designer or developer can build it without guessing.</p></div><div class="devs"><article class="dev" data-item="Website blueprint"><h4>Website blueprint</h4><p class="when"><b>For when</b>you’re building a new site, or the current one leaves visitors asking “so what do you do?”</p><ul><li>An audit of what’s there now, if there is a site</li><li>A sitemap and block-by-block wireframes for each key page</li><li>All the copy</li></ul></article><article class="dev" data-item="Landing pages"><h4>Landing pages</h4><p class="when"><b>For when</b>a launch, campaign or new segment needs its own page.</p><ul><li>Page structure and copy</li><li>Headline options worth testing</li></ul></article><article class="dev" data-item="Case studies"><h4>Case studies</h4><p class="when"><b>For when</b>customers love you, but you have nothing to show the next one.</p><ul><li>A customer interview</li><li>A written case study, named or anonymised</li><li>A one-page version for sales</li></ul></article><article class="dev" data-item="Sales deck and one-pagers"><h4>Sales deck and one-pagers</h4><p class="when"><b>For when</b>every rep has their own version of the deck.</p><ul><li>One master story</li><li>Deck copy and a leave-behind one-pager</li></ul></article></div><div class="opening"><b>Opening move</b><p>A homepage roast. I go through your homepage and send back a recorded walkthrough of what to fix.</p></div><div class="built"><h5>Already built</h5><ul><li>A legal-tech startup’s website, blueprinted and written from scratch</li><li>An anonymised customer case study the sales team uses</li><li>RazorpayX Rewards microsite, 500+ partner offers</li></ul></div></template>
+<template id="t-make-noise"><div class="lead"><div class="bubble">“We post. Nobody notices.”</div><p>People notice brands that have an opinion and keep saying it in ways they start to recognise. I help you find yours, then set up a plan your team will actually stick to.</p></div><div class="devs"><article class="dev" data-item="Social strategy"><h4>Social strategy</h4><p class="when"><b>For when</b>you post when someone remembers to.</p><ul><li>An audit of what you’ve put out</li><li>Content buckets for each channel</li><li>A posting rhythm your team can keep up</li></ul></article><article class="dev" data-item="Content IPs"><h4>Content IPs</h4><p class="when"><b>For when</b>you want people to come back for the next one.</p><ul><li>A recurring series with a name, look and episode list</li><li>Scripts for the first few episodes</li></ul></article><article class="dev" data-item="Owned research and reports"><h4>Owned research and reports</h4><p class="when"><b>For when</b>you want press and sales conversations without buying ads.</p><ul><li>Survey and interview design</li><li>Finding the story in the data</li><li>A report people quote</li></ul></article><article class="dev" data-item="Creative briefs and agency management"><h4>Creative briefs and agency management</h4><p class="when"><b>For when</b>you’ve hired an agency, and the work keeps coming back not quite right.</p><ul><li>A brief the agency can actually work from</li><li>Briefing sessions and feedback on each round</li><li>One person on your side who speaks agency</li></ul></article><article class="dev" data-item="Influencer campaigns"><h4>Influencer campaigns</h4><p class="when"><b>For when</b>you want creators talking about you, and it keeps coming out sounding like an ad.</p><ul><li>Picking creators whose audience is your buyer</li><li>Briefs that leave room for their own voice</li><li>Contracts, timelines and approvals, handled</li></ul></article><article class="dev" data-item="Employee advocacy"><h4>Employee advocacy</h4><p class="when"><b>For when</b>your team has more reach than your company page.</p><ul><li>A programme that makes posting easy</li><li>Prompts and templates</li><li>A light game to keep it going</li></ul></article></div><div class="opening"><b>Opening move</b><p>A social teardown. Your last 30 posts, what’s working, and a few series ideas to try.</p></div><div class="built"><h5>Already built</h5><ul><li>Fix My Itch: 5.4M impressions, Shortys, Kyoorius, Abbys</li><li>IPL 2026 “Break to Build”: APAC Effies</li><li>Payroll “Trial of the Century”: Shortys, ET Brand Equity</li><li>T20 World Cup CTV: 67M+ impressions</li><li>Mental Capital Report: GTM for a founder-wellbeing report</li><li>Myntra campaigns with Masaba Gupta, Anushka Sharma and Kusha Kapila</li><li>Kingfisher “Indian Prank League” · JWT, client servicing</li></ul></div></template>
+<template id="t-take-it-to-market"><div class="lead"><div class="bubble">“We’ve built it. Now what?”</div><p>This is the product marketing part. The right people need to hear about what you built, get it the first time, and know what to do next.</p></div><div class="devs"><article class="dev" data-item="GTM plan"><h4>GTM plan</h4><p class="when"><b>For when</b>launch is six weeks away and nobody owns the plan.</p><ul><li>Who to go after first</li><li>The message for each of them</li><li>Channels and a week-by-week calendar</li></ul></article><article class="dev" data-item="Product and feature launches"><h4>Product and feature launches</h4><p class="when"><b>For when</b>you ship often and the market doesn’t notice.</p><ul><li>Launch tiers, so not everything is a big launch</li><li>Announcement copy</li><li>An internal brief so sales and support aren’t surprised</li></ul></article><article class="dev" data-item="ICP and buyer research"><h4>ICP and buyer research</h4><p class="when"><b>For when</b>“everyone” is your target customer.</p><ul><li>Customer interviews</li><li>Buyer profiles in their own words</li><li>Who to ignore for now</li></ul></article><article class="dev" data-item="Competitive battlecards"><h4>Competitive battlecards</h4><p class="when"><b>For when</b>sales keeps losing to the same two names.</p><ul><li>A teardown of each competitor</li><li>How to win against each one</li><li>Answers to the usual objections</li></ul></article><article class="dev" data-item="Sales enablement"><h4>Sales enablement</h4><p class="when"><b>For when</b>new reps take months to sound like they know the product, or the founder is still selling from their own inbox.</p><ul><li>A talk track and demo story</li><li>Outbound email sequences built on buying triggers</li><li>FAQs, in a kit that’s easy to keep updated</li></ul></article></div><div class="opening"><b>Opening move</b><p>A launch check. Tell me what’s going out and when, and I’ll flag the gaps before it ships.</p></div><div class="built"><h5>Already built</h5><ul><li>Myntra Home × Masaba: 174% growth in sessions</li><li>Myntra Beauty × Anushka Sharma: 27% revenue growth, 810K sign-ups</li><li>RazorpayX Corporate Cards: 66+ campaigns, 3,000+ qualified leads</li><li>Fastrack · Lowe Lintas, Senior Brand Director, client servicing</li><li>PMM for Capillary, BambooBox, Qyrus and Pennant</li></ul></div></template>
 <template id="t-about"><div class="about"><div class="portrait"><span class="kick" style="align-self:flex-start;background:rgba(255,255,255,.85)">Bengaluru</span><div class="ph">Your portrait goes here</div><div class="bubble" style="font-size:1.1rem">Twelve years on the board. Why, you ask?</div></div><div>
 <p>Calcutta, Trivandrum, Madras, Bombay, Goa, Bangalore. Six cities, nine languages, and a lot of first days as the new girl.</p>
 <p>You learn to read a room before you understand a word of it. Who’s talking, who isn’t, what nobody’s saying out loud.</p>
@@ -552,7 +581,7 @@ body.playing .nextflag,body.playing .visit{display:none}
 <p>I started in audit at KPMG (yes, really), then moved to Ogilvy, JWT and Lowe Lintas, then went in-house at Myntra and Razorpay.</p>
 <p>I’ve sold beer, watches, real estate, ecommerce, fashion, home decor, footwear, confectionaries, chocolates, corporate cards, payroll software and agentic workflows. Different boards, same opening move.</p>
 <p>These days I’m especially into:</p>
-<ul class="interests"><li>Early-stage companies finding their story</li><li>Making complicated products feel simple</li><li>Launches that need a point of view</li></ul></div></div></template>
+<ul class="interests"><li>Companies finding their story</li><li>Making complicated products feel simple</li><li>Launches that need a point of view</li></ul></div></div></template>
 <template id="t-expansion"><div class="lead"><div class="bubble">“We want something people actually play with.”</div><p>Some ideas land better when people can play with them. I plan them, write them and build the first version myself.</p></div>
 <div class="minis devs"><article class="dev" data-item="Campaign microsites"><h4>Campaign microsites</h4><p class="when">A small site built around one idea, for a launch or a moment.</p></article><article class="dev" data-item="AI marketing tools"><h4>AI marketing tools</h4><p class="when">Small AI helpers people come back to, that bring in leads on the side.</p></article><article class="dev" data-item="Branded games and quizzes"><h4>Branded games and quizzes</h4><p class="when">Something your audience wants to share, with your brand in it.</p></article><article class="dev" data-item="Interactive reports"><h4>Interactive reports</h4><p class="when">Research people can explore instead of a PDF nobody opens.</p></article></div>
 <div class="built"><h5>Already built</h5><ul><li>RazorpayX Savings Negotiator: the first AI marketing tool at RazorpayX, 20 MQLs a week</li><li>A gamified Slack bot that got employees to write 500+ LinkedIn posts during IPL</li></ul></div></template>
@@ -575,7 +604,7 @@ body.playing .nextflag,body.playing .visit{display:none}
 <div class="case"><div class="case-h"><h3>A legal-tech startup</h3><span>B2B · Pre-launch · Freelance, 2026 · Name withheld</span></div>
 <div class="cg"><div><b>Brief</b><p>Launch a contracts platform that buyers kept filing under “another CLM”, with a brand-new LinkedIn page and zero posts.</p><p style="margin-top:10px;font-size:.92rem"><strong>Target:</strong> general counsels and heads of legal, tired of tools that stop working the day the contract is signed.</p></div><div class="ins"><b>Insight</b><p class="big">Signing a contract isn’t the hard part. Remembering everything it promised, for years afterwards, is.</p></div><div class="str"><b>Strategy</b><p class="big">Don’t fight in CLM. Start a new category.</p><p style="margin-top:8px;font-size:.92rem">Shipped: positioning, website blueprint and copy, pre-launch comics, a 60-second launch film script, cold email sequences and a customer case study.</p></div></div>
 <div class="still"><span class="stamp">Still in play</span>Results land after launch. Ask me in a few months.</div></div>
-<div class="playcta"><p>Not ready to talk yet? Play a quick round against The Competitor first.</p><button type="button" class="roll" data-play>Play the game →</button></div>
+<div class="playcta"><p>Not ready to talk yet? Play a quick round against three rival bots first.</p><button type="button" class="roll" data-play>Play the game →</button></div>
 </div></template>
 <template id="t-house-rules"><p class="intro">Things I build on weekends to test an idea, learn a tool or make a point about a city I love. Same thinking as the paid work, with nobody signing off on it.</p><div class="projs">
 <a class="proj" href="https://periodic-table-green-ten.vercel.app/" target="_blank" rel="noopener"><b>The Fashion Elements</b><span>A periodic table of Indian fashion. Flip the toggle and it becomes a periodic table of interesting Bangalore garbage.</span><em>Shows: turning a messy category into a system people want to browse.</em><i>Open ↗</i></a>
@@ -598,7 +627,7 @@ body.playing .nextflag,body.playing .visit{display:none}
 <div style="background:#f6c9a8"><h4>B2B</h4><p>Fintech, SaaS, legal tech</p><div class="cl"><span>Razorpay</span><span>RazorpayX</span><span>Capillary</span><span>BambooBox</span><span>Qyrus</span><span>Pennant</span><span>Nyayanidhi</span></div></div>
 <div style="background:#f7e3a1"><h4>B2C</h4><p>Youth, lifestyle, FMCG, alcobev</p><div class="cl"><span>Fastrack</span><span>Kingfisher</span><span>Smirnoff</span><span>ITC</span><span>Max Fashion</span><span>Sobha</span><span>Glance</span><span>Roposo</span></div></div>
 <div style="background:#cfe7b4"><h4>E‑commerce</h4><p>Fashion, beauty, home</p><div class="cl"><span>Myntra</span><span>Myntra Beauty</span><span>Myntra Home</span><span>Amazon</span><span>Flipkart Health+</span></div></div>
-<div class="playcta"><p>Not ready to talk yet? Play a quick round against The Competitor first.</p><button type="button" class="roll" data-play>Play the game →</button></div>
+<div class="playcta"><p>Not ready to talk yet? Play a quick round against three rival bots first.</p><button type="button" class="roll" data-play>Play the game →</button></div>
 </div></template>
 <template id="t-trade"><div class="trade">
 <div class="route"><svg viewBox="0 40 1100 300" id="routeSvg" role="img" aria-label="Six settlements, one long road: Calcutta, Trivandrum, Madras, Bombay, Goa and Bangalore"></svg></div>
@@ -608,7 +637,7 @@ body.playing .nextflag,body.playing .visit{display:none}
 <div class="hello"><h3>Let’s trade.</h3><p>Tell me what’s broken. I’ll set up the board.</p><div class="cl"><a href="mailto:niveditatidevin@gmail.com">niveditatidevin@gmail.com</a><span>+91 97409 76950</span><a href="https://x.com/nivivacious" target="_blank" rel="noopener">@nivivacious</a></div></div>
 <div class="offer" aria-live="polite"><div class="oh"><b>Trade offer</b><span>Turn <span id="turn">042</span></span></div><ul id="offerList"></ul><div class="orow"><span>Format</span><b id="offerFmt">Not picked</b></div><div class="orow"><span>In return</span><b>Settled over a call</b></div><div class="obtns"><a id="sendOffer" href="mailto:niveditatidevin@gmail.com">Send offer</a><button class="p" type="button" id="copyOffer">Copy offer</button><button class="c" type="button" id="clearOffer">Clear</button></div></div>
 <div class="pinwrap"><div class="pinhead"><div><b>Arrange your offer</b><span>Drag the cards into the order that matters to you, then save it to send.</span></div><button type="button" class="ghost" id="saveImg">Save as image</button></div><div class="pinboard" id="pinboard" role="list" aria-label="Your trade offer, arrangeable"></div></div>
-<div class="playcta"><p>Not ready to talk yet? Play a quick round against The Competitor first.</p><button type="button" class="roll" data-play>Play the game →</button></div>
+<div class="playcta"><p>Not ready to talk yet? Play a quick round against three rival bots first.</p><button type="button" class="roll" data-play>Play the game →</button></div>
 </div></template>
 
 <script>
@@ -809,7 +838,7 @@ document.getElementById('roll').addEventListener('click',function(){
 });
 
 /* ---------- hand art ---------- */
-document.querySelectorAll('.hc .art').forEach(function(a,k){var t=a.dataset.terrain;
+document.querySelectorAll('.hc .art').forEach(function(a,k){var t=a.dataset.terrain;if(t==='sea'){a.innerHTML='<svg viewBox="0 0 220 74" preserveAspectRatio="xMidYMid slice"><path d="M0 30q14-8 28 0t28 0 28 0 28 0 28 0 28 0 28 0 28 0M0 52q14-8 28 0t28 0 28 0 28 0 28 0 28 0 28 0 28 0" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="3"/></svg>';return}
   a.innerHTML='<svg viewBox="-110 -37 220 74" preserveAspectRatio="xMidYMid slice"><defs><clipPath id="hcc'+k+'"><polygon points="'+hexPts(R-1)+'"/></clipPath></defs>'+[-76,0,76].map(function(x,i){return '<g transform="translate('+x+','+(i===1?-8:8)+') scale(.62)"><g clip-path="url(#hcc'+k+')">'+art(t,k*7+i)+'</g><polygon points="'+hexPts(R-1)+'" fill="none" stroke="rgba(0,0,0,.2)" stroke-width="3"/></g>'}).join('')+'</svg>'});
 
 /* ---------- victory points ---------- */
@@ -835,7 +864,7 @@ function openCard(id,noHash){
   if(ov.hidden)lastFocus=document.activeElement;
   card.style.setProperty('--c',C[s.terrain]);
   document.getElementById('dKick').textContent=s.kick;document.getElementById('dTitle').textContent=s.title;
-  var tk=document.getElementById('dTok');if(s.n){tk.hidden=false;tk.textContent=s.n;tk.classList.toggle('hot',s.n===6||s.n===8)}else tk.hidden=true;
+  var tk=document.getElementById('dTok');tk.hidden=false;tk.textContent=SEC.indexOf(s)+1;tk.classList.remove('hot');
   var mini=document.getElementById('dMini');
   mini.innerHTML=s.terrain==='sea'?'<polygon points="'+hexPts(R-2)+'" fill="#2fa3d6" stroke="#1f86b8" stroke-width="4"/><circle r="26" fill="#fbf1d6" stroke="#a8936a" stroke-width="2"/><text y="8" text-anchor="middle" font-family="Nunito" font-weight="800" font-size="22" fill="#22303a">2:1</text>':'<defs><clipPath id="mc"><polygon points="'+hexPts(R-1)+'"/></clipPath></defs><g clip-path="url(#mc)">'+art(s.terrain,SEC.indexOf(s)+40)+'</g><polygon points="'+hexPts(R-1)+'" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="3"/>';
   body.innerHTML='';body.appendChild(document.getElementById('t-'+id).content.cloneNode(true));body.scrollTop=0;
@@ -932,7 +961,7 @@ var h0=location.hash.slice(1);if(byId[h0])openCard(h0,true);
 var G={active:false};
 (function(){
 var COST={road:{wood:1,brick:1},settlement:{wood:1,brick:1,wool:1,grain:1},city:{grain:2,ore:3}};
-var TARGET=8,RK=['wood','brick','wool','grain','ore'],PCOL=G.PCOL=['#c8372d','#2f6fb3'],PN=['You','The Competitor'];
+var TARGET=8,RK=['wood','brick','wool','grain','ore'],PCOL=G.PCOL=['#c8372d','#2f6fb3','#e8892b','#f2f2f2'],PN=['You','The Competitor','The Copycat','The Incumbent'],NP=4,BOTS=[1,2,3];
 var VS=[],ES=[],vmap={},emap={};
 function key(x,y){return Math.round(x)+','+Math.round(y)}
 HX.forEach(function(h,hi){var ids=[];
@@ -991,12 +1020,12 @@ hot.addEventListener('click',function(e){var t=e.target.closest('.hs');if(!t||bu
 
 /* ---- log + ui ---- */
 function glog(html){var ul=$('glog2'),li=document.createElement('li');li.innerHTML=html;ul.insertBefore(li,ul.firstChild);while(ul.children.length>6)ul.removeChild(ul.lastChild)}
-function who(p){return '<b style="color:'+PCOL[p]+'">'+PN[p]+'</b>'}
+function who(p){return '<b style="color:'+(PCOL[p]==='#f2f2f2'?'#7d7d7d':PCOL[p])+'">'+PN[p]+'</b>'}
 function icons(r){return RK.filter(function(k){return r[k]}).map(function(k){return Array(r[k]+1).join('<svg class="li" viewBox="-13 -13 26 26">'+ICON[k]+'</svg>')}).join('')}
 function prompt(t){$('prompt').innerHTML=t}
 function ui(){
   var me=S.players[0],myTurn=S.turn===0&&!busy;
-  $('vp0').textContent=vp(0);$('vp1').textContent=vp(1);$('bc').textContent=total(S.players[1].res)+' cards';
+  $('vp0').textContent=vp(0);BOTS.forEach(function(b){$('vp'+b).textContent=vp(b);$('bc'+b).textContent=total(S.players[b].res)+' cards'});
   $('gHand').innerHTML=RK.map(function(k){return '<div class="rc"><svg viewBox="-13 -13 26 26">'+ICON[k]+'</svg><b>'+me.res[k]+'</b><span>'+k+'</span></div>'}).join('');
   var main=S.phase==='main'&&myTurn;
   $('gBuild').innerHTML=['road','settlement','city'].map(function(c){
@@ -1008,8 +1037,8 @@ function ui(){
   $('tGo').disabled=!(main&&giveSel&&getSel&&me.res[giveSel]>=4);
   $('gRoll').disabled=!(S.phase==='roll'&&myTurn);
   $('gEnd').disabled=!main;
-  var pr={roll:'Your turn. Roll the dice.',main:'Build, trade, or end your turn.',robber:'You rolled a 7. Pick a hex to put the robber on. You’ll steal a card from anyone settled there.',bot:'The Competitor is playing…'};
-  if(S.phase==='setup'){var p=[0,1,1,0][S.step];prompt(p===0?(S.sub==='settle'?'Place your '+(S.step===0?'first':'second')+' settlement. Tap a glowing corner. Corners touching high-dot numbers pay out more often.':'Now place a road next to it.'):'The Competitor is choosing a spot…')}
+  var pr={roll:'Your turn. Roll the dice.',main:'Build, trade, or end your turn.',robber:'You rolled a 7. Pick a hex to put the robber on. You’ll steal a card from anyone settled there.',bot:PN[S.turn]+' is playing…'};
+  if(S.phase==='setup'){var p=ORDER[S.step];prompt(p===0?(S.sub==='settle'?'Place your '+(S.step===0?'first':'second')+' settlement. Tap a glowing corner. Corners touching high-dot numbers pay out more often.':'Now place a road next to it.'):PN[p]+' is choosing a spot…')}
   else if(S.phase==='win'){}
   else prompt(S.mode?('Tap a glowing spot to place your '+S.mode+'. Tap the button again to cancel.'):pr[S.phase]||'');
 }
@@ -1051,18 +1080,18 @@ function nearSecs(v){}
 function unlockNext(){for(var i=0;i<FORDER.length;i++)if(found.indexOf(FORDER[i])<0){unlock(FORDER[i]);return}}
 
 /* ---- setup ---- */
-var ORDER=[0,1,1,0];
+var ORDER=[0,1,2,3,3,2,1,0];
 function setupNext(){
-  if(S.step>=4){S.phase='roll';S.turn=0;clearHot();glog('Setup done. Your turn first.');ui();return}
+  if(S.step>=ORDER.length){S.phase='roll';S.turn=0;clearHot();glog('Setup done. Your turn first.');ui();return}
   var p=ORDER[S.step];S.sub='settle';
   if(p===0){showHot('v',settleSpots(0,true));ui()}
-  else{busy=true;ui();setTimeout(function(){var spots=settleSpots(1,true);spots.sort(function(a,b){return score(b)-score(a)});var v=spots[0];placeSettle(1,v,true);
-    setTimeout(function(){var es=roadSpots(1,v);es.sort(function(a,b){return pot(other(b,v))-pot(other(a,v))});placeRoad(1,es[0]);busy=false;S.step++;setupNext()},450)},650)}
+  else{busy=true;ui();setTimeout(function(){var spots=settleSpots(p,true);spots.sort(function(a,b){return score(b)-score(a)});var v=spots[Math.random()<.25&&spots[1]!==undefined?1:0];placeSettle(p,v,true);
+    setTimeout(function(){var es=roadSpots(p,v);es.sort(function(a,b){return pot(other(b,v))-pot(other(a,v))});placeRoad(p,es[0]);busy=false;S.step++;setupNext()},300)},420)}
 }
 function other(e,v){return ES[e].a===v?ES[e].b:ES[e].a}
 function pot(v){if(distOk(v))return score(v)+1;var m=0;VS[v].adj.forEach(function(a){if(distOk(a))m=Math.max(m,score(a)*.7)});return m}
 function placeSettle(p,v,setup){VS[v].owner=p;S.last=v;if(p===0)nearSecs(v);
-  if(setup&&S.step>=2){var got=zero();VS[v].hexes.forEach(function(hi){var h=HX[hi];if(h.n&&RES[h.terrain]){S.players[p].res[RES[h.terrain]]++;got[RES[h.terrain]]++}});glog(who(p)+' settled and collected '+(icons(got)||'nothing')+'.')}
+  if(setup&&S.step>=NP){var got=zero();VS[v].hexes.forEach(function(hi){var h=HX[hi];if(h.n&&RES[h.terrain]){S.players[p].res[RES[h.terrain]]++;got[RES[h.terrain]]++}});glog(who(p)+' settled and collected '+(icons(got)||'nothing')+'.')}
   else glog(who(p)+' built a settlement.');draw()}
 function placeRoad(p,e){ES[e].owner=p;draw()}
 function pickV(v){
@@ -1080,49 +1109,49 @@ function done(){S.mode=null;clearHot();if(!checkWin())ui()}
 function rollDice(p,cb){var a=1+Math.floor(Math.random()*6),b=1+Math.floor(Math.random()*6);
   
   setTimeout(function(){face($('g1'),a);face($('g2'),b);cb(a+b)},RM?0:450)}
-function produce(s){var gains=[zero(),zero()];
+function produce(s){var gains=[zero(),zero(),zero(),zero()];
   HX.forEach(function(h,hi){if(h.n!==s||!producing(hi))return;var k=RES[h.terrain],any=false;
     VS.forEach(function(v){if(v.owner>=0&&v.hexes.indexOf(hi)>=0){var n=v.city?2:1;S.players[v.owner].res[k]+=n;gains[v.owner][k]+=n;any=true}});
     if(any){hit(h);popRes(h,'+'+k)}});
-  [0,1].forEach(function(p){if(total(gains[p]))glog(who(p)+' collected '+icons(gains[p])+'.')});
+  [0,1,2,3].forEach(function(p){if(total(gains[p]))glog(who(p)+' collected '+icons(gains[p])+'.')});
 }
-function discards(){[0,1].forEach(function(p){var r=S.players[p].res,t=total(r);if(t>7){var n=Math.floor(t/2);for(var i=0;i<n;i++){var pool=[];RK.forEach(function(k){for(var j=0;j<r[k];j++)pool.push(k)});r[pool[Math.floor(Math.random()*pool.length)]]--}glog(who(p)+' had too many cards and lost '+n+'.')}})}
+function discards(){[0,1,2,3].forEach(function(p){var r=S.players[p].res,t=total(r);if(t>7){var n=Math.floor(t/2);for(var i=0;i<n;i++){var pool=[];RK.forEach(function(k){for(var j=0;j<r[k];j++)pool.push(k)});r[pool[Math.floor(Math.random()*pool.length)]]--}glog(who(p)+' had too many cards and lost '+n+'.')}})}
 function steal(p,hi){var victims={};VS.forEach(function(v){if(v.owner>=0&&v.owner!==p&&v.hexes.indexOf(hi)>=0)victims[v.owner]=1});
-  var q=+Object.keys(victims)[0];if(isNaN(q))return;var r=S.players[q].res,pool=[];RK.forEach(function(k){for(var j=0;j<r[k];j++)pool.push(k)});
+  var vk=Object.keys(victims),q=+vk[Math.floor(Math.random()*vk.length)];if(isNaN(q))return;var r=S.players[q].res,pool=[];RK.forEach(function(k){for(var j=0;j<r[k];j++)pool.push(k)});
   if(!pool.length)return;var k=pool[Math.floor(Math.random()*pool.length)];r[k]--;S.players[p].res[k]++;glog(who(p)+' stole a card from '+who(q)+'.')}
 $('gRoll').addEventListener('click',function(){if(S.phase!=='roll'||S.turn!==0||busy)return;busy=true;ui();
   rollDice(0,function(s){busy=false;glog(who(0)+' rolled <span class="rl">'+s+'</span>');
     unlockNext();if(s===7){discards();S.phase='robber';showHot('h',HX.map(function(h,i){return i}).filter(function(i){return i!==S.robber}))}
     else{produce(s);S.phase='main'}ui()})});
 function pickH(hi){if(S.phase!=='robber')return;S.robber=hi;draw();clearHot();glog(who(0)+' moved the robber.');steal(0,hi);S.phase='main';ui()}
-$('gEnd').addEventListener('click',function(){if(S.phase!=='main'||S.turn!==0)return;S.mode=null;clearHot();giveSel=getSel=null;S.turn=1;S.phase='bot';busy=true;ui();setTimeout(botTurn,500)});
+$('gEnd').addEventListener('click',function(){if(S.phase!=='main'||S.turn!==0)return;S.mode=null;clearHot();giveSel=getSel=null;S.turn=1;S.phase='bot';busy=true;ui();setTimeout(function(){botTurn(1)},400)});
 
-/* ---- the competitor ---- */
-function botTurn(){
-  rollDice(1,function(s){glog(who(1)+' rolled <span class="rl">'+s+'</span>');unlockNext();
-    if(s===7){discards();var best=-1,bs=-1;HX.forEach(function(h,hi){if(hi===S.robber||!h.n)return;var sc=0,mine=false;VS.forEach(function(v){if(v.hexes.indexOf(hi)<0)return;if(v.owner===0)sc+=dots[h.n]*(v.city?2:1);if(v.owner===1)mine=true});if(mine)sc-=10;if(sc>bs){bs=sc;best=hi}});
-      S.robber=best;draw();glog(who(1)+' moved the robber.');steal(1,best)}
+/* ---- the bots: plain rules, no AI calls ---- */
+function botTurn(p){
+  rollDice(p,function(s){glog(who(p)+' rolled <span class="rl">'+s+'</span>');unlockNext();
+    if(s===7){discards();var best=-1,bs=-99;HX.forEach(function(h,hi){if(hi===S.robber||!h.n)return;var sc=0,mine=false;VS.forEach(function(v){if(v.hexes.indexOf(hi)<0||v.owner<0)return;if(v.owner===p)mine=true;else sc+=dots[h.n]*(v.city?2:1)*(v.owner===0?1.3:1)});if(mine)sc-=10;if(sc>bs){bs=sc;best=hi}});
+      S.robber=best;draw();glog(who(p)+' moved the robber.');steal(p,best)}
     else produce(s);
-    ui();S.botBuilds=0;S.botTrades=0;setTimeout(function(){botAct(0)},700)})}
-function botAct(n){
+    ui();S.botBuilds=0;S.botTrades=0;setTimeout(function(){botAct(p,0)},450)})}
+function botAct(p,n){
   if(checkWin())return;
-  if(n>10||S.botBuilds>=2)return botEnd();
-  var me=S.players[1];
-  if(afford(1,'city')&&citySpots(1).length){var c=citySpots(1).sort(function(a,b){return score(b)-score(a)})[0];S.botBuilds++;pay(1,'city');VS[c].city=true;glog(who(1)+' upgraded to a city.');draw();ui();return setTimeout(function(){botAct(n+1)},650)}
-  var sp=settleSpots(1);
-  if(sp.length&&afford(1,'settlement')){sp.sort(function(a,b){return score(b)-score(a)});S.botBuilds++;pay(1,'settlement');placeSettle(1,sp[0],false);ui();return setTimeout(function(){botAct(n+1)},650)}
-  if(!sp.length&&afford(1,'road')){var rs=roadSpots(1);if(rs.length){rs.sort(function(a,b){return Math.max(pot(ES[b].a),pot(ES[b].b))-Math.max(pot(ES[a].a),pot(ES[a].b))});S.botBuilds++;pay(1,'road');placeRoad(1,rs[0]);glog(who(1)+' built a road.');ui();return setTimeout(function(){botAct(n+1)},650)}}
-  var goal=sp.length?'settlement':citySpots(1).length&&total(me.res)>5?'city':'road';
+  if(n>10||S.botBuilds>=2)return botEnd(p);
+  var me=S.players[p],nx=function(){setTimeout(function(){botAct(p,n+1)},400)};
+  if(afford(p,'city')&&citySpots(p).length){var c=citySpots(p).sort(function(a,b){return score(b)-score(a)})[0];S.botBuilds++;pay(p,'city');VS[c].city=true;glog(who(p)+' upgraded to a city.');draw();ui();return nx()}
+  var sp=settleSpots(p);
+  if(sp.length&&afford(p,'settlement')){sp.sort(function(a,b){return score(b)-score(a)});S.botBuilds++;pay(p,'settlement');placeSettle(p,sp[0],false);ui();return nx()}
+  if(!sp.length&&afford(p,'road')){var rs=roadSpots(p);if(rs.length){rs.sort(function(a,b){return Math.max(pot(ES[b].a),pot(ES[b].b))-Math.max(pot(ES[a].a),pot(ES[a].b))});S.botBuilds++;pay(p,'road');placeRoad(p,rs[0]);glog(who(p)+' built a road.');ui();return nx()}}
+  var goal=sp.length?'settlement':citySpots(p).length&&total(me.res)>5?'city':'road';
   var need=COST[goal],lack=RK.filter(function(k){return (need[k]||0)>me.res[k]});
   var spare=RK.filter(function(k){return me.res[k]-(need[k]||0)>=4});
-  if(lack.length&&spare.length&&S.botTrades<1){S.botTrades++;me.res[spare[0]]-=4;me.res[lack[0]]++;glog(who(1)+' traded with the bank.');ui();return setTimeout(function(){botAct(n+1)},550)}
-  botEnd();
+  if(lack.length&&spare.length&&S.botTrades<1){S.botTrades++;me.res[spare[0]]-=4;me.res[lack[0]]++;glog(who(p)+' traded with the bank.');ui();return nx()}
+  botEnd(p);
 }
-function botEnd(){S.turn=0;S.phase='roll';busy=false;ui()}
+function botEnd(p){if(S.phase==='win')return;if(p<NP-1){S.turn=p+1;ui();return setTimeout(function(){botTurn(p+1)},350)}S.turn=0;S.phase='roll';busy=false;ui()}
 
 /* ---- win ---- */
-function checkWin(){for(var p=0;p<2;p++)if(vp(p)>=TARGET){S.phase='win';busy=false;clearHot();ui();
-  prompt((p===0?'<strong>You win.</strong> Where you settle first decides most of it. Brands work the same way.':'<strong>The Competitor wins this one.</strong> It usually comes down to where you settle first.')+' You collected '+found.length+' of '+FORDER.length+' cards about Nivedita'+(found.length<FORDER.length?'. Play again to find the rest, or skip ahead and talk to her.':'. That’s all of them. Time to talk?'));
+function checkWin(){for(var p=0;p<NP;p++)if(vp(p)>=TARGET){S.phase='win';busy=false;clearHot();ui();
+  prompt((p===0?'<strong>You win.</strong> Where you settle first decides most of it. Brands work the same way.':'<strong>'+PN[p]+' wins this one.</strong> It usually comes down to where you settle first.')+' You collected '+found.length+' of '+FORDER.length+' cards about Nivedita'+(found.length<FORDER.length?'. Play again to find the rest, or skip ahead and talk to her.':'. That’s all of them. Time to talk?'));
   $('winrow').hidden=false;glog(who(p)+' reached '+TARGET+' points and won.');if(G.onWin)G.onWin(p);return true}return false}
 
 /* ---- start / exit ---- */
@@ -1131,7 +1160,7 @@ G.start=function(){
   G.active=true;closeCard&&closeCard();document.body.classList.add('playing');hero.hidden=true;gp.hidden=false;$('winrow').hidden=true;
   var deco=$('deco');if(deco)deco.style.display='none';
   VS.forEach(function(v){v.owner=-1;v.city=false});ES.forEach(function(e){e.owner=-1});
-  S={turn:0,phase:'setup',step:0,sub:'settle',players:[{res:zero()},{res:zero()}],robber:DESERT,mode:null};robOn=desert;
+  S={turn:0,phase:'setup',step:0,sub:'settle',players:[{res:zero()},{res:zero()},{res:zero()},{res:zero()}],robber:DESERT,mode:null};robOn=desert;
   svg.appendChild(layer);svg.appendChild(rob);svg.appendChild(hot);
   $('glog2').innerHTML='';glog('New game. First to '+TARGET+' points wins.');
   found=[];store('npi_facts',found);drawColl();$('fact').hidden=true;fq=[];fshow=null;draw();setupNext();
@@ -1229,9 +1258,9 @@ var pick=document.createElement('div');pick.className='pcpick';
 pick.innerHTML='<span class="glh">Your colour</span><div class="sw">'+CHOICES.map(function(c){return '<button type="button" data-c="'+c[1]+'" aria-label="Play as '+c[0]+'" style="--sw:'+c[1]+'"></button>'}).join('')+'</div>';
 var sc=document.querySelector('#gp .score');sc.parentNode.insertBefore(pick,sc.nextSibling);
 var myCol=store('npi_col')||'#c8372d';
-function applyCol(c){myCol=c;store('npi_col',c);var PC=G.PCOL;PC[0]=c;PC[1]=c==='#2f6fb3'?'#c8372d':'#2f6fb3';
+function applyCol(c){myCol=c;store('npi_col',c);var PC=G.PCOL;PC[0]=c;var rest=CHOICES.map(function(x){return x[1]}).filter(function(x){return x!==c});var pref=['#2f6fb3','#e8892b','#f2f2f2','#c8372d'].filter(function(x){return x!==c});PC[1]=pref[0];PC[2]=pref[1];PC[3]=pref[2];
   pick.querySelectorAll('button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.c===c)});
-  var ds=document.querySelectorAll('#gp .pl i');if(ds[0])ds[0].style.background=PC[0];if(ds[1])ds[1].style.background=PC[1];
+  var ds=document.querySelectorAll('#gp .pl i');ds.forEach(function(d,i){d.style.background=PC[i]});
   if(G.active&&typeof G.redraw==='function')G.redraw()}
 pick.addEventListener('click',function(e){var b=e.target.closest('button');if(b)applyCol(b.dataset.c)});
 applyCol(myCol);
@@ -1313,8 +1342,9 @@ function mark(){var nxt=null;SEC.forEach(function(s){var h=HX.filter(function(x)
   if(h){h.el.classList.toggle('visited',v);h.el.classList.remove('next')}
   if(!v&&!nxt)nxt=s});
   var fl=document.getElementById('nflag');if(!fl){fl=document.createElementNS('http://www.w3.org/2000/svg','g');fl.id='nflag';fl.setAttribute('class','nextflag');fl.setAttribute('aria-hidden','true');svg.appendChild(fl)}
+  document.querySelectorAll('.hc[data-step]').forEach(function(c){var id=c.dataset.step;c.classList.toggle('visited',seen.indexOf(id)>=0);c.classList.remove('next')});
   var tp=document.querySelector('.tradeport');if(tp)tp.classList.toggle('next',!!nxt&&nxt.id==='trade');
-  fl.classList.remove('on');if(nxt&&nxt.id!=='trade'){var h=HX.filter(function(x){return x.sec===nxt})[0];if(h){h.el.classList.add('next');var lab=SEC.indexOf(nxt)===0?'Start here':'Next';
+  fl.classList.remove('on');if(nxt){var hc=document.querySelector('.hc[data-step="'+nxt.id+'"]');if(hc)hc.classList.add('next')}if(nxt&&nxt.id!=='trade'){var h=HX.filter(function(x){return x.sec===nxt})[0];if(h){h.el.classList.add('next');var lab=SEC.indexOf(nxt)===0?'Start here':'Next';
     fl.innerHTML='<g class="nfi"><rect x="-46" y="-28" width="92" height="25" rx="12.5" fill="#22303a"/><path d="M-6 -3.5l6 7 6-7z" fill="#22303a"/><text x="0" y="-10.5">'+lab+'</text></g>';
     fl.setAttribute('transform','translate('+h.x+','+(h.y+h.fy-6)+')');fl.classList.add('on')}}}
 mark();
