@@ -591,6 +591,11 @@ body:not(.playing) .nextflag.on .nfi,body:not(.playing) .hx.next .rim,.hc.next .
 @media (hover:hover) and (pointer:fine){body:not(.playing) .hx.sec{transition:translate .18s ease}body:not(.playing) .hx.sec:hover{translate:0 -4px}}
 @media (prefers-reduced-motion:reduce){body:not(.playing) .hx.sec{transition:none}}
 @media (max-width:720px){.topbtns{width:100%;justify-content:flex-start}.topbtns .playtop,.topbtns .onebtn,.topbtns .tradebtn{flex:0 1 auto;padding:8px 10px;font-size:.82rem}.heroactions{gap:14px}.trade>.hello{padding:20px}}
+/* give the desktop board more space and a clearer viewing angle */
+@media (min-width:981px){
+  #island{max-width:1120px;max-height:calc(100vh - 48px)}
+  body:not(.playing) .islandWrap:not(.flat) #island{transform:translateX(4px) rotateX(calc(28deg + var(--rx))) rotateZ(var(--ry)) scale(1.08)}
+}
 </style>
 </head>
 <body>
